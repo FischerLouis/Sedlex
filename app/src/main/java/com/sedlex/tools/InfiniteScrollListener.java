@@ -1,4 +1,4 @@
-package com.sedlex;
+package com.sedlex.tools;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,11 +33,8 @@ public abstract class InfiniteScrollListener extends RecyclerView.OnScrollListen
                 previousTotal = totalItemCount;
             }
         }
-        if (!loading && (totalItemCount - visibleItemCount)
-                <= (firstVisibleItem + visibleThreshold)) {
-// End has been reached
+        if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
 
-// Do something
             current_page++;
 
             onLoadMore(current_page);

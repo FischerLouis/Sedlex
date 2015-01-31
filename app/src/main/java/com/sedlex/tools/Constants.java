@@ -1,4 +1,4 @@
-package com.sedlex;
+package com.sedlex.tools;
 
 public class Constants {
 

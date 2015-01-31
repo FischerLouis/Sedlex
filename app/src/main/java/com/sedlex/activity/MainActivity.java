@@ -8,9 +8,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
-import com.sedlex.MyContentManager;
+import com.sedlex.tools.MyContentManager;
 import com.sedlex.R;
-import com.sedlex.InfiniteScrollListener;
+import com.sedlex.tools.InfiniteScrollListener;
 
 
 public class MainActivity extends ActionBarActivity {

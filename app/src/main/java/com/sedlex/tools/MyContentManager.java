@@ -1,4 +1,4 @@
-package com.sedlex;
+package com.sedlex.tools;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,6 +12,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.sedlex.R;
 import com.sedlex.object.Category;
 import com.sedlex.object.Law;
 import com.sedlex.object.Stamp;

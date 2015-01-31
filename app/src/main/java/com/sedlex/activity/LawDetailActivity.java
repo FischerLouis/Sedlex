@@ -23,10 +23,6 @@ public class LawDetailActivity extends ActionBarActivity {
 
         String title = (String) getIntent().getStringExtra(ARG_ITEM);
         setTitle(title);
-
-        //TextView titleView = (TextView) findViewById(R.id.law_detail_title);
-
-        //titleView.setText(title);
     }
 
 

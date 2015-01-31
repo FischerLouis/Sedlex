@@ -1,4 +1,4 @@
-package com.sedlex;
+package com.sedlex.tools;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.sedlex.R;
 import com.sedlex.activity.LawDetailActivity;
 import com.sedlex.object.Category;
 import com.sedlex.object.Law;
