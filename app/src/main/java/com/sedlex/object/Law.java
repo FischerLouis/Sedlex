@@ -1,8 +1,5 @@
 package com.sedlex.object;
 
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-
 import java.util.ArrayList;
 
 public class Law {
