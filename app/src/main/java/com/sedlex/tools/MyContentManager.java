@@ -62,6 +62,7 @@ public class MyContentManager {
         final int finalPage = page;
         final boolean finalRefresh = refresh;
 
+        //FINAL ROW LOADING
         String url = Constants.URL_LAWS+finalPage;
         JsonObjectRequest getLawsReq = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>()

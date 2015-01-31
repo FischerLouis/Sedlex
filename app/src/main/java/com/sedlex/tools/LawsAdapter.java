@@ -105,13 +105,19 @@ public class LawsAdapter extends RecyclerView.Adapter<LawsAdapter.ViewHolder> {
 
             switch (progress){
                 case 0:
+                    firstStep.setVisibility(View.VISIBLE);
                     secondStep.setVisibility(View.GONE);
                     thirdStep.setVisibility(View.GONE);
                     break;
                 case 1:
+                    firstStep.setVisibility(View.VISIBLE);
+                    secondStep.setVisibility(View.VISIBLE);
                     thirdStep.setVisibility(View.GONE);
                     break;
                 default:
+                    firstStep.setVisibility(View.VISIBLE);
+                    secondStep.setVisibility(View.VISIBLE);
+                    thirdStep.setVisibility(View.VISIBLE);
                     break;
             }
         }
