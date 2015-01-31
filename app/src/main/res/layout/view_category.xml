@@ -4,7 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:padding="2dp"
-    android:text="Category"
+    android:text="@string/activity_category"
     android:textColor="@color/white"
     android:background="@drawable/rectangle" >
 </TextView>

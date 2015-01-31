@@ -52,7 +52,7 @@ public class MyContentManager {
     public MyContentManager(Context context, Activity activity) {
         this.context=context;
         this.activity = activity;
-        lawsList = new ArrayList<Law>();
+        lawsList = new ArrayList<>();
         queue = VolleySingleton.getInstance().getRequestQueue();
     }
 
@@ -87,7 +87,7 @@ public class MyContentManager {
                                 curLaw.setProgression(lawsArray.getJSONObject(i).getString(STATIC_PROGRESSION));
                                 //SET CATEGORIES
                                 JSONArray categoriesArray = lawsArray.getJSONObject(i).getJSONArray(STATIC_CATEGORIES);
-                                ArrayList<Category> categories = new ArrayList<Category>();
+                                ArrayList<Category> categories = new ArrayList<>();
                                 for(int j=0;j<categoriesArray.length();j++){
                                     if(categoriesArray.getJSONObject(j).getString(STATIC_CATEGORY_ID) != "null") {
                                         Category curCategory = new Category();
@@ -145,7 +145,6 @@ public class MyContentManager {
                 {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        //TODO ERROR HANDLING
                         Log.d("Error.Response", error.getMessage());
                     }
                 }

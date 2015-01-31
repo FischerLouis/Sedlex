@@ -2,12 +2,15 @@
 <resources>
     <!--RESOURCES-->
     <string name="app_name">Sedlex</string>
-    <string name="loading">Loading...</string>
+    <string name="loading">Loading&#8230;</string>
+    <string name="content_description">content description</string>
 
     <!--MAIN ACTIVITY-->
     <string name="activity_title">Law title unknown</string>
     <string name="activity_summary">Law summary unknown</string>
     <string name="activity_initiative">"?"</string>
+    <string name="activity_category">Category unknown</string>
+
 
 
     <!--ACTIVITY DETAILS-->

@@ -48,9 +48,9 @@ public class LawsAdapter extends RecyclerView.Adapter<LawsAdapter.ViewHolder> {
             itemView.setOnClickListener(this);
             lawTitle = (TextView) itemView.findViewById(R.id.law_title);
             lawSummary = (TextView) itemView.findViewById(R.id.law_summary);
-            firstStep = (View) itemView.findViewById(R.id.law_step_1);
-            secondStep = (View) itemView.findViewById(R.id.law_step_2);
-            thirdStep = (View) itemView.findViewById(R.id.law_step_3);
+            firstStep = itemView.findViewById(R.id.law_step_1);
+            secondStep = itemView.findViewById(R.id.law_step_2);
+            thirdStep = itemView.findViewById(R.id.law_step_3);
             categoriesLayout = (RelativeLayout)itemView.findViewById(R.id.layout_categories);
             stampView = (TextView)itemView.findViewById(R.id.law_stamp);
         }
