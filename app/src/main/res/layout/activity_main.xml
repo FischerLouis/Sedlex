@@ -4,12 +4,11 @@
 
     <include layout="@layout/view_action_bar" />
 
-    <ProgressBar
+    <ImageView
+        android:id="@+id/loading_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:id="@+id/main_loading"
-        android:indeterminate="true" />
+        android:layout_centerInParent="true"/>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/activity_main_swipe_refresh_layout"

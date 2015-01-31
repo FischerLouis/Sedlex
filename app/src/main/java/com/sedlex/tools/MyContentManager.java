@@ -122,7 +122,7 @@ public class MyContentManager {
                             if(!finalRefresh) {
                                 if (finalPage == 0) {
                                     adapter = new LawsAdapter(context, R.layout.rowlayout, lawsList);
-                                    activity.findViewById(R.id.main_loading).setVisibility(View.GONE);
+                                    activity.findViewById(R.id.loading_view).setVisibility(View.GONE);
                                     finalListView.setAdapter(adapter);
                                 } else {
                                     adapter.notifyDataSetChanged();

@@ -1,5 +1,6 @@
 package com.sedlex.activity;
 
+import android.graphics.drawable.AnimationDrawable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.ImageView;
 
 import com.sedlex.tools.MyContentManager;
 import com.sedlex.R;
@@ -26,6 +28,12 @@ public class MainActivity extends ActionBarActivity {
         //Sedlex icon in ActionBar
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.drawable.icon_sedlex);
+
+        //LOADING ANIMATION
+        ImageView loadingView = (ImageView) findViewById(R.id.loading_view);
+        loadingView.setBackgroundResource(R.drawable.loading_animation);
+        AnimationDrawable loadingAnimation = (AnimationDrawable) loadingView.getBackground();
+        loadingAnimation.start();
 
         //LISTVIEW FIRST SETUP
         final RecyclerView listView = (RecyclerView) findViewById(R.id.list);
