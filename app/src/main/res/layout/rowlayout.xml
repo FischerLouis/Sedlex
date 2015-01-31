@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_margin="5dp"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/law_stamp"
+                android:layout_width="45dp"
+                android:layout_marginRight="5dp"
+                android:layout_height="45dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:background="@drawable/circle"
+                android:text="@string/activity_initiative"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:textSize="17sp" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/law_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:textColor="@color/black"
+                android:layout_gravity="center_vertical"
+                android:text="@string/activity_title"
+                android:textSize="20sp" >
+            </TextView>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp">
+            <TextView
+                android:id="@+id/law_summary"
+                android:layout_width="match_parent"
+                android:textColor="@color/black"
+                android:maxLines="4"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="5dp"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_summary"
+                android:textSize="15sp" >
+            </TextView>
+
+            <View
+                android:id="@+id/law_step_1"
+                android:layout_below="@+id/law_summary"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/square_orange"/>
+
+            <View
+                android:id="@+id/law_step_2"
+                android:layout_below="@+id/law_summary"
+                android:layout_toRightOf="@+id/law_step_1"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/square_yellow"/>
+
+            <View
+                android:id="@+id/law_step_3"
+                android:layout_below="@+id/law_summary"
+                android:layout_toRightOf="@+id/law_step_2"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/square_gray"/>
+
+            <RelativeLayout
+                android:layout_below="@+id/law_step_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/layout_categories">
+
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

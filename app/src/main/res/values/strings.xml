@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--RESOURCES-->
+    <string name="app_name">Sedlex</string>
+    <string name="loading">Loading...</string>
+
+    <!--MAIN ACTIVITY-->
+    <string name="activity_title">Law title unknown</string>
+    <string name="activity_summary">Law summary unknown</string>
+    <string name="activity_initiative">"?"</string>
+
+
+    <!--ACTIVITY DETAILS-->
+    <string name="detail_title">Principales dispositions</string>
+    <string name="detail_debats">Débats</string>
+    <string name="detail_link_title">Link title unknown</string>
+    <string name="detail_link_summary">Link summary unknown</string>
+
+
+    <string name="parti_ps">PS</string>
+    <string name="parti_ump">UMP</string>
+    <string name="parti_udi">UDI</string>
+    <string name="parti_vert">Ve</string>
+    <string name="parti_radicaux">Ra</string>
+    <string name="parti_communiste">Co</string>
+</resources>
