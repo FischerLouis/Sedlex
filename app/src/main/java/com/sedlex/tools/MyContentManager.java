@@ -29,7 +29,7 @@ public class MyContentManager {
     private static final String STATIC_ID = "id";
     private static final String STATIC_LAST_UPDATE = "published";
     private static final String STATIC_TITLE = "title";
-    private static final String STATIC_SUMMARY = "vp_summary";
+    private static final String STATIC_SUMMARY = "content";
     private static final String STATIC_PROGRESSION = "vp_status";
     private static final String STATIC_CATEGORIES = "Categories";
     private static final String STATIC_CATEGORY_ID = "id";
