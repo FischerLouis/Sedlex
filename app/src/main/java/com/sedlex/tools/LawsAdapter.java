@@ -62,7 +62,6 @@ public class LawsAdapter extends RecyclerView.Adapter<LawsAdapter.ViewHolder> {
             LinearLayout containerLayout = new LinearLayout(context);
             containerLayout.setOrientation(LinearLayout.HORIZONTAL);
             RelativeLayout.LayoutParams paramsLayout = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            paramsLayout.topMargin = 10;
             paramsLayout.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 
 
@@ -77,7 +76,8 @@ public class LawsAdapter extends RecyclerView.Adapter<LawsAdapter.ViewHolder> {
                 //UPDATE TEXT COLOR
                 categoryView.setTextColor(context.getResources().getColor(R.color.white));
                 //UPDATE PADDING
-                categoryView.setPadding(2,2,2,2);
+                categoryView.setPadding(3,3,3,3);
+                categoryView.setTextSize(12);
                 //UPDATE COLOR
                 GradientDrawable rectBackground = (GradientDrawable) context.getResources().getDrawable(R.drawable.rectangle);
                 String color = "#"+categories.get(i).getColor();
