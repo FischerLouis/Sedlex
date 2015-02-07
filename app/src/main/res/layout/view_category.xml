@@ -3,9 +3,9 @@
     android:id="@+id/view_category"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="3dp"
+    android:padding="2dp"
     android:text="@string/activity_category"
-    android:textSize="12sp"
+    android:textSize="11sp"
     android:textColor="@color/white"
     android:background="@drawable/rectangle" >
 </TextView>

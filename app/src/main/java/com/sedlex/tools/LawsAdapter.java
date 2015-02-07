@@ -42,6 +42,7 @@ public class LawsAdapter extends RecyclerView.Adapter<LawsAdapter.ViewHolder> {
         public View thirdStep;
         public LinearLayout categoriesLayout;
         public TextView stampView;
+        private LayoutInflater layoutInflater;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -53,17 +54,12 @@ public class LawsAdapter extends RecyclerView.Adapter<LawsAdapter.ViewHolder> {
             thirdStep = itemView.findViewById(R.id.law_step_3);
             categoriesLayout = (LinearLayout)itemView.findViewById(R.id.layout_categories);
             stampView = (TextView)itemView.findViewById(R.id.law_stamp);
+            layoutInflater = LayoutInflater.from(context);
         }
 
         public void updateCategories (ArrayList<Category> categories){
             //CLEANING OLD VIEWS
             categoriesLayout.removeAllViews();
-            //VERTICAL CONTAINER LAYOUT & PARAMS
-            LinearLayout containerLayout = new LinearLayout(context);
-            containerLayout.setOrientation(LinearLayout.HORIZONTAL);
-            RelativeLayout.LayoutParams paramsLayout = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            paramsLayout.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-
 
             //PARAMS VIEW
             LinearLayout.LayoutParams paramsView = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -71,22 +67,15 @@ public class LawsAdapter extends RecyclerView.Adapter<LawsAdapter.ViewHolder> {
 
             for(int i = 0;i<categories.size();i++){
                 //UPDATE TITLE
-                TextView categoryView = new TextView(context);
+                TextView categoryView = (TextView) layoutInflater.inflate(R.layout.view_category, null);
                 categoryView.setText(categories.get(i).getTitle());
-                //UPDATE TEXT COLOR
-                categoryView.setTextColor(context.getResources().getColor(R.color.white));
-                //UPDATE PADDING
-                categoryView.setPadding(3,3,3,3);
-                categoryView.setTextSize(12);
                 //UPDATE COLOR
-                GradientDrawable rectBackground = (GradientDrawable) context.getResources().getDrawable(R.drawable.rectangle);
+                GradientDrawable rectBackground = (GradientDrawable) categoryView.getBackground();
                 String color = "#"+categories.get(i).getColor();
                 rectBackground.setColor(Color.parseColor(color));
-                categoryView.setBackground(rectBackground);
 
-                containerLayout.addView(categoryView, paramsView);
+                categoriesLayout.addView(categoryView, paramsView);
             }
-            categoriesLayout.addView(containerLayout, paramsLayout);
         }
 
         public void updateInitiative(Stamp stamp){
