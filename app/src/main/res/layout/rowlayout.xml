@@ -16,7 +16,7 @@
         android:paddingRight="10dp"
         android:paddingTop="7dp"
         android:paddingBottom="7dp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground">
 
@@ -67,38 +67,59 @@
                 android:textSize="12sp" >
             </TextView>
 
+        </RelativeLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_bottom"
+            android:gravity="center_vertical">
+
             <View
                 android:id="@+id/law_step_1"
-                android:layout_below="@+id/law_summary"
                 android:layout_width="12dp"
                 android:layout_height="12dp"
                 android:background="@drawable/square_orange"/>
 
             <View
                 android:id="@+id/law_step_2"
-                android:layout_below="@+id/law_summary"
-                android:layout_toRightOf="@+id/law_step_1"
                 android:layout_width="12dp"
                 android:layout_height="12dp"
                 android:layout_marginLeft="5dp"
-                android:background="@drawable/square_yellow"/>
+                android:background="@drawable/square_yellow" />
 
             <View
                 android:id="@+id/law_step_3"
-                android:layout_below="@+id/law_summary"
-                android:layout_toRightOf="@+id/law_step_2"
                 android:layout_width="12dp"
                 android:layout_height="12dp"
                 android:layout_marginLeft="5dp"
-                android:background="@drawable/square_gray"/>
+                android:background="@drawable/square_gray" />
 
-            <RelativeLayout
-                android:layout_below="@+id/law_step_1"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/layout_categories">
+                android:id="@+id/layout_categories"
+                android:gravity="right"
+                android:layout_gravity="right">
 
-            </RelativeLayout>
-        </RelativeLayout>
+                <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/view_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="3dp"
+                    android:text="@string/activity_category"
+                    android:textSize="12sp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/rectangle" >
+                </TextView>
+
+
+            </LinearLayout>
+
+
+
+            </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>

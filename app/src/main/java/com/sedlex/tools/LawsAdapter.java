@@ -40,7 +40,7 @@ public class LawsAdapter extends RecyclerView.Adapter<LawsAdapter.ViewHolder> {
         public View firstStep;
         public View secondStep;
         public View thirdStep;
-        public RelativeLayout categoriesLayout;
+        public LinearLayout categoriesLayout;
         public TextView stampView;
 
         public ViewHolder(View itemView) {
@@ -51,7 +51,7 @@ public class LawsAdapter extends RecyclerView.Adapter<LawsAdapter.ViewHolder> {
             firstStep = itemView.findViewById(R.id.law_step_1);
             secondStep = itemView.findViewById(R.id.law_step_2);
             thirdStep = itemView.findViewById(R.id.law_step_3);
-            categoriesLayout = (RelativeLayout)itemView.findViewById(R.id.layout_categories);
+            categoriesLayout = (LinearLayout)itemView.findViewById(R.id.layout_categories);
             stampView = (TextView)itemView.findViewById(R.id.law_stamp);
         }
 
