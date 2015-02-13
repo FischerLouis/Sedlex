@@ -39,7 +39,7 @@ public class MyContentManager {
     private static final String STATIC_INITIATIVE_DEPUTY = "InitiativeDeputy";
     private static final String STATIC_INITIATIVE_DEPUTY_PARTY = "Party";
     private static final String STATIC_PARTY_ID = "id";
-    private static final String STATIC_PARTY_TITLE = "PS";
+    private static final String STATIC_PARTY_ACRONYM = "acronym";
     private static final String STATIC_PARTY_COLOR = "color";
 
     private ArrayList<Law> lawsList;
@@ -108,7 +108,7 @@ public class MyContentManager {
                                 } else if (lawsArray.getJSONObject(i).getString(STATIC_INITIATIVE).equals("deputy") && !lawsArray.getJSONObject(i).getString(STATIC_INITIATIVE_DEPUTY).equals("null")) {
                                     JSONObject party = lawsArray.getJSONObject(i).getJSONObject(STATIC_INITIATIVE_DEPUTY).getJSONObject(STATIC_INITIATIVE_DEPUTY_PARTY);
                                     curStamp.setId(party.getInt(STATIC_PARTY_ID));
-                                    curStamp.setTitle(STATIC_PARTY_TITLE);
+                                    curStamp.setTitle(party.getString(STATIC_PARTY_ACRONYM));
                                     curStamp.setColor(party.getString(STATIC_PARTY_COLOR));
                                 }
                                 else{
