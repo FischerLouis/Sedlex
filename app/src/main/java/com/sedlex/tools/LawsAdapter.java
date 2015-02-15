@@ -40,7 +40,7 @@ public class LawsAdapter extends RecyclerView.Adapter<LawsAdapter.ViewHolder> {
         public View firstStep;
         public View secondStep;
         public View thirdStep;
-        public LinearLayout categoriesLayout;
+        public TextView viewCategory;
         public TextView stampView;
         private LayoutInflater layoutInflater;
 
@@ -52,30 +52,23 @@ public class LawsAdapter extends RecyclerView.Adapter<LawsAdapter.ViewHolder> {
             firstStep = itemView.findViewById(R.id.law_step_1);
             secondStep = itemView.findViewById(R.id.law_step_2);
             thirdStep = itemView.findViewById(R.id.law_step_3);
-            categoriesLayout = (LinearLayout)itemView.findViewById(R.id.layout_categories);
+            viewCategory = (TextView)itemView.findViewById(R.id.view_category);
             stampView = (TextView)itemView.findViewById(R.id.law_stamp);
             layoutInflater = LayoutInflater.from(context);
         }
 
         public void updateCategories (ArrayList<Category> categories){
-            //CLEANING OLD VIEWS
-            categoriesLayout.removeAllViews();
 
-            //PARAMS VIEW
-            LinearLayout.LayoutParams paramsView = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            paramsView.rightMargin = 5;
+            String categoriesDesc = "";
 
             for(int i = 0;i<categories.size();i++){
-                //UPDATE TITLE
-                TextView categoryView = (TextView) layoutInflater.inflate(R.layout.view_category, null);
-                categoryView.setText(categories.get(i).getTitle());
-                //UPDATE COLOR
-                GradientDrawable rectBackground = (GradientDrawable) categoryView.getBackground();
-                String color = "#"+categories.get(i).getColor();
-                rectBackground.setColor(Color.parseColor(color));
-
-                categoriesLayout.addView(categoryView, paramsView);
+                categoriesDesc += categories.get(i).getTitle();
+                if( i != categories.size() - 1){
+                    categoriesDesc += ", ";
+                }
             }
+
+            viewCategory.setText(categoriesDesc);
         }
 
         public void updateInitiative(Stamp stamp){

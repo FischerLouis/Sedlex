@@ -27,7 +27,7 @@ public class MainActivity extends ActionBarActivity {
 
         //Sedlex icon in ActionBar
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setIcon(R.drawable.icon_sedlex);
+        getSupportActionBar().setIcon(R.drawable.sedlex_icon_margin);
 
         //LOADING ANIMATION
         ImageView loadingView = (ImageView) findViewById(R.id.loading_view);
