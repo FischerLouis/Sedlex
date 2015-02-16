@@ -1,241 +1,259 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--PROGRESSION-->
-    <LinearLayout
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="100"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
-
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center"
-            android:id="@+id/detail_step_1"
-            android:layout_weight="20"
-            android:contentDescription="@string/content_description"
-            android:src="@drawable/process_gov_color"/>
-
-        <View
-            android:layout_width="40dp"
-            android:layout_height="2dp"
-            android:layout_gravity="center"
-            android:layout_weight="20"
-            android:background="@color/black"/>
-
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:id="@+id/detail_step_2"
-            android:layout_weight="20"
-            android:contentDescription="@string/content_description"
-            android:src="@drawable/process_plt_bw"/>
-
-        <View
-            android:layout_width="40dp"
-            android:layout_height="2dp"
-            android:layout_gravity="center"
-            android:layout_weight="20"
-            android:background="@color/black"/>
-
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:id="@+id/detail_step_3"
-            android:layout_weight="20"
-            android:contentDescription="@string/content_description"
-            android:src="@drawable/process_adoption_bw"/>
-
-    </LinearLayout>
-
-    <!--TEXT PRESENTATION-->
-    <android.support.v7.widget.CardView
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_margin="15dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:text="@string/detail_title"
-                android:textStyle="bold"
-                android:textSize="18sp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/detail_content"
-                android:textColor="@color/black"
-                android:text="@string/loading"
-                android:textSize="12sp"/>
-
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
-
-    <!--OPINIONS-->
-    <android.support.v7.widget.CardView
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_margin="15dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:text="@string/detail_debats"
-                android:textStyle="bold"
-                android:textSize="18sp"/>
-
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TableRow>
-                    <!-- Column 1 -->
-                    <TextView
-                        android:id="@+id/tbl_txt1"
-                        android:layout_width="0dp"
-                        android:layout_height="60dp"
-                        android:textSize="20sp"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:background="@color/blue"
-                        android:textColor="@color/white"
-                        android:layout_weight="1"
-                        android:text="@string/parti_ump" />
-
-                    <!-- Column 2 -->
-                    <TextView
-                        android:id="@+id/tbl_txt2"
-                        android:layout_width="0dp"
-                        android:layout_height="60dp"
-                        android:textSize="20sp"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:background="@color/pink"
-                        android:textColor="@color/white"
-                        android:layout_weight="1"
-                        android:text="@string/parti_ps" />
-
-                    <!-- Column 3 -->
-                    <TextView
-                        android:id="@+id/tbl_txt3"
-                        android:layout_width="0dp"
-                        android:layout_height="60dp"
-                        android:textSize="20sp"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:background="@color/orange"
-                        android:textColor="@color/white"
-                        android:layout_weight="1"
-                        android:text="@string/parti_udi" />
-                </TableRow>
-
-                <TableRow>
-                    <!-- Column 1 -->
-                    <TextView
-                        android:id="@+id/tbl_txt4"
-                        android:layout_width="0dp"
-                        android:layout_height="60dp"
-                        android:textSize="20sp"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:background="@color/light_green"
-                        android:textColor="@color/white"
-                        android:layout_weight="1"
-                        android:text="@string/parti_vert" />
-
-                    <!-- Column 2 -->
-                    <TextView
-                        android:id="@+id/tbl_txt5"
-                        android:layout_width="0dp"
-                        android:layout_height="60dp"
-                        android:textSize="20sp"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:background="@color/teal"
-                        android:textColor="@color/white"
-                        android:layout_weight="1"
-                        android:text="@string/parti_radicaux" />
-
-                    <!-- Column 3 -->
-                    <TextView
-                        android:id="@+id/tbl_txt6"
-                        android:layout_width="0dp"
-                        android:layout_height="60dp"
-                        android:textSize="20sp"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:background="@color/red"
-                        android:textColor="@color/white"
-                        android:layout_weight="1"
-                        android:text="@string/parti_communiste" />
-                </TableRow>
-            </TableLayout>
-        </LinearLayout>
-
-    </android.support.v7.widget.CardView>
-
-    <!--LINKED ARTICLE-->
-    <android.support.v7.widget.CardView
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_margin="15dp">
+        android:layout_height="match_parent"
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/article_icon"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="5dp"
-                android:contentDescription="@string/content_description"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_launcher"/>
-
-            <TextView
-                android:id="@+id/article_title"
-                android:layout_width="wrap_content"
+            <!--PROGRESSION-->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/article_icon"
-                android:textColor="@color/black"
-                android:text="@string/detail_link_title"
-                android:textStyle="italic"
-                android:textSize="18sp"/>
+                android:id="@+id/activity_detail_layout_progression"
+                android:weightSum="100"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
 
-            <TextView
-                android:id="@+id/article_summary"
-                android:layout_width="wrap_content"
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:id="@+id/detail_step_1"
+                    android:layout_weight="20"
+                    android:contentDescription="@string/content_description"
+                    android:src="@drawable/process_gov_color"/>
+
+                <View
+                    android:layout_width="40dp"
+                    android:layout_height="2dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="20"
+                    android:background="@color/black"/>
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:id="@+id/detail_step_2"
+                    android:layout_weight="20"
+                    android:contentDescription="@string/content_description"
+                    android:src="@drawable/process_plt_bw"/>
+
+                <View
+                    android:layout_width="40dp"
+                    android:layout_height="2dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="20"
+                    android:background="@color/black"/>
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:id="@+id/detail_step_3"
+                    android:layout_weight="20"
+                    android:contentDescription="@string/content_description"
+                    android:src="@drawable/process_adoption_bw"/>
+
+            </LinearLayout>
+
+            <!--TEXT PRESENTATION-->
+            <android.support.v7.widget.CardView
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/article_icon"
-                android:layout_below="@+id/article_title"
-                android:textColor="@color/black"
-                android:text="@string/detail_link_summary"
-                android:textSize="12sp"/>
+                android:layout_width="match_parent"
+                android:id="@+id/activity_detail_layout_text"
+                android:layout_below="@+id/activity_detail_layout_progression"
+                android:layout_margin="15dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="@string/detail_title"
+                        android:textStyle="bold"
+                        android:textSize="18sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/detail_content"
+                        android:textColor="@color/black"
+                        android:text="@string/loading"
+                        android:textSize="12sp"/>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <!--OPINIONS-->
+            <android.support.v7.widget.CardView
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:id="@+id/activity_detail_layout_opinions"
+                android:layout_below="@+id/activity_detail_layout_text"
+                android:layout_margin="15dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="@string/detail_debats"
+                        android:textStyle="bold"
+                        android:textSize="18sp"/>
+
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TableRow>
+                            <!-- Column 1 -->
+                            <TextView
+                                android:id="@+id/tbl_txt1"
+                                android:layout_width="0dp"
+                                android:layout_height="60dp"
+                                android:textSize="20sp"
+                                android:fontFamily="sans-serif-light"
+                                android:gravity="center"
+                                android:background="@color/blue"
+                                android:textColor="@color/white"
+                                android:layout_weight="1"
+                                android:text="@string/parti_ump" />
+
+                            <!-- Column 2 -->
+                            <TextView
+                                android:id="@+id/tbl_txt2"
+                                android:layout_width="0dp"
+                                android:layout_height="60dp"
+                                android:textSize="20sp"
+                                android:fontFamily="sans-serif-light"
+                                android:gravity="center"
+                                android:background="@color/pink"
+                                android:textColor="@color/white"
+                                android:layout_weight="1"
+                                android:text="@string/parti_ps" />
+
+                            <!-- Column 3 -->
+                            <TextView
+                                android:id="@+id/tbl_txt3"
+                                android:layout_width="0dp"
+                                android:layout_height="60dp"
+                                android:textSize="20sp"
+                                android:fontFamily="sans-serif-light"
+                                android:gravity="center"
+                                android:background="@color/orange"
+                                android:textColor="@color/white"
+                                android:layout_weight="1"
+                                android:text="@string/parti_udi" />
+                        </TableRow>
+
+                        <TableRow>
+                            <!-- Column 1 -->
+                            <TextView
+                                android:id="@+id/tbl_txt4"
+                                android:layout_width="0dp"
+                                android:layout_height="60dp"
+                                android:textSize="20sp"
+                                android:fontFamily="sans-serif-light"
+                                android:gravity="center"
+                                android:background="@color/light_green"
+                                android:textColor="@color/white"
+                                android:layout_weight="1"
+                                android:text="@string/parti_vert" />
+
+                            <!-- Column 2 -->
+                            <TextView
+                                android:id="@+id/tbl_txt5"
+                                android:layout_width="0dp"
+                                android:layout_height="60dp"
+                                android:textSize="20sp"
+                                android:fontFamily="sans-serif-light"
+                                android:gravity="center"
+                                android:background="@color/teal"
+                                android:textColor="@color/white"
+                                android:layout_weight="1"
+                                android:text="@string/parti_radicaux" />
+
+                            <!-- Column 3 -->
+                            <TextView
+                                android:id="@+id/tbl_txt6"
+                                android:layout_width="0dp"
+                                android:layout_height="60dp"
+                                android:textSize="20sp"
+                                android:fontFamily="sans-serif-light"
+                                android:gravity="center"
+                                android:background="@color/red"
+                                android:textColor="@color/white"
+                                android:layout_weight="1"
+                                android:text="@string/parti_communiste" />
+                        </TableRow>
+                    </TableLayout>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
 
         </RelativeLayout>
-    </android.support.v7.widget.CardView>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grey"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:layout_alignParentBottom="true">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/detail_button_approve"
+                    android:textSize="20sp"
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:background="@color/blue"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:fontFamily="sans-serif-light"
+                    android:layout_marginRight="5dp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/detail_button_disapprove"
+                    android:textSize="20sp"
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:background="@color/pink"
+                    android:gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@color/white"
+                    android:fontFamily="sans-serif-light"
+                    android:textStyle="bold"/>
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
 
 
-</LinearLayout>
+</RelativeLayout>

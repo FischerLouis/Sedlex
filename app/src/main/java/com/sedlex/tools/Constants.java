@@ -3,6 +3,7 @@ package com.sedlex.tools;
 public class Constants {
 
     public static final String URL_LAWS = "http://sedlex.jbcid.me/laws?page=";
+    public static final String URL_LAW_DETAILS = "http://sedlex.jbcid.me/laws/";
     public static final String URL_LAWS_DEBUG = "http://api.letsbeehive.tk/static";
 
     public static final int GetProgressFromMapping(String step){

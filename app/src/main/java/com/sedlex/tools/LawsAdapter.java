@@ -42,6 +42,8 @@ public class LawsAdapter extends RecyclerView.Adapter<LawsAdapter.ViewHolder> {
         public View thirdStep;
         public TextView viewCategory;
         public TextView stampView;
+        public LinearLayout progressLayout;
+        public LinearLayout globalLayout;
         private LayoutInflater layoutInflater;
 
         public ViewHolder(View itemView) {
@@ -54,6 +56,8 @@ public class LawsAdapter extends RecyclerView.Adapter<LawsAdapter.ViewHolder> {
             thirdStep = itemView.findViewById(R.id.law_step_3);
             viewCategory = (TextView)itemView.findViewById(R.id.view_category);
             stampView = (TextView)itemView.findViewById(R.id.law_stamp);
+            progressLayout = (LinearLayout)itemView.findViewById(R.id.card_bottom);
+            globalLayout = (LinearLayout)itemView.findViewById(R.id.law_global_layout);
             layoutInflater = LayoutInflater.from(context);
         }
 
@@ -81,7 +85,7 @@ public class LawsAdapter extends RecyclerView.Adapter<LawsAdapter.ViewHolder> {
             stampView.setBackground(circleBackground);
         }
 
-        public void updateProgression (String progression){
+        public int updateProgression (String progression){
 
             int progress = Constants.GetProgressFromMapping(progression);
 
@@ -102,15 +106,15 @@ public class LawsAdapter extends RecyclerView.Adapter<LawsAdapter.ViewHolder> {
                     thirdStep.setVisibility(View.VISIBLE);
                     break;
             }
+            return progress;
         }
 
         @Override
         public void onClick(View view) {
             Intent detailIntent = new Intent(context, LawDetailActivity.class);
-            TextView titleView = (TextView)view.findViewById(R.id.law_title);
-            String lawTitleClicked = titleView.getText().toString();
-            //String lawTitleClicked = adapter.getItem(position).getTitle();
-            detailIntent.putExtra(LawDetailActivity.ARG_ITEM, lawTitleClicked);
+            detailIntent.putExtra(LawDetailActivity.ARG_TITLE, lawTitle.getText().toString());
+            detailIntent.putExtra(LawDetailActivity.ARG_PROGRESS, (int)progressLayout.getTag());
+            detailIntent.putExtra(LawDetailActivity.ARG_LAWID, (int)globalLayout.getTag());
             context.startActivity(detailIntent);
         }
     }
@@ -126,9 +130,11 @@ public class LawsAdapter extends RecyclerView.Adapter<LawsAdapter.ViewHolder> {
         Law law = lawsList.get(i);
         viewHolder.lawTitle.setText(Html.fromHtml(law.getTitle()));
         viewHolder.lawSummary.setText(Html.fromHtml(law.getSummary()));
-        viewHolder.updateProgression(law.getProgression());
+        int progress = viewHolder.updateProgression(law.getProgression());
+        viewHolder.progressLayout.setTag(progress);
         viewHolder.updateCategories(law.getCategories());
         viewHolder.updateInitiative(law.getStamp());
+        viewHolder.globalLayout.setTag(law.getId());
     }
 
     @Override

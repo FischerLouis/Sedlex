@@ -10,9 +10,11 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.android.volley.RequestQueue;
 import com.sedlex.tools.MyContentManager;
 import com.sedlex.R;
 import com.sedlex.tools.InfiniteScrollListener;
+import com.sedlex.tools.VolleySingleton;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -23,6 +25,7 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         //Sedlex icon in ActionBar
