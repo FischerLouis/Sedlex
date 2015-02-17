@@ -1,9 +1,11 @@
 package com.sedlex.activity;
 
 import android.app.ActionBar;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,13 +22,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class LawDetailActivity extends ActionBarActivity {
+public class LawDetailActivity extends ActionBarActivity implements View.OnClickListener {
 
     public static final String ARG_TITLE = "ARG_TITLE";
     public static final String ARG_PROGRESS = "ARG_PROGRESS";
     public static final String ARG_LAWID = "ARG_LAWID";
     public static final int ARG_INT_DEFAULT = 0;
 
+    private String lawContent;
+    private TextView lawContentView;
+    private boolean extendedContent = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,20 +51,21 @@ public class LawDetailActivity extends ActionBarActivity {
         Log.d("DEBUG","id:"+lawId);
 
         //RETRIEVE VIEWS
-        TextView lawContentView = (TextView) findViewById(R.id.detail_content);
+        lawContentView = (TextView) findViewById(R.id.detail_content);
 
         //GET DYNAMIC DATA (CONTENT)
         if (lawId != 0)
-            updateLawDetailsContent(lawId, lawContentView);
+            updateLawDetailsContent(lawId);
 
+        //SET LISTENER
+        lawContentView.setOnClickListener(this);
     }
 
-    private void updateLawDetailsContent(int lawId, TextView lawContentView){
+    private void updateLawDetailsContent(int lawId){
 
         final String STATIC_LAW = "law";
         final String STATIC_LAW_CONTENT = "content";
 
-        final TextView finalLawContentView = lawContentView;
         RequestQueue queue = VolleySingleton.getInstance().getRequestQueue();
 
         String urlLawDetails = Constants.URL_LAW_DETAILS+lawId;
@@ -71,7 +77,8 @@ public class LawDetailActivity extends ActionBarActivity {
                     public void onResponse(JSONObject response) {
                         try {
                             JSONObject lawObject = response.getJSONObject(STATIC_LAW);
-                            finalLawContentView.setText(lawObject.getString(STATIC_LAW_CONTENT));
+                            lawContentView.setText(lawObject.getString(STATIC_LAW_CONTENT));
+                            updateContentView();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -89,4 +96,19 @@ public class LawDetailActivity extends ActionBarActivity {
 
     }
 
+    private void updateContentView(){
+        if(extendedContent){
+            lawContentView.setMaxLines(8);
+            extendedContent = false;
+        }
+        else{
+            lawContentView.setMaxLines(Integer.MAX_VALUE);
+            extendedContent = true;
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        updateContentView();
+    }
 }
