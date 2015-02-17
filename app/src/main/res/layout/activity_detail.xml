@@ -12,58 +12,56 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <!--PROGRESSION-->
-            <LinearLayout
+            <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/activity_detail_layout_progression"
-                android:weightSum="100"
-                android:orientation="horizontal"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp">
+                android:id="@+id/activity_detail_layout_progression"
+                android:weightSum="5"
+                android:layout_height="wrap_content">
 
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_gravity="center"
-                    android:id="@+id/detail_step_1"
-                    android:layout_weight="20"
-                    android:contentDescription="@string/content_description"
-                    android:src="@drawable/process_gov_color"/>
+                <TableRow>
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:id="@+id/detail_step_1"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/content_description"
+                        android:src="@drawable/process_gov_color"/>
 
-                <View
-                    android:layout_width="40dp"
-                    android:layout_height="2dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="20"
-                    android:background="@color/black"/>
+                    <View
+                        android:layout_width="40dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="@color/black"/>
 
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center"
-                    android:id="@+id/detail_step_2"
-                    android:layout_weight="20"
-                    android:contentDescription="@string/content_description"
-                    android:src="@drawable/process_plt_bw"/>
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:id="@+id/detail_step_2"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/content_description"
+                        android:src="@drawable/process_plt_bw"/>
 
-                <View
-                    android:layout_width="40dp"
-                    android:layout_height="2dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="20"
-                    android:background="@color/black"/>
+                    <View
+                        android:layout_width="40dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="@color/black"/>
 
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center"
-                    android:id="@+id/detail_step_3"
-                    android:layout_weight="20"
-                    android:contentDescription="@string/content_description"
-                    android:src="@drawable/process_adoption_bw"/>
-
-            </LinearLayout>
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:id="@+id/detail_step_3"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/content_description"
+                        android:src="@drawable/process_adoption_bw"/>
+                </TableRow>
+            </TableLayout>
 
             <!--TEXT PRESENTATION-->
             <android.support.v7.widget.CardView
@@ -225,6 +223,7 @@
 
             <TableRow>
                 <TextView
+                    android:id="@+id/detail_button_approve"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="@string/detail_button_approve"
@@ -239,6 +238,7 @@
                     android:textStyle="bold"/>
 
                 <TextView
+                    android:id="@+id/detail_button_disapprove"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="@string/detail_button_disapprove"
