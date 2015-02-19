@@ -2,6 +2,7 @@ package com.sedlex.activity;
 
 import android.app.ActionBar;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -10,7 +11,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,13 +33,13 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
     public static final String ARG_LAWID = "ARG_LAWID";
     public static final int ARG_INT_DEFAULT = 0;
 
-    public static final int IMAGEVIEW_SMALL_DP = 40;
+    //public static final int IMAGEVIEW_SMALL_DP = 40;
     public static final int IMAGEVIEW_BIG_DP = 60;
 
     private TextView lawContentView;
-    private TextView approveButton;
-    private TextView disapproveButton;
     private boolean extendedContent = true;
+    private int lawId;
+    private String lawTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,17 +51,18 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         // RETRIEVE AND SET PASSED DATA
-        String title = (String) getIntent().getStringExtra(ARG_TITLE);
-        setTitle(title);
-        int progress = (int) getIntent().getIntExtra(ARG_PROGRESS, ARG_INT_DEFAULT);
+        lawTitle = getIntent().getStringExtra(ARG_TITLE);
+        setTitle(lawTitle);
+        int progress = getIntent().getIntExtra(ARG_PROGRESS, ARG_INT_DEFAULT);
         Log.d("DEBUG", "progess:" + progress);
-        int lawId = (int) getIntent().getIntExtra(ARG_LAWID, ARG_INT_DEFAULT);
+        lawId = getIntent().getIntExtra(ARG_LAWID, ARG_INT_DEFAULT);
         Log.d("DEBUG","id:"+lawId);
 
         //RETRIEVE VIEWS
         lawContentView = (TextView) findViewById(R.id.detail_content);
-        approveButton = (TextView) findViewById(R.id.detail_button_approve);
-        disapproveButton = (TextView) findViewById(R.id.detail_button_disapprove);
+        TextView approveButton = (TextView) findViewById(R.id.detail_button_approve);
+        TextView disapproveButton = (TextView) findViewById(R.id.detail_button_disapprove);
+        TextView debatesOne = (TextView) findViewById(R.id.detail_debates_1);
 
         //UPDATE PROGRESS VIEWS
         updateProgress(progress);
@@ -74,41 +75,60 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
         lawContentView.setOnClickListener(this);
         approveButton.setOnTouchListener(this);
         disapproveButton.setOnTouchListener(this);
+        debatesOne.setOnTouchListener(this);
     }
 
     private void updateLawDetailsContent(int lawId){
-
-        final String STATIC_LAW = "law";
-        final String STATIC_LAW_CONTENT = "content";
-
+        //VOLLEY QUEUE
         RequestQueue queue = VolleySingleton.getInstance().getRequestQueue();
-
+        //URL TO LOAD
         String urlLawDetails = Constants.URL_LAW_DETAILS+lawId;
-
-        JsonObjectRequest getLawDetailsReq = new JsonObjectRequest(Request.Method.GET, urlLawDetails, null,
-                new Response.Listener<JSONObject>()
-                {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            JSONObject lawObject = response.getJSONObject(STATIC_LAW);
-                            lawContentView.setText(lawObject.getString(STATIC_LAW_CONTENT));
-                            updateContentView();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+        //CACHE CHECK
+        if(queue.getCache().get(urlLawDetails)!=null){
+            Log.d("VOLLEY_VIEW_2","CACHE");
+            //GET JSON FROM CACHE
+            try {
+                String cachedResponse = new String(queue.getCache().get(urlLawDetails).data);
+                JSONObject jsonCached = new JSONObject(cachedResponse);
+                updateFromJSON(jsonCached);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        else{
+            Log.d("VOLLEY_VIEW_2","NO CACHE");
+            //GET JSON FROM SERVER
+            JsonObjectRequest getLawDetailsReq = new JsonObjectRequest(Request.Method.GET, urlLawDetails, null,
+                    new Response.Listener<JSONObject>()
+                    {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                updateFromJSON(response);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    },
+                    new Response.ErrorListener()
+                    {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.d("Error.Response", error.getMessage());
                         }
                     }
-                },
-                new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("Error.Response", error.getMessage());
-                    }
-                }
-        );
-        queue.add(getLawDetailsReq);
+            );
+            queue.add(getLawDetailsReq);
+        }
+    }
 
+    private void updateFromJSON(JSONObject jsonLoaded) throws JSONException {
+        final String STATIC_LAW_CONTENT = "content";
+        final String STATIC_LAW = "law";
+
+        JSONObject lawObject = jsonLoaded.getJSONObject(STATIC_LAW);
+        lawContentView.setText(lawObject.getString(STATIC_LAW_CONTENT));
+        updateContentView();
     }
 
     private void updateContentView(){
@@ -148,8 +168,7 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
     public static int convertDpToPixel(float dp, Context context){
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
-        int px = (int)(dp * (metrics.densityDpi / 160f));
-        return px;
+        return (int)(dp * (metrics.densityDpi / 160f));
     }
 
     @Override
@@ -160,11 +179,21 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
     @Override
     public boolean onTouch(View view, MotionEvent event) {
         if(event.getAction() == MotionEvent.ACTION_DOWN){
-            if(view.getId() == R.id.detail_button_approve) {
-                Toast.makeText(this,"Je suis POUR ce texte." , Toast.LENGTH_SHORT).show();
-            }
-            else{
-                Toast.makeText(this,"Je suis CONTRE ce texte." , Toast.LENGTH_SHORT).show();
+            switch(view.getId()){
+                case R.id.detail_button_approve:
+                    Toast.makeText(this,"Je suis POUR ce texte." , Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.detail_button_disapprove:
+                    Toast.makeText(this,"Je suis CONTRE ce texte." , Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.detail_debates_1:
+                    Intent debatesIntent = new Intent(this, DebatesActivity.class);
+                    debatesIntent.putExtra(DebatesActivity.ARG_TITLE, lawTitle);
+                    debatesIntent.putExtra(DebatesActivity.ARG_LAWID, lawId);
+                    startActivity(debatesIntent);
+                    break;
+                default:
+                    break;
             }
         }
         return false;

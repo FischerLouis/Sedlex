@@ -8,19 +8,24 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
-import com.android.volley.RequestQueue;
+import com.sedlex.object.Law;
+import com.sedlex.tools.LawsAdapter;
 import com.sedlex.tools.MyContentManager;
 import com.sedlex.R;
 import com.sedlex.tools.InfiniteScrollListener;
-import com.sedlex.tools.VolleySingleton;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends ActionBarActivity {
 
-    private MyContentManager myContentManager = new MyContentManager(this, this);
-    private InfiniteScrollListener infiniteScrollListener;
+    private MyContentManager myContentManager = new MyContentManager(this);
+    private RecyclerView listView;
+    private LawsAdapter adapter;
+    private boolean refresh = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +44,11 @@ public class MainActivity extends ActionBarActivity {
         loadingAnimation.start();
 
         //LISTVIEW FIRST SETUP
-        final RecyclerView listView = (RecyclerView) findViewById(R.id.list);
+        listView = (RecyclerView) findViewById(R.id.list);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         listView.setLayoutManager(linearLayoutManager);
         listView.setItemAnimator(new DefaultItemAnimator());
-        myContentManager.updateList(listView, 0, false);
+        myContentManager.updateList(0);
 
         //SWIPETOREFRESH LISTENER SETUP
         SwipeRefreshLayout mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_main_swipe_refresh_layout);
@@ -51,14 +56,35 @@ public class MainActivity extends ActionBarActivity {
         mSwipeRefreshLayout.setOnRefreshListener(refreshListener);
 
         //ONSCROLL LISTENER SETUP
-        infiniteScrollListener = new InfiniteScrollListener(linearLayoutManager) {
+        InfiniteScrollListener infiniteScrollListener = new InfiniteScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int current_page) {
                 Log.v("DEBUG", "page= "+current_page);
-                myContentManager.updateList(listView, current_page, false);
+                myContentManager.updateList(current_page);
             }
         };
         listView.setOnScrollListener(infiniteScrollListener);
+    }
+
+    public void setList(ArrayList<Law> lawsList, int page){
+        //UPDATING DATA ACCORDING TO PAGES / UPDATE
+        if(!refresh) {
+            if (page == 0) {
+                adapter = new LawsAdapter(this, R.layout.row_lawslist, lawsList);
+                findViewById(R.id.loading_view).setVisibility(View.GONE);
+                listView.setAdapter(adapter);
+            } else {
+                adapter.notifyDataSetChanged();
+            }
+        }
+        else{
+            adapter.notifyDataSetChanged();
+            //adapter = new LawsAdapter(context, R.layout.row_lawslist, lawsList);
+            //finalListView.setAdapter(adapter);
+            SwipeRefreshLayout mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_main_swipe_refresh_layout);
+            mSwipeRefreshLayout.setRefreshing(false);
+            refresh = false;
+        }
     }
 
     // CUSTOM REFRESH LISTENER
@@ -72,8 +98,8 @@ public class MainActivity extends ActionBarActivity {
 
         @Override
         public void onRefresh() {
-            myContentManager.updateList(listView, 0, true);
-            //infiniteScrollListener.setCurrentPage(0);
+            refresh = true;
+            myContentManager.updateList(0);
         }
     }
 }

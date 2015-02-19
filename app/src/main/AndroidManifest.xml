@@ -29,6 +29,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.MainActivity" />
         </activity>
+        <activity
+            android:name=".activity.DebatesActivity"
+            android:label="Sedlex debates"
+            android:parentActivityName=".activity.LawDetailActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.LawDetailActivity" />
+        </activity>
     </application>
 
 </manifest>

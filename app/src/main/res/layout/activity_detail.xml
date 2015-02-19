@@ -123,7 +123,7 @@
                         <TableRow>
                             <!-- Column 1 -->
                             <TextView
-                                android:id="@+id/tbl_txt1"
+                                android:id="@+id/detail_debates_1"
                                 android:layout_width="0dp"
                                 android:layout_height="60dp"
                                 android:textSize="20sp"
@@ -136,7 +136,7 @@
 
                             <!-- Column 2 -->
                             <TextView
-                                android:id="@+id/tbl_txt2"
+                                android:id="@+id/detail_debates_2"
                                 android:layout_width="0dp"
                                 android:layout_height="60dp"
                                 android:textSize="20sp"
@@ -149,7 +149,7 @@
 
                             <!-- Column 3 -->
                             <TextView
-                                android:id="@+id/tbl_txt3"
+                                android:id="@+id/detail_debates_3"
                                 android:layout_width="0dp"
                                 android:layout_height="60dp"
                                 android:textSize="20sp"
@@ -164,7 +164,7 @@
                         <TableRow>
                             <!-- Column 1 -->
                             <TextView
-                                android:id="@+id/tbl_txt4"
+                                android:id="@+id/detail_debates_4"
                                 android:layout_width="0dp"
                                 android:layout_height="60dp"
                                 android:textSize="20sp"
@@ -177,7 +177,7 @@
 
                             <!-- Column 2 -->
                             <TextView
-                                android:id="@+id/tbl_txt5"
+                                android:id="@+id/detail_debates_5"
                                 android:layout_width="0dp"
                                 android:layout_height="60dp"
                                 android:textSize="20sp"
@@ -190,7 +190,7 @@
 
                             <!-- Column 3 -->
                             <TextView
-                                android:id="@+id/tbl_txt6"
+                                android:id="@+id/detail_debates_6"
                                 android:layout_width="0dp"
                                 android:layout_height="60dp"
                                 android:textSize="20sp"
