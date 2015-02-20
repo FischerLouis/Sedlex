@@ -27,7 +27,7 @@
         </TextView>
 
         <TextView
-            android:id="@+id/law_title"
+            android:id="@+id/debates_deputy_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="2"
@@ -66,6 +66,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/debates_layout_level_two_separator"
             android:layout_margin="5dp">
 
             <View
