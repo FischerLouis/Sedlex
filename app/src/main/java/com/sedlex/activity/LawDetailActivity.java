@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.DisplayMetrics;
@@ -147,18 +148,27 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
         ImageView stepOne = (ImageView) findViewById(R.id.detail_step_1);
         ImageView stepTwo = (ImageView) findViewById(R.id.detail_step_2);
         ImageView stepThree = (ImageView) findViewById(R.id.detail_step_3);
+        TextView stepOneText = (TextView) findViewById(R.id.detail_step_text_1);
+        TextView stepTwoText = (TextView) findViewById(R.id.detail_step_text_2);
+        TextView stepThreeText = (TextView) findViewById(R.id.detail_step_text_3);
 
         switch (progress){
             case 0:
                 stepOne.getLayoutParams().height = convertDpToPixel(IMAGEVIEW_BIG_DP, this);
+                stepOne.getLayoutParams().width = convertDpToPixel(IMAGEVIEW_BIG_DP, this);
+                stepOneText.setTypeface(Typeface.DEFAULT_BOLD);
                 break;
             case 1:
                 stepTwo.setImageResource(R.drawable.process_plt_color);
                 stepTwo.getLayoutParams().height = convertDpToPixel(IMAGEVIEW_BIG_DP, this);
+                stepTwo.getLayoutParams().width = convertDpToPixel(IMAGEVIEW_BIG_DP, this);
+                stepTwoText.setTypeface(Typeface.DEFAULT_BOLD);
                 break;
             case 2:
                 stepThree.setImageResource(R.drawable.process_adoption_color);
                 stepThree.getLayoutParams().height = convertDpToPixel(IMAGEVIEW_BIG_DP, this);
+                stepThree.getLayoutParams().width = convertDpToPixel(IMAGEVIEW_BIG_DP, this);
+                stepThreeText.setTypeface(Typeface.DEFAULT_BOLD);
                 break;
             default:
                 break;

@@ -10,56 +10,108 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_marginTop="10dp"
                 android:id="@+id/activity_detail_layout_progression"
                 android:weightSum="5"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
 
                 <TableRow>
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                    <LinearLayout
+                        android:orientation="vertical"
                         android:layout_gravity="center"
-                        android:id="@+id/detail_step_1"
+                        android:gravity="center"
+                        android:layout_weight="1">
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:id="@+id/detail_step_1"
+                            android:contentDescription="@string/content_description"
+                            android:src="@drawable/process_gov_color"/>
+                        <TextView
+                            android:id="@+id/detail_step_text_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/depot"
+                            android:textSize="12sp"
+                            android:textColor="@color/black"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_height="fill_parent"
+                        android:layout_width="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
                         android:layout_weight="1"
-                        android:contentDescription="@string/content_description"
-                        android:src="@drawable/process_gov_color"/>
+                        android:layout_marginBottom="10dp"
+                        android:baselineAligned="false">
+                        <View
+                            android:layout_width="60dp"
+                            android:layout_height="2dp"
+                            android:background="@color/black"/>
 
-                    <View
-                        android:layout_width="40dp"
-                        android:layout_height="2dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:background="@color/black"/>
+                    </LinearLayout>
 
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                    <LinearLayout
+                        android:orientation="vertical"
                         android:layout_gravity="center"
-                        android:id="@+id/detail_step_2"
-                        android:layout_weight="1"
-                        android:contentDescription="@string/content_description"
-                        android:src="@drawable/process_plt_bw"/>
+                        android:gravity="center"
+                        android:layout_weight="1">
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:id="@+id/detail_step_2"
+                            android:contentDescription="@string/content_description"
+                            android:src="@drawable/process_plt_bw"/>
+                        <TextView
+                            android:id="@+id/detail_step_text_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/examen"
+                            android:textSize="12sp"
+                            android:textColor="@color/black"/>
+                    </LinearLayout>
 
-                    <View
-                        android:layout_width="40dp"
-                        android:layout_height="2dp"
+                    <LinearLayout
+                        android:layout_height="fill_parent"
+                        android:layout_width="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:background="@color/black"/>
+                        android:gravity="center"
+                        android:layout_weight="1">
+                        <View
+                            android:layout_width="60dp"
+                            android:layout_height="2dp"
+                            android:background="@color/black"
+                            android:layout_marginBottom="10dp" />
 
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
                         android:layout_gravity="center"
-                        android:id="@+id/detail_step_3"
-                        android:layout_weight="1"
-                        android:contentDescription="@string/content_description"
-                        android:src="@drawable/process_adoption_bw"/>
+                        android:gravity="center"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:id="@+id/detail_step_3"
+                            android:contentDescription="@string/content_description"
+                            android:src="@drawable/process_adoption_bw"/>
+                        <TextView
+                            android:id="@+id/detail_step_text_3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/adoption"
+                            android:textSize="12sp"
+                            android:textColor="@color/black"/>
+                    </LinearLayout>
+
                 </TableRow>
             </TableLayout>
 
@@ -69,12 +121,16 @@
                 android:layout_width="match_parent"
                 android:id="@+id/activity_detail_layout_text"
                 android:layout_below="@+id/activity_detail_layout_progression"
-                android:layout_margin="15dp">
+                android:layout_marginBottom="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingTop="7dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="7dp"
+                    android:paddingLeft="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -82,7 +138,9 @@
                         android:textColor="@color/black"
                         android:text="@string/detail_title"
                         android:textStyle="bold"
-                        android:textSize="18sp"/>
+                        android:textSize="16sp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -90,7 +148,8 @@
                         android:id="@+id/detail_content"
                         android:textColor="@color/black"
                         android:text="@string/loading"
-                        android:textSize="12sp"/>
+                        android:textSize="13sp"
+                        android:ellipsize="end"/>
 
                 </LinearLayout>
             </android.support.v7.widget.CardView>
@@ -101,7 +160,7 @@
                 android:layout_width="match_parent"
                 android:id="@+id/activity_detail_layout_opinions"
                 android:layout_below="@+id/activity_detail_layout_text"
-                android:layout_margin="15dp">
+                android:layout_marginBottom="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -113,95 +172,90 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:text="@string/detail_debats"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginBottom="7dp"
                         android:textStyle="bold"
-                        android:textSize="18sp"/>
+                        android:textSize="16sp"/>
 
-                    <TableLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <TableRow>
-                            <!-- Column 1 -->
                             <TextView
                                 android:id="@+id/detail_debates_1"
                                 android:layout_width="0dp"
-                                android:layout_height="60dp"
-                                android:textSize="20sp"
+                                android:layout_height="50dp"
+                                android:textSize="18sp"
                                 android:fontFamily="sans-serif-light"
                                 android:gravity="center"
-                                android:background="@color/blue"
+                                android:background="@color/red600"
                                 android:textColor="@color/white"
                                 android:layout_weight="1"
-                                android:text="@string/parti_ump" />
+                                android:text="@string/parti_communiste" />
 
-                            <!-- Column 2 -->
                             <TextView
                                 android:id="@+id/detail_debates_2"
                                 android:layout_width="0dp"
-                                android:layout_height="60dp"
-                                android:textSize="20sp"
+                                android:layout_height="50dp"
+                                android:textSize="18sp"
                                 android:fontFamily="sans-serif-light"
                                 android:gravity="center"
-                                android:background="@color/pink"
+                                android:background="@color/pink300"
                                 android:textColor="@color/white"
                                 android:layout_weight="1"
                                 android:text="@string/parti_ps" />
 
-                            <!-- Column 3 -->
                             <TextView
                                 android:id="@+id/detail_debates_3"
                                 android:layout_width="0dp"
-                                android:layout_height="60dp"
-                                android:textSize="20sp"
+                                android:layout_height="50dp"
+                                android:textSize="18sp"
                                 android:fontFamily="sans-serif-light"
                                 android:gravity="center"
-                                android:background="@color/orange"
-                                android:textColor="@color/white"
-                                android:layout_weight="1"
-                                android:text="@string/parti_udi" />
-                        </TableRow>
-
-                        <TableRow>
-                            <!-- Column 1 -->
-                            <TextView
-                                android:id="@+id/detail_debates_4"
-                                android:layout_width="0dp"
-                                android:layout_height="60dp"
-                                android:textSize="20sp"
-                                android:fontFamily="sans-serif-light"
-                                android:gravity="center"
-                                android:background="@color/light_green"
-                                android:textColor="@color/white"
-                                android:layout_weight="1"
-                                android:text="@string/parti_vert" />
-
-                            <!-- Column 2 -->
-                            <TextView
-                                android:id="@+id/detail_debates_5"
-                                android:layout_width="0dp"
-                                android:layout_height="60dp"
-                                android:textSize="20sp"
-                                android:fontFamily="sans-serif-light"
-                                android:gravity="center"
-                                android:background="@color/teal"
+                                android:background="@color/pink200"
                                 android:textColor="@color/white"
                                 android:layout_weight="1"
                                 android:text="@string/parti_radicaux" />
 
-                            <!-- Column 3 -->
+                            <TextView
+                                android:id="@+id/detail_debates_4"
+                                android:layout_width="0dp"
+                                android:layout_height="50dp"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-light"
+                                android:gravity="center"
+                                android:background="@color/green"
+                                android:textColor="@color/white"
+                                android:layout_weight="1"
+                                android:text="@string/parti_vert" />
+
+                            <TextView
+                                android:id="@+id/detail_debates_5"
+                                android:layout_width="0dp"
+                                android:layout_height="50dp"
+                                android:textSize="18sp"
+                                android:fontFamily="sans-serif-light"
+                                android:gravity="center"
+                                android:background="@color/amber900"
+                                android:textColor="@color/white"
+                                android:layout_weight="1"
+                                android:text="@string/parti_udi" />
+
                             <TextView
                                 android:id="@+id/detail_debates_6"
                                 android:layout_width="0dp"
-                                android:layout_height="60dp"
-                                android:textSize="20sp"
+                                android:layout_height="50dp"
+                                android:textSize="18sp"
                                 android:fontFamily="sans-serif-light"
                                 android:gravity="center"
-                                android:background="@color/red"
+                                android:background="@color/indigo500"
                                 android:textColor="@color/white"
                                 android:layout_weight="1"
-                                android:text="@string/parti_communiste" />
-                        </TableRow>
-                    </TableLayout>
+                                android:text="@string/parti_ump" />
+
+                    </LinearLayout>
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
@@ -212,7 +266,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/grey"
+        android:background="@color/grey800"
         android:orientation="horizontal"
         android:padding="10dp"
         android:layout_alignParentBottom="true">
@@ -230,7 +284,7 @@
                     android:textSize="20sp"
                     android:padding="10dp"
                     android:layout_weight="1"
-                    android:background="@color/blue"
+                    android:background="@color/blue500"
                     android:gravity="center"
                     android:textColor="@color/white"
                     android:fontFamily="sans-serif-light"
@@ -245,7 +299,7 @@
                     android:textSize="20sp"
                     android:padding="10dp"
                     android:layout_weight="1"
-                    android:background="@color/pink"
+                    android:background="@color/redA200"
                     android:gravity="center"
                     android:layout_marginLeft="5dp"
                     android:textColor="@color/white"

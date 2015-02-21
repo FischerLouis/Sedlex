@@ -38,4 +38,8 @@
     <string name="parti_vert">Ve</string>
     <string name="parti_radicaux">Ra</string>
     <string name="parti_communiste">Co</string>
+
+    <string name="depot">Dépôt</string>
+    <string name="examen">Examen</string>
+    <string name="adoption">Adoption</string>
 </resources>
