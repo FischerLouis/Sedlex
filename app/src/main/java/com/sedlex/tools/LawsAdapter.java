@@ -23,6 +23,8 @@ import java.util.ArrayList;
 
 public class LawsAdapter extends RecyclerView.Adapter<LawsAdapter.ViewHolder> {
 
+    private static int SUMMARY_MAX_LINES = 4;
+
     private static Context context;
     private final ArrayList<Law> lawsList;
     private int rowLayoutId;
@@ -36,7 +38,7 @@ public class LawsAdapter extends RecyclerView.Adapter<LawsAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView lawTitle;
-        public TextView lawSummary;
+        public EllipsizingTextView lawSummary;
         public View firstStep;
         public View secondStep;
         public View thirdStep;
@@ -50,7 +52,7 @@ public class LawsAdapter extends RecyclerView.Adapter<LawsAdapter.ViewHolder> {
             super(itemView);
             itemView.setOnClickListener(this);
             lawTitle = (TextView) itemView.findViewById(R.id.law_title);
-            lawSummary = (TextView) itemView.findViewById(R.id.law_summary);
+            lawSummary = (EllipsizingTextView) itemView.findViewById(R.id.law_summary);
             firstStep = itemView.findViewById(R.id.law_step_1);
             secondStep = itemView.findViewById(R.id.law_step_2);
             thirdStep = itemView.findViewById(R.id.law_step_3);
@@ -62,16 +64,13 @@ public class LawsAdapter extends RecyclerView.Adapter<LawsAdapter.ViewHolder> {
         }
 
         public void updateCategories (ArrayList<Category> categories){
-
             String categoriesDesc = "";
-
             for(int i = 0;i<categories.size();i++){
                 categoriesDesc += categories.get(i).getTitle();
                 if( i != categories.size() - 1){
                     categoriesDesc += ", ";
                 }
             }
-
             viewCategory.setText(categoriesDesc);
         }
 
@@ -130,6 +129,7 @@ public class LawsAdapter extends RecyclerView.Adapter<LawsAdapter.ViewHolder> {
         Law law = lawsList.get(i);
         viewHolder.lawTitle.setText(Html.fromHtml(law.getTitle()));
         viewHolder.lawSummary.setText(Html.fromHtml(law.getSummary()));
+        viewHolder.lawSummary.setMaxLines(SUMMARY_MAX_LINES);
         int progress = viewHolder.updateProgression(law.getProgression());
         viewHolder.progressLayout.setTag(progress);
         viewHolder.updateCategories(law.getCategories());

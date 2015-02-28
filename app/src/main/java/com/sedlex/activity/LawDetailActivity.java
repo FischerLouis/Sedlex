@@ -22,6 +22,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.sedlex.R;
 import com.sedlex.tools.Constants;
+import com.sedlex.tools.EllipsizingTextView;
 import com.sedlex.tools.VolleySingleton;
 
 import org.json.JSONException;
@@ -34,10 +35,12 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
     public static final String ARG_LAWID = "ARG_LAWID";
     public static final int ARG_INT_DEFAULT = 0;
 
-    //public static final int IMAGEVIEW_SMALL_DP = 40;
-    public static final int IMAGEVIEW_BIG_DP = 60;
 
-    private TextView lawContentView;
+    //public static final int IMAGEVIEW_SMALL_DP = 40;
+    private static final int IMAGEVIEW_BIG_DP = 60;
+    private static final int CONTENTVIEW_MAX_LINES = 8;
+
+    private EllipsizingTextView lawContentView;
     private boolean extendedContent = true;
     private int lawId;
     private String lawTitle;
@@ -60,7 +63,7 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
         Log.d("DEBUG","id:"+lawId);
 
         //RETRIEVE VIEWS
-        lawContentView = (TextView) findViewById(R.id.detail_content);
+        lawContentView = (EllipsizingTextView) findViewById(R.id.detail_content);
         TextView approveButton = (TextView) findViewById(R.id.detail_button_approve);
         TextView disapproveButton = (TextView) findViewById(R.id.detail_button_disapprove);
         TextView debatesOne = (TextView) findViewById(R.id.detail_debates_1);
@@ -134,7 +137,7 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
 
     private void updateContentView(){
         if(extendedContent){
-            lawContentView.setMaxLines(8);
+            lawContentView.setMaxLines(CONTENTVIEW_MAX_LINES);
             extendedContent = false;
         }
         else{

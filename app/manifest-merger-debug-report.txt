@@ -70,15 +70,25 @@ ADDED from AndroidManifest.xml:24:9
 	android:label
 		ADDED from AndroidManifest.xml:26:13
 	android:parentActivityName
-		ADDED from AndroidManifest.xml:27:13
+		ADDED from AndroidManifest.xml:28:13
 	android:name
 		ADDED from AndroidManifest.xml:25:13
+	android:launchMode
+		ADDED from AndroidManifest.xml:27:13
 meta-data#android.support.PARENT_ACTIVITY
-ADDED from AndroidManifest.xml:28:13
+ADDED from AndroidManifest.xml:29:13
 	android:name
-		ADDED from AndroidManifest.xml:29:17
-	android:value
 		ADDED from AndroidManifest.xml:30:17
+	android:value
+		ADDED from AndroidManifest.xml:31:17
+activity#com.sedlex.activity.DebatesActivity
+ADDED from AndroidManifest.xml:33:9
+	android:label
+		ADDED from AndroidManifest.xml:35:13
+	android:parentActivityName
+		ADDED from AndroidManifest.xml:36:13
+	android:name
+		ADDED from AndroidManifest.xml:34:13
 activity#android.support.v7.widget.TestActivity
 ADDED from com.android.support:recyclerview-v7:21.0.3:18:9
 	android:label

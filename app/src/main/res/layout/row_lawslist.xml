@@ -58,16 +58,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp">
-            <TextView
+            <com.sedlex.tools.EllipsizingTextView
                 android:id="@+id/law_summary"
                 android:layout_width="match_parent"
                 android:textColor="@color/black"
-                android:maxLines="4"
                 android:layout_marginBottom="5dp"
                 android:layout_height="wrap_content"
                 android:text="@string/activity_summary"
-                android:textSize="12sp" >
-            </TextView>
+                android:textSize="12sp" />
 
         </RelativeLayout>
 
