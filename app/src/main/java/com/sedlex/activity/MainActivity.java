@@ -48,7 +48,7 @@ public class MainActivity extends ActionBarActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         listView.setLayoutManager(linearLayoutManager);
         listView.setItemAnimator(new DefaultItemAnimator());
-        myContentManager.updateList(0);
+        myContentManager.updateList(0, false);
 
         //SWIPETOREFRESH LISTENER SETUP
         SwipeRefreshLayout mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_main_swipe_refresh_layout);
@@ -60,7 +60,7 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onLoadMore(int current_page) {
                 Log.v("DEBUG", "page= "+current_page);
-                myContentManager.updateList(current_page);
+                myContentManager.updateList(current_page, false);
             }
         };
         listView.setOnScrollListener(infiniteScrollListener);
@@ -99,7 +99,7 @@ public class MainActivity extends ActionBarActivity {
         @Override
         public void onRefresh() {
             refresh = true;
-            myContentManager.updateList(0);
+            myContentManager.updateList(0, true);
         }
     }
 }

@@ -54,6 +54,7 @@ public class DebatesActivity extends ActionBarActivity {
         String lawTitle = getIntent().getStringExtra(ARG_TITLE);
         setTitle(lawTitle);
         int lawId = getIntent().getIntExtra(ARG_LAWID, ARG_INT_DEFAULT);
+        Log.d("JSON","id: "+lawId);
 
         //GET VIEWS
         emptyView = (TextView) findViewById(R.id.debates_empty);
@@ -76,43 +77,28 @@ public class DebatesActivity extends ActionBarActivity {
         RequestQueue queue = VolleySingleton.getInstance().getRequestQueue();
         //URL TO LOAD
         String urlDebates = Constants.URL_LAW_DETAILS+lawId+Constants.URL_GET_DEBATES;
-        //CACHE CHECK
-        if(queue.getCache().get(urlDebates)!=null){
-            Log.d("VOLLEY_VIEW_3","CACHE");
-            //GET JSON FROM CACHE
-            try {
-                String cachedResponse = new String(queue.getCache().get(urlDebates).data);
-                JSONObject jsonCached = new JSONObject(cachedResponse);
-                updateFromJSON(jsonCached);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        else{
-            Log.d("VOLLEY_VIEW_3","NO CACHE");
-            //GET JSON FROM SERVER
-            JsonObjectRequest getDebatesReq = new JsonObjectRequest(Request.Method.GET, urlDebates, null,
-                    new Response.Listener<JSONObject>()
-                    {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            try {
-                                updateFromJSON(response);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    },
-                    new Response.ErrorListener()
-                    {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Log.d("Error.Response", error.getMessage());
+        //GET JSON FROM SERVER
+        JsonObjectRequest getDebatesReq = new JsonObjectRequest(Request.Method.GET, urlDebates, null,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            updateFromJSON(response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
                     }
-            );
-            queue.add(getDebatesReq);
-        }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error.Response", error.getMessage());
+                    }
+                }
+        );
+        queue.add(getDebatesReq);
     }
 
     private void updateFromJSON(JSONObject jsonLoaded) throws JSONException {

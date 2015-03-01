@@ -41,6 +41,7 @@ public class MyContentManager {
     private RequestQueue queue;
     private MainActivity activity;
     private int curPage = 0;
+    private boolean refresh = false;
 
 
     public MyContentManager(MainActivity activity) {
@@ -49,13 +50,14 @@ public class MyContentManager {
         queue = VolleySingleton.getInstance().getRequestQueue();
     }
 
-    final public ArrayList<Law> updateList(int page) {
+    final public void updateList(int page, boolean refreshList) {
+        refresh = refreshList;
         //CURPAGE SETUP
         curPage = page;
         //URL SETUP
-        String url = Constants.URL_LAWS+page;
+        String url = Constants.URL_LAWS_PAGE+page;
         //CACHE CHECK
-        if(queue.getCache().get(url)!=null){
+        if(queue.getCache().get(url)!=null && !refresh){
             Log.d("VOLLEY_VIEW_1","CACHE");
             //GET JSON FROM CACHE
             try {
@@ -91,11 +93,14 @@ public class MyContentManager {
             );
             queue.add(getLawsReq);
         }
-        return lawsList;
     }
 
     private void buildLawsList(JSONObject jsonLoaded) throws JSONException {
         JSONArray lawsArray = jsonLoaded.getJSONArray(STATIC_LAWS);
+        //EMPTY LIST IF REFRESH
+        if(refresh)
+            lawsList.clear();
+        //BUILD LIST
         for(int i=0;i<lawsArray.length();i++){
             Law curLaw = new Law();
             //SET ID
