@@ -1,4 +1,4 @@
-package com.sedlex.activity;
+package com.sedlex.activities;
 
 import android.app.ActionBar;
 import android.os.Bundle;
@@ -7,8 +7,8 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -17,16 +17,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.sedlex.R;
-import com.sedlex.object.Debate;
+import com.sedlex.objects.Debate;
 import com.sedlex.tools.Constants;
-import com.sedlex.tools.DebatesAdapter;
-import com.sedlex.tools.LawsAdapter;
+import com.sedlex.adapters.DebatesAdapter;
+import com.sedlex.tools.EllipsizingTextView;
 import com.sedlex.tools.VolleySingleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -39,6 +38,7 @@ public class DebatesActivity extends ActionBarActivity {
     private RecyclerView listView;
     private DebatesAdapter adapter;
     private TextView emptyView;
+    private ProgressBar loadingView;
     private ArrayList<Debate> debatesList;
 
     @Override
@@ -58,6 +58,7 @@ public class DebatesActivity extends ActionBarActivity {
 
         //GET VIEWS
         emptyView = (TextView) findViewById(R.id.debates_empty);
+        loadingView = (ProgressBar)findViewById(R.id.debates_loading);
 
         //DEBATES LIST FIRST SETUP
         listView = (RecyclerView) findViewById(R.id.debates_list);
@@ -67,10 +68,8 @@ public class DebatesActivity extends ActionBarActivity {
 
         //setDebatesList();
         updateDebatesList(lawId);
-
-        adapter = new DebatesAdapter(this, R.layout.row_debates, debatesList);
-        listView.setAdapter(adapter);
     }
+
 
     private void updateDebatesList(int lawId){
         //VOLLEY QUEUE
@@ -115,12 +114,14 @@ public class DebatesActivity extends ActionBarActivity {
                 curDebate.setText(debatesArray.getJSONObject(i).getString(STATIC_DEBATES_TEXT));
                 debatesList.add(curDebate);
             }
-            emptyView.setVisibility(View.GONE);
+            adapter = new DebatesAdapter(this, R.layout.row_debates, debatesList);
+            listView.setAdapter(adapter);
         }
         else{
             emptyView.setVisibility(View.VISIBLE);
             Log.d("JSON","EMPTY JSON");
         }
+        loadingView.setVisibility(View.GONE);
     }
 
 }

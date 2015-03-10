@@ -1,4 +1,4 @@
-package com.sedlex.activity;
+package com.sedlex.activities;
 
 import android.graphics.drawable.AnimationDrawable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -11,8 +11,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.sedlex.object.Law;
-import com.sedlex.tools.LawsAdapter;
+import com.sedlex.objects.Law;
+import com.sedlex.adapters.LawsAdapter;
 import com.sedlex.tools.MyContentManager;
 import com.sedlex.R;
 import com.sedlex.tools.InfiniteScrollListener;

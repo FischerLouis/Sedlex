@@ -1,4 +1,4 @@
-package com.sedlex.activity;
+package com.sedlex.activities;
 
 import android.app.ActionBar;
 import android.content.Context;

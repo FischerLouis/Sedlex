@@ -39,67 +39,32 @@
     </LinearLayout>
 
     <!--TEXT LEVEL 1 - COMPRESSED-->
-    <TextView
+    <com.sedlex.tools.EllipsizingTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/debates_text_level_one"
         android:layout_below="@+id/debates_layout_title"
         android:textSize="12sp"
-        android:text="@string/debates_text_level_one"/>
+        android:text="@string/debates_text_unknown"/>
 
-    <!--TEXT LEVEL 2 - SEMI-EXPENDED-->
-    <LinearLayout
+    <!--TEXT LEVEL 1 - SEMI-COMPRESSED-->
+    <com.sedlex.tools.EllipsizingTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/debates_layout_level_two"
+        android:id="@+id/debates_text_level_two"
         android:layout_below="@+id/debates_layout_title"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:textSize="12sp"
+        android:visibility="gone"
+        android:text="@string/debates_text_unknown"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/debates_text_level_two_top"
-            android:textSize="12sp"
-            android:text="@string/debates_text_level_two_top"/>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/debates_layout_level_two_separator"
-            android:layout_margin="5dp">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_centerVertical="true"
-                android:background="@color/grey"/>
-            <View
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_centerHorizontal="true"
-                android:id="@+id/debates_text_level_two_button"
-                android:paddingRight="50dp"
-                android:paddingLeft="50dp"
-                android:background="@color/grey"/>
-        </RelativeLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/debates_text_level_two_bottom"
-            android:textSize="12sp"
-            android:text="@string/debates_text_level_two_bottom"/>
-    </LinearLayout>
-
-    <!--TEXT LEVEL 3 - EXPENDED-->
-    <TextView
+    <!--TEXT LEVEL 1 - COMPRESSED-->
+    <com.sedlex.tools.EllipsizingTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/debates_text_level_three"
         android:layout_below="@+id/debates_layout_title"
         android:textSize="12sp"
-        android:text="@string/debates_text_level_three"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:text="@string/debates_text_unknown"/>
 
 </RelativeLayout>

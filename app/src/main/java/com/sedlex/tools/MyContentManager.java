@@ -7,10 +7,10 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.sedlex.activity.MainActivity;
-import com.sedlex.object.Category;
-import com.sedlex.object.Law;
-import com.sedlex.object.Stamp;
+import com.sedlex.activities.MainActivity;
+import com.sedlex.objects.Category;
+import com.sedlex.objects.Law;
+import com.sedlex.objects.Stamp;
 
 import org.json.JSONArray;
 import org.json.JSONException;

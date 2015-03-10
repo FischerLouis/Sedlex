@@ -13,7 +13,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,21 +22,21 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.LawDetailActivity"
+            android:name=".activities.LawDetailActivity"
             android:label="Sedlex detail"
             android:launchMode="singleTask"
-            android:parentActivityName=".activity.MainActivity">
+            android:parentActivityName=".activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.MainActivity" />
+                android:value=".activities.MainActivity" />
         </activity>
         <activity
-            android:name=".activity.DebatesActivity"
+            android:name=".activities.DebatesActivity"
             android:label="Sedlex debates"
-            android:parentActivityName=".activity.LawDetailActivity">
+            android:parentActivityName=".activities.LawDetailActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.LawDetailActivity" />
+                android:value=".activities.LawDetailActivity" />
         </activity>
     </application>
 

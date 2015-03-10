@@ -1,4 +1,4 @@
-package com.sedlex.object;
+package com.sedlex.objects;
 
 public class Debate {
 
@@ -6,6 +6,7 @@ public class Debate {
     private String deputyName;
     private Stamp stamp;
     private String text;
+    private String size = "UNSET";
 
     public int getId() {
         return id;
@@ -39,6 +40,14 @@ public class Debate {
         this.text = text;
     }
 
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
     @Override
     public String toString() {
         return "Debate{" +
@@ -46,6 +55,7 @@ public class Debate {
                 ", deputyName='" + deputyName + '\'' +
                 ", stamp=" + stamp +
                 ", text='" + text + '\'' +
+                ", size='" + size + '\'' +
                 '}';
     }
 }

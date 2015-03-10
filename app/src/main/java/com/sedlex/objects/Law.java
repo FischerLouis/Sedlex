@@ -1,4 +1,4 @@
-package com.sedlex.object;
+package com.sedlex.objects;
 
 import java.util.ArrayList;
 
