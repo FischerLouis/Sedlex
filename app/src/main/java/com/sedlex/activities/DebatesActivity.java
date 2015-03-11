@@ -18,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.sedlex.R;
 import com.sedlex.objects.Debate;
+import com.sedlex.objects.Stamp;
 import com.sedlex.tools.Constants;
 import com.sedlex.adapters.DebatesAdapter;
 import com.sedlex.tools.EllipsizingTextView;
@@ -104,14 +105,30 @@ public class DebatesActivity extends ActionBarActivity {
         final String STATIC_DEBATES = "debateInterventions";
         final String STATIC_DEBATES_DEPUTY_NAME = "name";
         final String STATIC_DEBATES_TEXT = "text";
+        final String STATIC_DEBATES_AUTHOR = "Author";
+        final String STATIC_DEBATES_PARTY = "Party";
+        final String STATIC_DEBATES_PARTY_ID = "id";
+        final String STATIC_DEBATES_PARTY_COLOR = "color";
+        final String STATIC_DEBATES_PARTY_ACRONYM = "acronym";
 
         JSONArray debatesArray = jsonLoaded.getJSONArray(STATIC_DEBATES);
         if(debatesArray.length() != 0) {
             debatesList = new ArrayList<>();
             for (int i = 0; i < debatesArray.length(); i++) {
                 Debate curDebate = new Debate();
+                //NAME
                 curDebate.setDeputyName(debatesArray.getJSONObject(i).getString(STATIC_DEBATES_DEPUTY_NAME));
+                //DEBATE TEXT
                 curDebate.setText(debatesArray.getJSONObject(i).getString(STATIC_DEBATES_TEXT));
+                //STAMP
+                if(!debatesArray.getJSONObject(i).getString(STATIC_DEBATES_AUTHOR).equals("null") && !debatesArray.getJSONObject(i).getJSONObject(STATIC_DEBATES_AUTHOR).getString(STATIC_DEBATES_PARTY).equals("null")) {
+                    JSONObject curParty = debatesArray.getJSONObject(i).getJSONObject(STATIC_DEBATES_AUTHOR).getJSONObject(STATIC_DEBATES_PARTY);
+                    Stamp curStamp = new Stamp();
+                    curStamp.setId(curParty.getInt(STATIC_DEBATES_PARTY_ID));
+                    curStamp.setColor(curParty.getString(STATIC_DEBATES_PARTY_COLOR));
+                    curStamp.setTitle(curParty.getString(STATIC_DEBATES_PARTY_ACRONYM));
+                    curDebate.setStamp(curStamp);
+                }
                 debatesList.add(curDebate);
             }
             adapter = new DebatesAdapter(this, R.layout.row_debates, debatesList);

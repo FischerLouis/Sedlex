@@ -47,24 +47,4 @@
         android:textSize="12sp"
         android:text="@string/debates_text_unknown"/>
 
-    <!--TEXT LEVEL 1 - SEMI-COMPRESSED-->
-    <com.sedlex.tools.EllipsizingTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/debates_text_level_two"
-        android:layout_below="@+id/debates_layout_title"
-        android:textSize="12sp"
-        android:visibility="gone"
-        android:text="@string/debates_text_unknown"/>
-
-    <!--TEXT LEVEL 1 - COMPRESSED-->
-    <com.sedlex.tools.EllipsizingTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/debates_text_level_three"
-        android:layout_below="@+id/debates_layout_title"
-        android:textSize="12sp"
-        android:visibility="gone"
-        android:text="@string/debates_text_unknown"/>
-
 </RelativeLayout>
