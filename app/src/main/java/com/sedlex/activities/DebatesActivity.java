@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -21,7 +22,6 @@ import com.sedlex.objects.Debate;
 import com.sedlex.objects.Stamp;
 import com.sedlex.tools.Constants;
 import com.sedlex.adapters.DebatesAdapter;
-import com.sedlex.tools.EllipsizingTextView;
 import com.sedlex.tools.VolleySingleton;
 
 import org.json.JSONArray;
@@ -34,6 +34,7 @@ public class DebatesActivity extends ActionBarActivity {
 
     public static final String ARG_TITLE = "ARG_TITLE";
     public static final String ARG_LAWID = "ARG_LAWID";
+    public static final String ARG_PARTY = "ARG_PARTY";
     public static final int ARG_INT_DEFAULT = 0;
 
     private RecyclerView listView;
@@ -41,6 +42,7 @@ public class DebatesActivity extends ActionBarActivity {
     private TextView emptyView;
     private ProgressBar loadingView;
     private ArrayList<Debate> debatesList;
+    private String party;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +57,8 @@ public class DebatesActivity extends ActionBarActivity {
         String lawTitle = getIntent().getStringExtra(ARG_TITLE);
         setTitle(lawTitle);
         int lawId = getIntent().getIntExtra(ARG_LAWID, ARG_INT_DEFAULT);
-        Log.d("JSON","id: "+lawId);
+        party = getIntent().getStringExtra(ARG_PARTY);
+        Log.d("PARTY",party);
 
         //GET VIEWS
         emptyView = (TextView) findViewById(R.id.debates_empty);
@@ -94,7 +97,7 @@ public class DebatesActivity extends ActionBarActivity {
                 {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("Error.Response", error.getMessage());
+                        Log.d("Error.Response", "Error");
                     }
                 }
         );
@@ -129,9 +132,22 @@ public class DebatesActivity extends ActionBarActivity {
                     curStamp.setTitle(curParty.getString(STATIC_DEBATES_PARTY_ACRONYM));
                     curDebate.setStamp(curStamp);
                 }
+                else{
+                    Stamp curStamp = new Stamp();
+                    curStamp.setId(0);
+                    curStamp.setColor("555555");
+                    curStamp.setTitle("?");
+                    curDebate.setStamp(curStamp);
+                }
                 debatesList.add(curDebate);
             }
-            adapter = new DebatesAdapter(this, R.layout.row_debates, debatesList);
+            ArrayList<Debate> formattedList = formatListFromParty(party);
+            if(formattedList.size() > 0)
+                adapter = new DebatesAdapter(this, R.layout.row_debates, formattedList);
+            else {
+                adapter = new DebatesAdapter(this, R.layout.row_debates, debatesList);
+                Toast.makeText(this, "No "+party+" debates to display.",Toast.LENGTH_SHORT).show();
+            }
             listView.setAdapter(adapter);
         }
         else{
@@ -140,5 +156,25 @@ public class DebatesActivity extends ActionBarActivity {
         }
         loadingView.setVisibility(View.GONE);
     }
+
+    private ArrayList<Debate> formatListFromParty(String party){
+        ArrayList<Debate> formattedDebatesList = new ArrayList<>();
+        int counter = 0;
+
+        for(int i = 0;i<debatesList.size();i++){
+            if (debatesList.get(i).getStamp().getTitle().equals(party)) {
+                if (counter != 0) {
+                    Debate fakeDebate = new Debate(true, counter);
+                    formattedDebatesList.add(fakeDebate);
+                    counter = 0;
+                }
+                formattedDebatesList.add(debatesList.get(i));
+            } else {
+                counter++;
+            }
+        }
+        return formattedDebatesList;
+    }
+
 
 }

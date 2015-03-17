@@ -58,7 +58,6 @@ public class DebatesAdapter extends RecyclerView.Adapter<DebatesAdapter.ViewHold
         @Override
         public void onClick(View view) {
             EllipsizingTextView test = (EllipsizingTextView)view.findViewById(R.id.debates_text_level_one);
-            Log.d("ELLIPS", "BOOL: " + test.isEllipsized());
             //LEVEL 1 => LEVEL 2
             if(!semiExpended && !expended){
                 test.setMaxLines(TEXT_LEVEL_TWO_NUMBER_LINES);
@@ -92,6 +91,7 @@ public class DebatesAdapter extends RecyclerView.Adapter<DebatesAdapter.ViewHold
                 //COLOR
                 GradientDrawable circleBackground = (GradientDrawable) context.getResources().getDrawable(R.drawable.circle);
                 String color = "#" + stamp.getColor();
+                Log.d("COLOR",color);
                 circleBackground.setColor(Color.parseColor(color));
                 stampView.setBackground(circleBackground);
             }
@@ -106,31 +106,18 @@ public class DebatesAdapter extends RecyclerView.Adapter<DebatesAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(DebatesAdapter.ViewHolder viewHolder, int i) {
+
         Debate debate = debatesList.get(i);
-        viewHolder.deputyName.setText(debate.getDeputyName());
-        viewHolder.textLevelOne.setText(Html.fromHtml(debate.getText()));
-        Log.d("STAMP",""+debate.getStamp().toString());
-        viewHolder.updateInitiative(debate.getStamp());
-
-
-
-        /*viewHolder.textLevelOne.setOnLayoutListener(new EllipsizingTextView.OnLayoutListener() {
-            @Override
-            public void onLayouted(TextView view) {
-                int line = view.getLineCount();
-                if(line <= 1){
-                    view.setId(line);
-                }
-                else if(line <=10){
-                    view.setId(line);
-                }
-                else{
-                    view.setId(line);
-                }
-                Log.d("ID","tag3:"+view.getId());
-            }
-        });*/
-        viewHolder.textLevelOne.setMaxLines(TEXT_LEVEL_ONE_NUMBER_LINES);
+        if(!debate.isSeparator()) {
+            viewHolder.deputyName.setText(debate.getDeputyName());
+            viewHolder.textLevelOne.setText(Html.fromHtml(debate.getText()));
+            viewHolder.updateInitiative(debate.getStamp());
+            viewHolder.textLevelOne.setMaxLines(TEXT_LEVEL_ONE_NUMBER_LINES);
+        }
+        else{
+            viewHolder.deputyName.setText("separator");
+            viewHolder.stampView.setText(""+debate.getDebatesCount());
+        }
     }
 
     @Override

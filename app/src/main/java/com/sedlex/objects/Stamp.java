@@ -3,7 +3,7 @@ package com.sedlex.objects;
 public class Stamp {
 
     private int id;
-    private String title;
+    private String title = "?";
     private String color;
 
     public int getId() {

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:id="@+id/debates_row">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:id="@+id/debates_layout_title"
+        android:layout_marginBottom="5dp"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/debates_separator_count"
+            android:layout_width="38dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="38dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:background="@drawable/circle"
+            android:text="@string/debates_deputy_stamp_unknown"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center"
+            android:textSize="17sp" >
+        </TextView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey"
+            android:layout_gravity="center_vertical" />
+    </LinearLayout>
+
+</RelativeLayout>

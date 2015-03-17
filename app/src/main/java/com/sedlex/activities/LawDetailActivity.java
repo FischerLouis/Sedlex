@@ -67,6 +67,11 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
         TextView approveButton = (TextView) findViewById(R.id.detail_button_approve);
         TextView disapproveButton = (TextView) findViewById(R.id.detail_button_disapprove);
         TextView debatesOne = (TextView) findViewById(R.id.detail_debates_1);
+        TextView debatesTwo = (TextView) findViewById(R.id.detail_debates_2);
+        TextView debatesThree = (TextView) findViewById(R.id.detail_debates_3);
+        TextView debatesFour = (TextView) findViewById(R.id.detail_debates_4);
+        TextView debatesFive = (TextView) findViewById(R.id.detail_debates_5);
+        TextView debatesSix = (TextView) findViewById(R.id.detail_debates_6);
 
         //UPDATE PROGRESS VIEWS
         updateProgress(progress);
@@ -80,6 +85,11 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
         approveButton.setOnTouchListener(this);
         disapproveButton.setOnTouchListener(this);
         debatesOne.setOnTouchListener(this);
+        debatesTwo.setOnTouchListener(this);
+        debatesThree.setOnTouchListener(this);
+        debatesFour.setOnTouchListener(this);
+        debatesFive.setOnTouchListener(this);
+        debatesSix.setOnTouchListener(this);
     }
 
     private void updateLawDetailsContent(int lawId){
@@ -199,13 +209,36 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
                 case R.id.detail_button_disapprove:
                     Toast.makeText(this,"Je suis CONTRE ce texte." , Toast.LENGTH_SHORT).show();
                     break;
-                case R.id.detail_debates_1:
+                default:
                     Intent debatesIntent = new Intent(this, DebatesActivity.class);
                     debatesIntent.putExtra(DebatesActivity.ARG_TITLE, lawTitle);
                     debatesIntent.putExtra(DebatesActivity.ARG_LAWID, lawId);
-                    startActivity(debatesIntent);
-                    break;
-                default:
+                    switch (view.getId()){
+                       case R.id.detail_debates_1:
+                            debatesIntent.putExtra(DebatesActivity.ARG_PARTY, "Co");
+                            startActivity(debatesIntent);
+                            break;
+                        case R.id.detail_debates_2:
+                            debatesIntent.putExtra(DebatesActivity.ARG_PARTY, "PS");
+                            startActivity(debatesIntent);
+                            break;
+                        case R.id.detail_debates_3:
+                            debatesIntent.putExtra(DebatesActivity.ARG_PARTY, "Ra");
+                            startActivity(debatesIntent);
+                            break;
+                        case R.id.detail_debates_4:
+                            debatesIntent.putExtra(DebatesActivity.ARG_PARTY, "Ve");
+                            startActivity(debatesIntent);
+                            break;
+                        case R.id.detail_debates_5:
+                            debatesIntent.putExtra(DebatesActivity.ARG_PARTY, "UDI");
+                            startActivity(debatesIntent);
+                            break;
+                        case R.id.detail_debates_6:
+                            debatesIntent.putExtra(DebatesActivity.ARG_PARTY, "UMP");
+                            startActivity(debatesIntent);
+                            break;
+                    }
                     break;
             }
         }
