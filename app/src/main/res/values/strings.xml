@@ -11,6 +11,9 @@
     <string name="activity_initiative">"?"</string>
     <string name="activity_category">Category unknown</string>
 
+    <string name="activity_tag_id_progress">progress</string>
+    <string name="activity_tag_id_initiative">initiative</string>
+
 
 
     <!--DETAILS ACTIVITY-->

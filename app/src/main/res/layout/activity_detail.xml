@@ -28,12 +28,17 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:layout_weight="1">
-                        <ImageView
+                        <TextView
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:id="@+id/detail_step_1"
+                            android:gravity="center"
+                            android:fontFamily="sans-serif-light"
+                            android:textSize="18sp"
+                            android:text="G"
+                            android:textColor="@color/white"
                             android:contentDescription="@string/content_description"
-                            android:src="@drawable/process_gov_color"/>
+                            android:background="@color/deep_orange"/>
                         <TextView
                             android:id="@+id/detail_step_text_1"
                             android:layout_width="wrap_content"

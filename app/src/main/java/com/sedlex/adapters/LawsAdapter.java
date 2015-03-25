@@ -113,7 +113,8 @@ public class LawsAdapter extends RecyclerView.Adapter<LawsAdapter.ViewHolder> {
         public void onClick(View view) {
             Intent detailIntent = new Intent(context, LawDetailActivity.class);
             detailIntent.putExtra(LawDetailActivity.ARG_TITLE, lawTitle.getText().toString());
-            detailIntent.putExtra(LawDetailActivity.ARG_PROGRESS, (int)progressLayout.getTag());
+            detailIntent.putExtra(LawDetailActivity.ARG_PROGRESS, (int)progressLayout.getTag(R.string.activity_tag_id_progress));
+            detailIntent.putExtra(LawDetailActivity.ARG_INITIATIVE, (String)progressLayout.getTag(R.string.activity_tag_id_initiative));
             detailIntent.putExtra(LawDetailActivity.ARG_LAWID, (int)globalLayout.getTag());
             context.startActivity(detailIntent);
         }
@@ -132,7 +133,8 @@ public class LawsAdapter extends RecyclerView.Adapter<LawsAdapter.ViewHolder> {
         viewHolder.lawSummary.setText(Html.fromHtml(law.getSummary()));
         viewHolder.lawSummary.setMaxLines(SUMMARY_MAX_LINES);
         int progress = viewHolder.updateProgression(law.getProgression());
-        viewHolder.progressLayout.setTag(progress);
+        viewHolder.progressLayout.setTag(R.string.activity_tag_id_progress, progress);
+        viewHolder.progressLayout.setTag(R.string.activity_tag_id_initiative,law.getStamp().getTitle());
         viewHolder.updateCategories(law.getCategories());
         viewHolder.updateInitiative(law.getStamp());
         viewHolder.globalLayout.setTag(law.getId());
