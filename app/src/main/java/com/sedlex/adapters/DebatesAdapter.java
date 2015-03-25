@@ -5,48 +5,49 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sedlex.R;
+import com.sedlex.activities.DebatesActivity;
 import com.sedlex.objects.Debate;
 import com.sedlex.objects.Stamp;
 import com.sedlex.tools.EllipsizingTextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class DebatesAdapter extends RecyclerView.Adapter<DebatesAdapter.ViewHolder> {
+public class DebatesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static int TEXT_LEVEL_ONE_NUMBER_LINES = 1;
     private static int TEXT_LEVEL_TWO_NUMBER_LINES = 10;
 
-    private static Context context;
+    private static DebatesActivity debatesActivity;
     private final ArrayList<Debate> debatesList;
-    private int rowLayoutId;
+    private final HashMap<Integer, ArrayList<Debate>> hiddenDebatesMap;
+
+
     private static boolean expended = false;
     private static boolean semiExpended = false;
     private static boolean wasExpended = false;
 
-    public DebatesAdapter(Context context, int rowLayoutId, ArrayList<Debate> debatesList) {
-        this.rowLayoutId = rowLayoutId;
+    public DebatesAdapter(DebatesActivity debatesActivity, ArrayList<Debate> debatesList, HashMap<Integer, ArrayList<Debate>> hiddenDebatesMap) {
         this.debatesList = debatesList;
-        this.context = context;
+        this.hiddenDebatesMap = hiddenDebatesMap;
+        this.debatesActivity = debatesActivity;
     }
-
-
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    //VIEW HOLDER FOR DEBATE ROWS
+    public static class ViewHolderDebate extends RecyclerView.ViewHolder implements View.OnClickListener {
         public EllipsizingTextView textLevelOne;
 
         public TextView deputyName;
         public TextView stampView;
 
-        public ViewHolder(View itemView) {
+        public ViewHolderDebate(View itemView) {
             super(itemView);
             textLevelOne = (EllipsizingTextView) itemView.findViewById(R.id.debates_text_level_one);
             deputyName = (TextView) itemView.findViewById(R.id.debates_deputy_name);
@@ -89,35 +90,68 @@ public class DebatesAdapter extends RecyclerView.Adapter<DebatesAdapter.ViewHold
                 //TITLE
                 stampView.setText(stamp.getTitle());
                 //COLOR
-                GradientDrawable circleBackground = (GradientDrawable) context.getResources().getDrawable(R.drawable.circle);
+                GradientDrawable circleBackground = (GradientDrawable) debatesActivity.getResources().getDrawable(R.drawable.circle);
                 String color = "#" + stamp.getColor();
-                Log.d("COLOR",color);
                 circleBackground.setColor(Color.parseColor(color));
                 stampView.setBackground(circleBackground);
             }
         }
     }
 
-    @Override
-    public DebatesAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(rowLayoutId, viewGroup, false);
-        return new ViewHolder(v);
+    //VIEW HOLDER FOR SEPARATOR ROWS
+    public static class ViewHolderSeparator extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        public TextView countView;
+        public RelativeLayout separatorLayout;
+
+        public ViewHolderSeparator(View itemView) {
+            super(itemView);
+            countView = (TextView)itemView.findViewById(R.id.debates_separator_count);
+            separatorLayout = (RelativeLayout)itemView.findViewById(R.id.debates_row_separator);
+            itemView.setOnClickListener(this);
+        }
+
+
+        @Override
+        public void onClick(View view) {
+            int id = (Integer)view.getTag();
+            debatesActivity.showHiddenDebate(id);
+        }
     }
 
     @Override
-    public void onBindViewHolder(DebatesAdapter.ViewHolder viewHolder, int i) {
-
-        Debate debate = debatesList.get(i);
-        if(!debate.isSeparator()) {
-            viewHolder.deputyName.setText(debate.getDeputyName());
-            viewHolder.textLevelOne.setText(Html.fromHtml(debate.getText()));
-            viewHolder.updateInitiative(debate.getStamp());
-            viewHolder.textLevelOne.setMaxLines(TEXT_LEVEL_ONE_NUMBER_LINES);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        if (viewType == 0) {
+            return new ViewHolderDebate(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_debates, viewGroup, false));
         }
         else{
-            viewHolder.deputyName.setText("separator");
-            viewHolder.stampView.setText(""+debate.getDebatesCount());
+            return new ViewHolderSeparator(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_debates_separator, viewGroup, false));
         }
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int i) {
+        Debate debate = debatesList.get(i);
+        if(viewHolder.getItemViewType() == 0) {
+            ViewHolderDebate rowDebate = (ViewHolderDebate) viewHolder;
+            rowDebate.deputyName.setText(debate.getDeputyName());
+            rowDebate.textLevelOne.setText(Html.fromHtml(debate.getText()));
+            rowDebate.updateInitiative(debate.getStamp());
+            rowDebate.textLevelOne.setMaxLines(TEXT_LEVEL_ONE_NUMBER_LINES);
+        }
+        else{
+            ViewHolderSeparator rowSeparator = (ViewHolderSeparator) viewHolder;
+            rowSeparator.countView.setText(""+debate.getDebatesCount());
+            viewHolder.itemView.setTag(debate.getId());
+        }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if(debatesList.get(position).isSeparator())
+            return 1;
+        else
+            return 0;
     }
 
     @Override

@@ -32,9 +32,9 @@
     <string name="parti_ps">PS</string>
     <string name="parti_ump">UMP</string>
     <string name="parti_udi">UDI</string>
-    <string name="parti_vert">Ve</string>
-    <string name="parti_radicaux">Ra</string>
-    <string name="parti_communiste">Co</string>
+    <string name="parti_vert">V</string>
+    <string name="parti_radicaux">Rad</string>
+    <string name="parti_communiste">PC</string>
 
     <string name="depot">Dépôt</string>
     <string name="examen">Examen</string>

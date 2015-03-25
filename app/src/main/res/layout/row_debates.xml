@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    android:id="@+id/debates_row">
+    android:id="@+id/debates_separator_row">
 
     <LinearLayout
         android:orientation="horizontal"

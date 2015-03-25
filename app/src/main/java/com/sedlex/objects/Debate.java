@@ -15,9 +15,10 @@ public class Debate {
     }
 
     // CONSTRUCTOR FOR SEPARATOR DEBATES
-    public Debate(boolean isSeparator, int debatesCount) {
+    public Debate(boolean isSeparator, int debatesCount, int id) {
         this.isSeparator = isSeparator;
         this.debatesCount = debatesCount;
+        this.id = id;
     }
 
     public int getId() {

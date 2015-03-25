@@ -215,27 +215,27 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
                     debatesIntent.putExtra(DebatesActivity.ARG_LAWID, lawId);
                     switch (view.getId()){
                        case R.id.detail_debates_1:
-                            debatesIntent.putExtra(DebatesActivity.ARG_PARTY, "Co");
+                            debatesIntent.putExtra(DebatesActivity.ARG_PARTY, getResources().getString(R.string.parti_communiste));
                             startActivity(debatesIntent);
                             break;
                         case R.id.detail_debates_2:
-                            debatesIntent.putExtra(DebatesActivity.ARG_PARTY, "PS");
+                            debatesIntent.putExtra(DebatesActivity.ARG_PARTY, getResources().getString(R.string.parti_ps));
                             startActivity(debatesIntent);
                             break;
                         case R.id.detail_debates_3:
-                            debatesIntent.putExtra(DebatesActivity.ARG_PARTY, "Ra");
+                            debatesIntent.putExtra(DebatesActivity.ARG_PARTY, getResources().getString(R.string.parti_radicaux));
                             startActivity(debatesIntent);
                             break;
                         case R.id.detail_debates_4:
-                            debatesIntent.putExtra(DebatesActivity.ARG_PARTY, "Ve");
+                            debatesIntent.putExtra(DebatesActivity.ARG_PARTY, getResources().getString(R.string.parti_vert));
                             startActivity(debatesIntent);
                             break;
                         case R.id.detail_debates_5:
-                            debatesIntent.putExtra(DebatesActivity.ARG_PARTY, "UDI");
+                            debatesIntent.putExtra(DebatesActivity.ARG_PARTY, getResources().getString(R.string.parti_udi));
                             startActivity(debatesIntent);
                             break;
                         case R.id.detail_debates_6:
-                            debatesIntent.putExtra(DebatesActivity.ARG_PARTY, "UMP");
+                            debatesIntent.putExtra(DebatesActivity.ARG_PARTY, getResources().getString(R.string.parti_ump));
                             startActivity(debatesIntent);
                             break;
                     }

@@ -29,6 +29,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DebatesActivity extends ActionBarActivity {
 
@@ -43,6 +44,9 @@ public class DebatesActivity extends ActionBarActivity {
     private ProgressBar loadingView;
     private ArrayList<Debate> debatesList;
     private String party;
+
+    private ArrayList<Debate> formattedDebatesList;
+    private HashMap<Integer, ArrayList<Debate>> hiddenDebatesMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,11 +145,11 @@ public class DebatesActivity extends ActionBarActivity {
                 }
                 debatesList.add(curDebate);
             }
-            ArrayList<Debate> formattedList = formatListFromParty(party);
-            if(formattedList.size() > 0)
-                adapter = new DebatesAdapter(this, R.layout.row_debates, formattedList);
+            formatListFromParty(party);
+            if(formattedDebatesList.size() > 0)
+                adapter = new DebatesAdapter(this, formattedDebatesList, hiddenDebatesMap);
             else {
-                adapter = new DebatesAdapter(this, R.layout.row_debates, debatesList);
+                adapter = new DebatesAdapter(this, debatesList, null);
                 Toast.makeText(this, "No "+party+" debates to display.",Toast.LENGTH_SHORT).show();
             }
             listView.setAdapter(adapter);
@@ -157,24 +161,48 @@ public class DebatesActivity extends ActionBarActivity {
         loadingView.setVisibility(View.GONE);
     }
 
-    private ArrayList<Debate> formatListFromParty(String party){
-        ArrayList<Debate> formattedDebatesList = new ArrayList<>();
+    private void formatListFromParty(String party){
+        formattedDebatesList = new ArrayList<>();
+        hiddenDebatesMap = new HashMap<>();
+        ArrayList<Debate> curHiddenDebateList = new ArrayList<>();
         int counter = 0;
 
         for(int i = 0;i<debatesList.size();i++){
             if (debatesList.get(i).getStamp().getTitle().equals(party)) {
                 if (counter != 0) {
-                    Debate fakeDebate = new Debate(true, counter);
+                    //ADD SEPARATOR TO MAIN LIST
+                    Debate fakeDebate = new Debate(true, counter, formattedDebatesList.size());
                     formattedDebatesList.add(fakeDebate);
+                    //ADD MAPPING TO HIDDEN LIST
+                    hiddenDebatesMap.put(fakeDebate.getId(), curHiddenDebateList);
+                    //RESET COUNTER & LIST
                     counter = 0;
+                    curHiddenDebateList = new ArrayList<>();
                 }
                 formattedDebatesList.add(debatesList.get(i));
             } else {
+                curHiddenDebateList.add(debatesList.get(i));
                 counter++;
             }
         }
-        return formattedDebatesList;
     }
 
+    public void showHiddenDebate(int id){
+        Boolean separatorFound = false;
+        int i = 0;
+        ArrayList<Debate> debatesToShow = hiddenDebatesMap.get(id);
+        while(i<=formattedDebatesList.size() && !separatorFound){
+            Log.d("DEBUG","i "+i);
+            if(formattedDebatesList.get(i).getId() == id){
+                formattedDebatesList.remove(i);
+                for (int j = 0; j < debatesToShow.size(); j++) {
+                    formattedDebatesList.add(i+j, debatesToShow.get(j));
+                }
+                separatorFound = true;
+            }
+            i++;
+        }
+        adapter.notifyDataSetChanged();
+    }
 
 }
