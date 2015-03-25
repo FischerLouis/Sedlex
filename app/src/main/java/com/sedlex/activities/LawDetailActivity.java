@@ -11,6 +11,9 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +35,7 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
 
     public static final String ARG_TITLE = "ARG_TITLE";
     public static final String ARG_PROGRESS = "ARG_PROGRESS";
+    public static final String ARG_INITIATIVE = "ARG_INITIATIVE";
     public static final String ARG_LAWID = "ARG_LAWID";
     public static final int ARG_INT_DEFAULT = 0;
 
@@ -41,9 +45,11 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
     private static final int CONTENTVIEW_MAX_LINES = 8;
 
     private EllipsizingTextView lawContentView;
+    private AnimationSet loadingAnimationSet;
     private boolean extendedContent = true;
     private int lawId;
     private String lawTitle;
+    private String lawInitiative;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +62,7 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
         }
         // RETRIEVE AND SET PASSED DATA
         lawTitle = getIntent().getStringExtra(ARG_TITLE);
+        lawInitiative = getIntent().getStringExtra(ARG_INITIATIVE);
         setTitle(lawTitle);
         int progress = getIntent().getIntExtra(ARG_PROGRESS, ARG_INT_DEFAULT);
         Log.d("DEBUG", "progess:" + progress);
@@ -76,6 +83,17 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
         //UPDATE PROGRESS VIEWS
         updateProgress(progress);
 
+        // PREPARE LOADING ANIMATION
+        final Animation in = new AlphaAnimation(0.0f, 1.0f);
+        in.setDuration(2000);
+
+        final Animation out = new AlphaAnimation(1.0f, 0.0f);
+        out.setDuration(2000);
+
+        loadingAnimationSet = new AnimationSet(true);
+        loadingAnimationSet.addAnimation(out);
+        loadingAnimationSet.addAnimation(in);
+
         //GET DYNAMIC DATA (CONTENT)
         if (lawId != 0)
             updateLawDetailsContent(lawId);
@@ -93,6 +111,8 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
     }
 
     private void updateLawDetailsContent(int lawId){
+        //ANIMATION
+        lawContentView.setAnimation(loadingAnimationSet);
         //VOLLEY QUEUE
         RequestQueue queue = VolleySingleton.getInstance().getRequestQueue();
         //URL TO LOAD
@@ -102,6 +122,7 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
             Log.d("VOLLEY_VIEW_2","CACHE");
             //GET JSON FROM CACHE
             try {
+                //GET DATA
                 String cachedResponse = new String(queue.getCache().get(urlLawDetails).data);
                 JSONObject jsonCached = new JSONObject(cachedResponse);
                 updateFromJSON(jsonCached);
@@ -118,6 +139,7 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
+                                //GET DATA
                                 updateFromJSON(response);
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -128,7 +150,7 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
                     {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Log.d("Error.Response", error.getMessage());
+                            Log.d("Error.Response", "ERROR");
                         }
                     }
             );
@@ -141,6 +163,9 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
         final String STATIC_LAW = "law";
 
         JSONObject lawObject = jsonLoaded.getJSONObject(STATIC_LAW);
+        //STOP LOADING ANIM
+        lawContentView.clearAnimation();
+        //SET TEXT
         lawContentView.setText(lawObject.getString(STATIC_LAW_CONTENT));
         updateContentView();
     }
@@ -158,12 +183,15 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
 
     private void updateProgress(int progress){
 
-        ImageView stepOne = (ImageView) findViewById(R.id.detail_step_1);
+        TextView stepOne = (TextView) findViewById(R.id.detail_step_1);
         ImageView stepTwo = (ImageView) findViewById(R.id.detail_step_2);
         ImageView stepThree = (ImageView) findViewById(R.id.detail_step_3);
         TextView stepOneText = (TextView) findViewById(R.id.detail_step_text_1);
         TextView stepTwoText = (TextView) findViewById(R.id.detail_step_text_2);
         TextView stepThreeText = (TextView) findViewById(R.id.detail_step_text_3);
+
+        //UPDATE INITIATIVE
+        stepOne.setText(lawInitiative);
 
         switch (progress){
             case 0:
@@ -185,6 +213,24 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
                 break;
             default:
                 break;
+        }
+    }
+
+    private void loadingAnim(boolean start){
+        if (start){
+            final Animation in = new AlphaAnimation(0.0f, 1.0f);
+            in.setDuration(1000);
+
+            final Animation out = new AlphaAnimation(1.0f, 0.0f);
+            out.setDuration(3000);
+
+            AnimationSet as = new AnimationSet(true);
+            as.addAnimation(out);
+            in.setStartOffset(3000);
+            as.addAnimation(in);
+        }
+        else{
+
         }
     }
 
@@ -214,7 +260,7 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
                     debatesIntent.putExtra(DebatesActivity.ARG_TITLE, lawTitle);
                     debatesIntent.putExtra(DebatesActivity.ARG_LAWID, lawId);
                     switch (view.getId()){
-                       case R.id.detail_debates_1:
+                        case R.id.detail_debates_1:
                             debatesIntent.putExtra(DebatesActivity.ARG_PARTY, "Co");
                             startActivity(debatesIntent);
                             break;
