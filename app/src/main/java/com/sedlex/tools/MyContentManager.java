@@ -1,12 +1,14 @@
 package com.sedlex.tools;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.sedlex.R;
 import com.sedlex.activities.MainActivity;
 import com.sedlex.objects.Category;
 import com.sedlex.objects.Law;
@@ -69,6 +71,7 @@ public class MyContentManager {
             }
         }
         else{
+            queue.getCache().invalidate(url,true);
             Log.d("VOLLEY_VIEW_1","NO CACHE");
             //GET JSON FROM SERVER
             JsonObjectRequest getLawsReq = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -87,7 +90,9 @@ public class MyContentManager {
                     {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Log.d("Error.Response", error.getMessage());
+                            Log.d("DEBUG","ERROR NETWORK");
+                            activity.stopRefreshingAnim();
+                            Toast.makeText(activity, activity.getResources().getText(R.string.network_error), Toast.LENGTH_LONG).show();
                         }
                     }
             );

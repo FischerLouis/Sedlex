@@ -26,6 +26,7 @@ public class MainActivity extends ActionBarActivity {
     private RecyclerView listView;
     private LawsAdapter adapter;
     private boolean refresh = false;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,9 @@ public class MainActivity extends ActionBarActivity {
         listView.setLayoutManager(linearLayoutManager);
         listView.setItemAnimator(new DefaultItemAnimator());
         myContentManager.updateList(0, false);
+
+        //REFRESH ANIM
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_main_swipe_refresh_layout);
 
         //SWIPETOREFRESH LISTENER SETUP
         SwipeRefreshLayout mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_main_swipe_refresh_layout);
@@ -79,10 +83,13 @@ public class MainActivity extends ActionBarActivity {
         }
         else{
             adapter.notifyDataSetChanged();
-            SwipeRefreshLayout mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_main_swipe_refresh_layout);
-            mSwipeRefreshLayout.setRefreshing(false);
+            stopRefreshingAnim();
             refresh = false;
         }
+    }
+
+    public void stopRefreshingAnim(){
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     // CUSTOM REFRESH LISTENER
@@ -97,7 +104,7 @@ public class MainActivity extends ActionBarActivity {
         @Override
         public void onRefresh() {
             refresh = true;
-            myContentManager.updateList(0, true);
+            myContentManager.updateList(0, refresh);
         }
     }
 }

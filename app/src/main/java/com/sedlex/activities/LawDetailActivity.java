@@ -41,6 +41,7 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
     private static final int IMAGEVIEW_BIG_DP = 60;
     private static final int CONTENTVIEW_MAX_LINES = 8;
 
+    private Context context = this;
     private EllipsizingTextView lawContentView;
     private boolean extendedContent = true;
     private int lawId;
@@ -131,7 +132,7 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
                     {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Log.d("Error.Response", error.getMessage());
+                            Toast.makeText(context, getResources().getText(R.string.network_error), Toast.LENGTH_LONG).show();
                         }
                     }
             );

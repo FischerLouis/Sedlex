@@ -1,6 +1,7 @@
 package com.sedlex.activities;
 
 import android.app.ActionBar;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -38,6 +39,7 @@ public class DebatesActivity extends ActionBarActivity {
     public static final String ARG_PARTY = "ARG_PARTY";
     public static final int ARG_INT_DEFAULT = 0;
 
+    private Context context = this;
     private RecyclerView listView;
     private DebatesAdapter adapter;
     private TextView emptyView;
@@ -101,7 +103,9 @@ public class DebatesActivity extends ActionBarActivity {
                 {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("Error.Response", "Error");
+                        Toast.makeText(context, getResources().getText(R.string.network_error), Toast.LENGTH_LONG).show();
+                        loadingView.setVisibility(View.GONE);
+                        emptyView.setVisibility(View.VISIBLE);
                     }
                 }
         );
