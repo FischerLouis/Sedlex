@@ -33,6 +33,7 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
     public static final String ARG_TITLE = "ARG_TITLE";
     public static final String ARG_PROGRESS = "ARG_PROGRESS";
     public static final String ARG_LAWID = "ARG_LAWID";
+    public static final String ARG_INITIATIVE = "ARG_INITIATIVE";
     public static final int ARG_INT_DEFAULT = 0;
 
 
@@ -44,6 +45,7 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
     private boolean extendedContent = true;
     private int lawId;
     private String lawTitle;
+    private String lawInitiative;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,7 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
         }
         // RETRIEVE AND SET PASSED DATA
         lawTitle = getIntent().getStringExtra(ARG_TITLE);
+        lawInitiative = getIntent().getStringExtra(ARG_INITIATIVE);
         setTitle(lawTitle);
         int progress = getIntent().getIntExtra(ARG_PROGRESS, ARG_INT_DEFAULT);
         Log.d("DEBUG", "progess:" + progress);
@@ -158,27 +161,32 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
 
     private void updateProgress(int progress){
 
-        ImageView stepOne = (ImageView) findViewById(R.id.detail_step_1);
+        TextView stepOne = (TextView) findViewById(R.id.detail_step_1);
         ImageView stepTwo = (ImageView) findViewById(R.id.detail_step_2);
         ImageView stepThree = (ImageView) findViewById(R.id.detail_step_3);
-        TextView stepOneText = (TextView) findViewById(R.id.detail_step_text_1);
         TextView stepTwoText = (TextView) findViewById(R.id.detail_step_text_2);
         TextView stepThreeText = (TextView) findViewById(R.id.detail_step_text_3);
 
+        stepOne.setText(lawInitiative);
+
         switch (progress){
             case 0:
+                stepOne.setTextSize(22);
                 stepOne.getLayoutParams().height = convertDpToPixel(IMAGEVIEW_BIG_DP, this);
                 stepOne.getLayoutParams().width = convertDpToPixel(IMAGEVIEW_BIG_DP, this);
-                stepOneText.setTypeface(Typeface.DEFAULT_BOLD);
+                stepOne.setTypeface(Typeface.DEFAULT_BOLD);
                 break;
             case 1:
-                stepTwo.setImageResource(R.drawable.process_plt_color);
+                stepOne.setBackgroundColor(getResources().getColor(R.color.deep_orange));
+                stepTwo.setBackgroundColor(getResources().getColor(R.color.amber));
                 stepTwo.getLayoutParams().height = convertDpToPixel(IMAGEVIEW_BIG_DP, this);
                 stepTwo.getLayoutParams().width = convertDpToPixel(IMAGEVIEW_BIG_DP, this);
                 stepTwoText.setTypeface(Typeface.DEFAULT_BOLD);
                 break;
             case 2:
-                stepThree.setImageResource(R.drawable.process_adoption_color);
+                stepOne.setBackgroundColor(getResources().getColor(R.color.deep_orange));
+                stepTwo.setBackgroundColor(getResources().getColor(R.color.amber));
+                stepThree.setBackgroundColor(getResources().getColor(R.color.green));
                 stepThree.getLayoutParams().height = convertDpToPixel(IMAGEVIEW_BIG_DP, this);
                 stepThree.getLayoutParams().width = convertDpToPixel(IMAGEVIEW_BIG_DP, this);
                 stepThreeText.setTypeface(Typeface.DEFAULT_BOLD);

@@ -35,7 +35,8 @@
                             android:gravity="center"
                             android:fontFamily="sans-serif-light"
                             android:textSize="18sp"
-                            android:text="G"
+                            android:text="@string/parti_government"
+                            android:textStyle="bold"
                             android:textColor="@color/white"
                             android:contentDescription="@string/content_description"
                             android:background="@color/deep_orange"/>
@@ -70,9 +71,11 @@
                         <ImageView
                             android:layout_width="40dp"
                             android:layout_height="40dp"
+                            android:background="@color/grey"
+                            android:padding="5dp"
                             android:id="@+id/detail_step_2"
                             android:contentDescription="@string/content_description"
-                            android:src="@drawable/process_plt_bw"/>
+                            android:src="@mipmap/icon_parlement"/>
                         <TextView
                             android:id="@+id/detail_step_text_2"
                             android:layout_width="wrap_content"
@@ -105,9 +108,11 @@
                         <ImageView
                             android:layout_width="40dp"
                             android:layout_height="40dp"
+                            android:padding="5dp"
                             android:id="@+id/detail_step_3"
+                            android:background="@color/grey"
                             android:contentDescription="@string/content_description"
-                            android:src="@drawable/process_adoption_bw"/>
+                            android:src="@mipmap/icon_adoption"/>
                         <TextView
                             android:id="@+id/detail_step_text_3"
                             android:layout_width="wrap_content"

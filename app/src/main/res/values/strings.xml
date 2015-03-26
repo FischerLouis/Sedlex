@@ -32,6 +32,7 @@
     <string name="debates_empty">No debates to show.</string>
     <string name="debates_text_unknown">No debates to show.</string>
 
+    <string name="parti_government">G</string>
     <string name="parti_ps">PS</string>
     <string name="parti_ump">UMP</string>
     <string name="parti_udi">UDI</string>

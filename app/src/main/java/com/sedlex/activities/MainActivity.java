@@ -79,8 +79,6 @@ public class MainActivity extends ActionBarActivity {
         }
         else{
             adapter.notifyDataSetChanged();
-            //adapter = new LawsAdapter(context, R.layout.row_lawslist, lawsList);
-            //finalListView.setAdapter(adapter);
             SwipeRefreshLayout mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_main_swipe_refresh_layout);
             mSwipeRefreshLayout.setRefreshing(false);
             refresh = false;
