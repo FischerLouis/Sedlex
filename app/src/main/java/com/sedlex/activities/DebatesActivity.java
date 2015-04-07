@@ -151,9 +151,9 @@ public class DebatesActivity extends ActionBarActivity {
             }
             formatListFromParty(party);
             if(formattedDebatesList.size() > 0)
-                adapter = new DebatesAdapter(this, formattedDebatesList, hiddenDebatesMap);
+                adapter = new DebatesAdapter(this, formattedDebatesList);
             else {
-                adapter = new DebatesAdapter(this, debatesList, null);
+                adapter = new DebatesAdapter(this, debatesList);
                 Toast.makeText(this, "No "+party+" debates to display.",Toast.LENGTH_SHORT).show();
             }
             listView.setAdapter(adapter);

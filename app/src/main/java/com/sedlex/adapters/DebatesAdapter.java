@@ -1,11 +1,9 @@
 package com.sedlex.adapters;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,37 +17,28 @@ import com.sedlex.objects.Stamp;
 import com.sedlex.tools.EllipsizingTextView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class DebatesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private static int TEXT_LEVEL_ONE_NUMBER_LINES = 1;
-    private static int TEXT_LEVEL_TWO_NUMBER_LINES = 10;
+    private static int TEXT_LINES_COUNT_TO_SHOW = 5;
 
     private static DebatesActivity debatesActivity;
     private final ArrayList<Debate> debatesList;
-    private final HashMap<Integer, ArrayList<Debate>> hiddenDebatesMap;
 
-
-    private static boolean expended = false;
-    private static boolean semiExpended = false;
-    private static boolean wasExpended = false;
-
-    public DebatesAdapter(DebatesActivity debatesActivity, ArrayList<Debate> debatesList, HashMap<Integer, ArrayList<Debate>> hiddenDebatesMap) {
+    public DebatesAdapter(DebatesActivity debatesActivity, ArrayList<Debate> debatesList ) {
         this.debatesList = debatesList;
-        this.hiddenDebatesMap = hiddenDebatesMap;
         this.debatesActivity = debatesActivity;
     }
     //VIEW HOLDER FOR DEBATE ROWS
     public static class ViewHolderDebate extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public EllipsizingTextView textLevelOne;
+        public EllipsizingTextView debateText;
 
         public TextView deputyName;
         public TextView stampView;
 
         public ViewHolderDebate(View itemView) {
             super(itemView);
-            textLevelOne = (EllipsizingTextView) itemView.findViewById(R.id.debates_text_level_one);
+            debateText = (EllipsizingTextView) itemView.findViewById(R.id.debates_text);
             deputyName = (TextView) itemView.findViewById(R.id.debates_deputy_name);
             stampView = (TextView)itemView.findViewById(R.id.debates_deputy_stamp);
 
@@ -58,7 +47,16 @@ public class DebatesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         @Override
         public void onClick(View view) {
-            EllipsizingTextView test = (EllipsizingTextView)view.findViewById(R.id.debates_text_level_one);
+            EllipsizingTextView text = (EllipsizingTextView)view.findViewById(R.id.debates_text);
+
+            if(text.isEllipsized()){
+                text.setMaxLines(Integer.MAX_VALUE);
+            }
+            else{
+                text.setMaxLines(TEXT_LINES_COUNT_TO_SHOW);
+            }
+
+            /*
             //LEVEL 1 => LEVEL 2
             if(!semiExpended && !expended){
                 test.setMaxLines(TEXT_LEVEL_TWO_NUMBER_LINES);
@@ -82,7 +80,7 @@ public class DebatesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 semiExpended = false;
                 expended = true;
                 wasExpended = true;
-            }
+            }*/
         }
 
         public void updateInitiative(Stamp stamp){
@@ -111,7 +109,6 @@ public class DebatesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             itemView.setOnClickListener(this);
         }
 
-
         @Override
         public void onClick(View view) {
             int id = (Integer)view.getTag();
@@ -135,9 +132,9 @@ public class DebatesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         if(viewHolder.getItemViewType() == 0) {
             ViewHolderDebate rowDebate = (ViewHolderDebate) viewHolder;
             rowDebate.deputyName.setText(debate.getDeputyName());
-            rowDebate.textLevelOne.setText(Html.fromHtml(debate.getText()));
+            rowDebate.debateText.setText(Html.fromHtml(debate.getText()));
             rowDebate.updateInitiative(debate.getStamp());
-            rowDebate.textLevelOne.setMaxLines(TEXT_LEVEL_ONE_NUMBER_LINES);
+            rowDebate.debateText.setMaxLines(TEXT_LINES_COUNT_TO_SHOW);
         }
         else{
             ViewHolderSeparator rowSeparator = (ViewHolderSeparator) viewHolder;
