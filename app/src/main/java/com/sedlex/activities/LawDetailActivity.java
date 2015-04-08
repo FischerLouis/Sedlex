@@ -21,6 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.sedlex.R;
 import com.sedlex.tools.Constants;
 import com.sedlex.tools.EllipsizingTextView;
@@ -71,7 +72,8 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
         lawContentView = (EllipsizingTextView) findViewById(R.id.detail_content);
         //TextView approveButton = (TextView) findViewById(R.id.detail_button_approve);
         //TextView disapproveButton = (TextView) findViewById(R.id.detail_button_disapprove);
-        FloatingActionButton buttonVote = (FloatingActionButton) findViewById(R.id.details_button_vote);
+        FloatingActionsMenu buttonVote = (FloatingActionsMenu) findViewById(R.id.details_button_vote);
+        FloatingActionButton buttonVoteFor = (FloatingActionButton) findViewById(R.id.detail_button_for);
         TextView debatesOne = (TextView) findViewById(R.id.detail_debates_1);
         TextView debatesTwo = (TextView) findViewById(R.id.detail_debates_2);
         TextView debatesThree = (TextView) findViewById(R.id.detail_debates_3);
@@ -80,11 +82,7 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
         TextView debatesSix = (TextView) findViewById(R.id.detail_debates_6);
 
         //UPDATE FLOATTING ACTION BUTTON
-        buttonVote.setSize(FloatingActionButton.SIZE_NORMAL);
-        buttonVote.setColorNormalResId(R.color.grey);
-        buttonVote.setColorPressedResId(R.color.grey400);
-        //button.setIcon(R.drawable.ic_fab_star);
-        buttonVote.setStrokeVisible(true);
+        buttonVoteFor.setTitle("test");
 
         //UPDATE PROGRESS VIEWS
         updateProgress(progress);
