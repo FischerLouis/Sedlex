@@ -272,6 +272,15 @@
         </RelativeLayout>
     </ScrollView>
 
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/details_button_vote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"/>
+    <!--
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -317,6 +326,7 @@
             </TableRow>
         </TableLayout>
     </LinearLayout>
+    -->
 
 
 </RelativeLayout>

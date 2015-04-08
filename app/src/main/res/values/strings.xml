@@ -2,7 +2,7 @@
 <resources>
     <!--RESOURCES-->
     <string name="app_name">Sedlex</string>
-    <string name="loading">Loading&#8230;</string>
+    <string name="loading">&#8230;</string>
     <string name="content_description">content description</string>
     <string name="network_error">"Oups :). Veuillez vérifier votre connexion internet et réessayer."</string>
 

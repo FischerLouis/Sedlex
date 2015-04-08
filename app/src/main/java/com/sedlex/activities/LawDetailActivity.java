@@ -20,6 +20,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.sedlex.R;
 import com.sedlex.tools.Constants;
 import com.sedlex.tools.EllipsizingTextView;
@@ -68,14 +69,22 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
 
         //RETRIEVE VIEWS
         lawContentView = (EllipsizingTextView) findViewById(R.id.detail_content);
-        TextView approveButton = (TextView) findViewById(R.id.detail_button_approve);
-        TextView disapproveButton = (TextView) findViewById(R.id.detail_button_disapprove);
+        //TextView approveButton = (TextView) findViewById(R.id.detail_button_approve);
+        //TextView disapproveButton = (TextView) findViewById(R.id.detail_button_disapprove);
+        FloatingActionButton buttonVote = (FloatingActionButton) findViewById(R.id.details_button_vote);
         TextView debatesOne = (TextView) findViewById(R.id.detail_debates_1);
         TextView debatesTwo = (TextView) findViewById(R.id.detail_debates_2);
         TextView debatesThree = (TextView) findViewById(R.id.detail_debates_3);
         TextView debatesFour = (TextView) findViewById(R.id.detail_debates_4);
         TextView debatesFive = (TextView) findViewById(R.id.detail_debates_5);
         TextView debatesSix = (TextView) findViewById(R.id.detail_debates_6);
+
+        //UPDATE FLOATTING ACTION BUTTON
+        buttonVote.setSize(FloatingActionButton.SIZE_NORMAL);
+        buttonVote.setColorNormalResId(R.color.grey);
+        buttonVote.setColorPressedResId(R.color.grey400);
+        //button.setIcon(R.drawable.ic_fab_star);
+        buttonVote.setStrokeVisible(true);
 
         //UPDATE PROGRESS VIEWS
         updateProgress(progress);
@@ -86,8 +95,8 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
 
         //SET LISTENER
         lawContentView.setOnClickListener(this);
-        approveButton.setOnTouchListener(this);
-        disapproveButton.setOnTouchListener(this);
+        //approveButton.setOnTouchListener(this);
+        //disapproveButton.setOnTouchListener(this);
         debatesOne.setOnTouchListener(this);
         debatesTwo.setOnTouchListener(this);
         debatesThree.setOnTouchListener(this);
@@ -212,12 +221,12 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
     public boolean onTouch(View view, MotionEvent event) {
         if(event.getAction() == MotionEvent.ACTION_DOWN){
             switch(view.getId()){
-                case R.id.detail_button_approve:
+                /*case R.id.detail_button_approve:
                     Toast.makeText(this,"Je suis POUR ce texte." , Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.detail_button_disapprove:
                     Toast.makeText(this,"Je suis CONTRE ce texte." , Toast.LENGTH_SHORT).show();
-                    break;
+                    break;*/
                 default:
                     Intent debatesIntent = new Intent(this, DebatesActivity.class);
                     debatesIntent.putExtra(DebatesActivity.ARG_TITLE, lawTitle);
