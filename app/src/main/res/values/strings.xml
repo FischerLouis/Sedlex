@@ -2,7 +2,7 @@
 <resources>
     <!--RESOURCES-->
     <string name="app_name">Sedlex</string>
-    <string name="loading">Loading&#8230;</string>
+    <string name="loading">&#8230;</string>
     <string name="content_description">content description</string>
     <string name="network_error">"Oups :). Veuillez vérifier votre connexion internet et réessayer."</string>
 
@@ -24,8 +24,12 @@
     <string name="detail_button_approve">Pour</string>
     <string name="detail_button_disapprove">Contre</string>
 
+    <string name="detail_approve">Voter pour</string>
+    <string name="detail_disapprove">Voter contre</string>
+
     <string name="detail_link_title">Link title unknown</string>
     <string name="detail_link_summary">Link summary unknown</string>
+
 
     <!--DEBATES ACTIVITY-->
     <string name="debates_deputy_stamp_unknown">"?"</string>
