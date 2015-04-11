@@ -37,21 +37,44 @@
                 android:background="@drawable/circle"
                 android:text="@string/activity_initiative"
                 android:fontFamily="sans-serif-light"
+                android:layout_gravity="center"
                 android:gravity="center"
                 android:textSize="17sp" >
             </TextView>
 
-            <TextView
-                android:id="@+id/law_title"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:maxLines="2"
-                android:textColor="@color/black"
-                android:layout_gravity="center_vertical"
-                android:text="@string/activity_title"
-                android:textSize="16sp"
-                android:ellipsize="end">
-            </TextView>
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/law_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="2"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/activity_title"
+                    android:textSize="16sp"
+                    android:ellipsize="end">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/law_day_order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:textColor="@color/grey700"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/day_order"
+                    android:textSize="12sp"
+                    android:ellipsize="end">
+                </TextView>
+
+                </LinearLayout>
+
+
+
         </LinearLayout>
 
         <RelativeLayout

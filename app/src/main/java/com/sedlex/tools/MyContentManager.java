@@ -18,10 +18,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MyContentManager {
 
+    private static final String LOG_TAG = MyContentManager.class.getSimpleName();
     private static final String STATIC_LAWS = "laws";
     private static final String STATIC_ID = "id";
     private static final String STATIC_LAST_UPDATE = "published";
@@ -38,12 +42,14 @@ public class MyContentManager {
     private static final String STATIC_PARTY_ID = "id";
     private static final String STATIC_PARTY_ACRONYM = "acronym";
     private static final String STATIC_PARTY_COLOR = "color";
+    private static final String STATIC_DAY_ORDER = "last_day_order";
 
     private ArrayList<Law> lawsList;
     private RequestQueue queue;
     private MainActivity activity;
     private int curPage = 0;
     private boolean refresh = false;
+    private SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
 
     public MyContentManager(MainActivity activity) {
@@ -118,6 +124,13 @@ public class MyContentManager {
             curLaw.setSummary(lawsArray.getJSONObject(i).getString(STATIC_SUMMARY));
             //SET PROGRESSION
             curLaw.setProgression(lawsArray.getJSONObject(i).getString(STATIC_PROGRESSION));
+            //SET DAY_ORDER
+            try {
+                curLaw.setDayOrder(dateFormatter.parse(lawsArray.getJSONObject(i).getString(STATIC_DAY_ORDER)));
+            } catch (ParseException e) {
+                Log.e(LOG_TAG, e.getMessage());
+                curLaw.setDayOrder(null);
+            }
             //SET CATEGORIES
             JSONArray categoriesArray = lawsArray.getJSONObject(i).getJSONArray(STATIC_CATEGORIES);
             ArrayList<Category> categories = new ArrayList<>();

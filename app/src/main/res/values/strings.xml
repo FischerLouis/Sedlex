@@ -8,6 +8,7 @@
 
     <!--MAIN ACTIVITY-->
     <string name="activity_title">Law title unknown</string>
+    <string name="day_order">A l\'ordre du jour le</string>
     <string name="activity_summary">Law summary unknown</string>
     <string name="activity_initiative">"?"</string>
     <string name="activity_category">Category unknown</string>

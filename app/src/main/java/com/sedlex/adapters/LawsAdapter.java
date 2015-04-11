@@ -20,7 +20,11 @@ import com.sedlex.objects.Stamp;
 import com.sedlex.tools.Constants;
 import com.sedlex.tools.EllipsizingTextView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class LawsAdapter extends RecyclerView.Adapter<LawsAdapter.ViewHolder> {
 
@@ -45,9 +49,11 @@ public class LawsAdapter extends RecyclerView.Adapter<LawsAdapter.ViewHolder> {
         public View thirdStep;
         public TextView viewCategory;
         public TextView stampView;
+        public TextView lawDayOrder;
         public LinearLayout progressLayout;
         public LinearLayout globalLayout;
         private LayoutInflater layoutInflater;
+        private DateFormat dateFormatter;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -59,9 +65,11 @@ public class LawsAdapter extends RecyclerView.Adapter<LawsAdapter.ViewHolder> {
             thirdStep = itemView.findViewById(R.id.law_step_3);
             viewCategory = (TextView)itemView.findViewById(R.id.view_category);
             stampView = (TextView)itemView.findViewById(R.id.law_stamp);
+            lawDayOrder = (TextView)itemView.findViewById(R.id.law_day_order);
             progressLayout = (LinearLayout)itemView.findViewById(R.id.card_bottom);
             globalLayout = (LinearLayout)itemView.findViewById(R.id.law_global_layout);
             layoutInflater = LayoutInflater.from(context);
+            dateFormatter = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.FRANCE);
         }
 
         public void updateCategories (ArrayList<Category> categories){
@@ -83,6 +91,15 @@ public class LawsAdapter extends RecyclerView.Adapter<LawsAdapter.ViewHolder> {
             String color = "#"+stamp.getColor();
             circleBackground.setColor(Color.parseColor(color));
             stampView.setBackground(circleBackground);
+        }
+
+        public void updateDayOrder(Date day_order){
+            if( day_order == null ){
+                lawDayOrder.setVisibility(View.GONE);
+            } else {
+                lawDayOrder.setVisibility(View.VISIBLE);
+                lawDayOrder.setText(context.getResources().getText(R.string.day_order) + " " + dateFormatter.format(day_order));
+            }
         }
 
         public int updateProgression (String progression){
@@ -137,6 +154,7 @@ public class LawsAdapter extends RecyclerView.Adapter<LawsAdapter.ViewHolder> {
         viewHolder.progressLayout.setTag(R.string.activity_tag_id_initiative,law.getStamp().getTitle());
         viewHolder.updateCategories(law.getCategories());
         viewHolder.updateInitiative(law.getStamp());
+        viewHolder.updateDayOrder(law.getDayOrder());
         viewHolder.globalLayout.setTag(law.getId());
     }
 
