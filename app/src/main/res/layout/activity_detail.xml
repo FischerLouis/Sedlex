@@ -172,24 +172,56 @@
                 android:layout_below="@+id/activity_detail_layout_text"
                 android:layout_marginBottom="10dp">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:background="@color/grey800"
+                    android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/detail_debates_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:text="@string/detail_debats"
+                        android:textColor="@color/white"
+                        android:layout_centerVertical="true"
+                        android:text="@string/detail_debates"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
+                        android:layout_alignParentLeft="true"
                         android:layout_marginTop="7dp"
                         android:layout_marginBottom="7dp"
                         android:textStyle="bold"
                         android:textSize="16sp"/>
 
-                    <LinearLayout
+                    <Spinner
+                        android:id="@+id/detail_dropdown_parties"
+                        android:layout_width="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/detail_debates_label"
+                        android:layout_toLeftOf="@+id/detail_debates_button"
+                        android:layout_height="wrap_content"/>
+                    <!--
+                    <NumberPicker
+                        android:id="@+id/detail_picker_parties"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:orientation="horizontal" />
+                        -->
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:padding="5dp"
+                        android:id="@+id/detail_debates_button"
+                        android:contentDescription="@string/content_description"
+                        android:src="@mipmap/ic_chevron_right_white"/>
+
+                    </RelativeLayout>
+
+
+
+                    <!--<LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
@@ -265,8 +297,7 @@
                                 android:layout_weight="1"
                                 android:text="@string/parti_ump" />
 
-                    </LinearLayout>
-                </LinearLayout>
+                    </LinearLayout> -->
 
             </android.support.v7.widget.CardView>
 
@@ -279,7 +310,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         fab:fab_labelsPosition="left"
-        fab:fab_addButtonColorNormal="@color/grey"
+        fab:fab_labelStyle="@style/menu_labels_style"
+        fab:fab_addButtonColorNormal="@color/grey800"
         fab:fab_addButtonColorPressed="@color/grey400"
         fab:fab_addButtonSize="normal"
         fab:fab_addButtonPlusIconColor="@color/white"
@@ -292,17 +324,19 @@
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/detail_button_for"
+            android:id="@+id/detail_button_approve"
+            fab:fab_icon="@mipmap/ic_check_white"
             fab:fab_colorNormal="@color/grey"
-            fab:fab_title="lala"
+            fab:fab_title="@string/detail_button_approve"
             fab:fab_colorPressed="@color/grey400"/>
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/detail_button_against"
+            android:id="@+id/detail_button_disapprove"
+            fab:fab_icon="@mipmap/ic_close_white"
             fab:fab_colorNormal="@color/grey"
-            fab:fab_title="@string/detail_approve"
+            fab:fab_title="@string/detail_button_disapprove"
             fab:fab_colorPressed="@color/grey400"/>
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>

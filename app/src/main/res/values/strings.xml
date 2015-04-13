@@ -19,13 +19,10 @@
 
     <!--DETAILS ACTIVITY-->
     <string name="detail_title">Principales dispositions</string>
-    <string name="detail_debats">Débats</string>
+    <string name="detail_debates">Accéder aux débats</string>
 
-    <string name="detail_button_approve">Pour</string>
-    <string name="detail_button_disapprove">Contre</string>
-
-    <string name="detail_approve">Voter pour</string>
-    <string name="detail_disapprove">Voter contre</string>
+    <string name="detail_button_approve">Je vote pour</string>
+    <string name="detail_button_disapprove">Je vote contre</string>
 
     <string name="detail_link_title">Link title unknown</string>
     <string name="detail_link_summary">Link summary unknown</string>
