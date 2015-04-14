@@ -340,6 +340,19 @@
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fabtest"
+        fab:fab_icon="@mipmap/ic_vote"
+        fab:fab_colorNormal="@color/grey800"
+        fab:fab_title="@string/detail_button_disapprove"
+        fab:fab_colorPressed="@color/grey400"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="16dp"/>
+
 
 
     <!--
