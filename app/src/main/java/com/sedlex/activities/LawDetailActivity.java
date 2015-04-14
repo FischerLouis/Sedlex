@@ -83,7 +83,7 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
         Log.d("DEBUG","id:"+lawId);
 
         //SETTING INVOLVED PARTIES
-        involvedParties = new String[] {"PC", "PS", "RAD", "V", "UDI", "UMP"};
+        involvedParties = new String[] {"PC", "PS", "Rad", "V", "UDI", "UMP"};
 
         //RETRIEVE VIEWS
         lawContentView = (EllipsizingTextView) findViewById(R.id.detail_content);
@@ -125,7 +125,7 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
         List<String> partiesList = new ArrayList<>();
         partiesList.add("PC");
         partiesList.add("PS");
-        partiesList.add("RAD");
+        partiesList.add("Rad");
         partiesList.add("V");
         partiesList.add("UDI");
         partiesList.add("UMP");
