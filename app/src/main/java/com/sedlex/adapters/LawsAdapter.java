@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.sedlex.R;
@@ -21,27 +22,24 @@ import com.sedlex.tools.Constants;
 import com.sedlex.tools.EllipsizingTextView;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-public class LawsAdapter extends RecyclerView.Adapter<LawsAdapter.ViewHolder> {
+public class LawsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static int SUMMARY_MAX_LINES = 4;
 
     private static Context context;
     private final ArrayList<Law> lawsList;
-    private int rowLayoutId;
 
-    public LawsAdapter(Context context, int rowLayoutId, ArrayList<Law> lawsList) {
-        this.rowLayoutId = rowLayoutId;
+    public LawsAdapter(Context context, ArrayList<Law> lawsList) {
         this.lawsList = lawsList;
         this.context = context;
     }
 
 
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class ViewHolderLaw extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView lawTitle;
         public EllipsizingTextView lawSummary;
         public View firstStep;
@@ -55,7 +53,7 @@ public class LawsAdapter extends RecyclerView.Adapter<LawsAdapter.ViewHolder> {
         private LayoutInflater layoutInflater;
         private DateFormat dateFormatter;
 
-        public ViewHolder(View itemView) {
+        public ViewHolderLaw(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             lawTitle = (TextView) itemView.findViewById(R.id.law_title);
@@ -137,29 +135,66 @@ public class LawsAdapter extends RecyclerView.Adapter<LawsAdapter.ViewHolder> {
         }
     }
 
-    @Override
-    public LawsAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(rowLayoutId, viewGroup, false);
-        return new ViewHolder(v);
+    //VIEW HOLDER FOR SEPARATOR ROWS
+    public static class ViewHolderLoadingView extends RecyclerView.ViewHolder {
+
+        public ProgressBar progressBar;
+
+        public ViewHolderLoadingView(View itemView) {
+            super(itemView);
+            progressBar = (ProgressBar)itemView.findViewById(R.id.laws_loading_progressbar);
+        }
     }
 
     @Override
-    public void onBindViewHolder(LawsAdapter.ViewHolder viewHolder, int i) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        if (viewType == 0) {
+            return new ViewHolderLaw(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_laws, viewGroup, false));
+        }
+        else{
+            return new ViewHolderLoadingView(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_laws_loading_view, viewGroup, false));
+        }
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int i) {
         Law law = lawsList.get(i);
-        viewHolder.lawTitle.setText(Html.fromHtml(law.getTitle()));
-        viewHolder.lawSummary.setText(Html.fromHtml(law.getSummary()));
-        viewHolder.lawSummary.setMaxLines(SUMMARY_MAX_LINES);
-        int progress = viewHolder.updateProgression(law.getProgression());
-        viewHolder.progressLayout.setTag(R.string.activity_tag_id_progress, progress);
-        viewHolder.progressLayout.setTag(R.string.activity_tag_id_initiative,law.getStamp().getTitle());
-        viewHolder.updateCategories(law.getCategories());
-        viewHolder.updateInitiative(law.getStamp());
-        viewHolder.updateDayOrder(law.getDayOrder());
-        viewHolder.globalLayout.setTag(law.getId());
+        if(viewHolder.getItemViewType() == 0) {
+            ViewHolderLaw rowLaw = (ViewHolderLaw) viewHolder;
+            rowLaw.lawTitle.setText(Html.fromHtml(law.getTitle()));
+            rowLaw.lawSummary.setText(Html.fromHtml(law.getSummary()));
+            rowLaw.lawSummary.setMaxLines(SUMMARY_MAX_LINES);
+            int progress = rowLaw.updateProgression(law.getProgression());
+            rowLaw.progressLayout.setTag(R.string.activity_tag_id_progress, progress);
+            rowLaw.progressLayout.setTag(R.string.activity_tag_id_initiative,law.getStamp().getTitle());
+            rowLaw.updateCategories(law.getCategories());
+            rowLaw.updateInitiative(law.getStamp());
+            rowLaw.updateDayOrder(law.getDayOrder());
+            rowLaw.globalLayout.setTag(law.getId());
+        }
+        else{
+            ViewHolderLoadingView rowLoadingView = (ViewHolderLoadingView) viewHolder;
+
+
+        }
+
+
+
+
+
+
     }
 
     @Override
     public int getItemCount() {
         return lawsList == null ? 0 : lawsList.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if(lawsList.get(position).isDummyLoadingView())
+            return 1;
+        else
+            return 0;
     }
 }

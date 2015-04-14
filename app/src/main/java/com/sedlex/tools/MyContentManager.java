@@ -108,6 +108,9 @@ public class MyContentManager {
         //EMPTY LIST IF REFRESH
         if(refresh)
             lawsList.clear();
+        //DELETE EVENTUAL DUMMY LOADING VIEW
+        clearDummyView();
+
         //BUILD LIST
         for(int i=0;i<lawsArray.length();i++){
             Log.d("DEBUG","id:"+i);
@@ -172,5 +175,20 @@ public class MyContentManager {
             lawsList.add(curLaw);
         }
         activity.setList(lawsList, curPage);
+    }
+
+    private void clearDummyView(){
+        if(lawsList.size() != 0) {
+            if (lawsList.get(lawsList.size()-1).isDummyLoadingView()) {
+                lawsList.remove(lawsList.size()-1);
+            }
+        }
+        activity.setOnLoading(false);
+    }
+
+    public void addDummyLoadingViewToList(){
+        Law dummyLaw = new Law();
+        dummyLaw.setDummyLoadingView(true);
+        lawsList.add(dummyLaw);
     }
 }
