@@ -57,7 +57,7 @@ public class MyContentManager {
         //CURPAGE SETUP
         curPage = page;
         //URL SETUP
-        String url = Constants.URL_LAWS_PAGE+page;
+        String url = Constants.URL_LAWS_PAGE_DEBUG+page;
         //CACHE CHECK
         if(queue.getCache().get(url)!=null && !refresh){
             Log.d("VOLLEY_VIEW_1","CACHE");

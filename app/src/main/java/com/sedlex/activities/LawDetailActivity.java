@@ -83,6 +83,7 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
 
         //UPDATE FLOATTING ACTION BUTTON
         buttonVoteFor.setTitle("test");
+        buttonVote.setBackgroundDrawable(getResources().getDrawable(R.mipmap.icon_adoption));
 
         //UPDATE PROGRESS VIEWS
         updateProgress(progress);
