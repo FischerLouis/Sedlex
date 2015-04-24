@@ -47,7 +47,7 @@ public class DebatesActivity extends ActionBarActivity {
     private ArrayList<Debate> debatesList;
     private String party;
 
-    private ArrayList<Debate> formattedDebatesList;
+    private ArrayList<Debate> formattedDebatesList = new ArrayList<>();
     private HashMap<Integer, ArrayList<Debate>> hiddenDebatesMap;
 
     @Override
@@ -64,7 +64,6 @@ public class DebatesActivity extends ActionBarActivity {
         setTitle(lawTitle);
         int lawId = getIntent().getIntExtra(ARG_LAWID, ARG_INT_DEFAULT);
         party = getIntent().getStringExtra(ARG_PARTY);
-        Log.d("PARTY",party);
 
         //GET VIEWS
         emptyView = (TextView) findViewById(R.id.debates_empty);
@@ -149,12 +148,14 @@ public class DebatesActivity extends ActionBarActivity {
                 }
                 debatesList.add(curDebate);
             }
-            formatListFromParty(party);
+            if (!party.equals("Complet"))
+                formatListFromParty(party);
             if(formattedDebatesList.size() > 0)
                 adapter = new DebatesAdapter(this, formattedDebatesList);
             else {
                 adapter = new DebatesAdapter(this, debatesList);
-                Toast.makeText(this, "No "+party+" debates to display.",Toast.LENGTH_SHORT).show();
+                if(!party.equals("Complet"))
+                    Toast.makeText(this, party+"n'a pas participé à ce débats.",Toast.LENGTH_SHORT).show();
             }
             listView.setAdapter(adapter);
         }
@@ -167,6 +168,7 @@ public class DebatesActivity extends ActionBarActivity {
 
     private void formatListFromParty(String party){
         formattedDebatesList = new ArrayList<>();
+
         hiddenDebatesMap = new HashMap<>();
         ArrayList<Debate> curHiddenDebateList = new ArrayList<>();
         int counter = 0;

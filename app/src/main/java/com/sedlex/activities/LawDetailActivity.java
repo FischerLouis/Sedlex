@@ -105,6 +105,7 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
 
         List<String> partiesList = new ArrayList<>();
+        partiesList.add("Complet");
         partiesList.add("PC");
         partiesList.add("PS");
         partiesList.add("Rad");
@@ -300,12 +301,12 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
     @Override
     public boolean onTouch(View view, MotionEvent event) {
         if(event.getAction() == MotionEvent.ACTION_DOWN){
-            switch(view.getId()){
+            switch(view.getId()) {
                 case R.id.detail_button_approve:
-                    Toast.makeText(this,"Je suis POUR ce texte." , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Je suis POUR ce texte.", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.detail_button_disapprove:
-                    Toast.makeText(this,"Je suis CONTRE ce texte." , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Je suis CONTRE ce texte.", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.detail_debates_button:
                     Intent debatesIntent = new Intent(this, DebatesActivity.class);
@@ -313,7 +314,6 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
                     debatesIntent.putExtra(DebatesActivity.ARG_LAWID, lawId);
                     debatesIntent.putExtra(DebatesActivity.ARG_PARTY, spinnerParties.getSelectedItem().toString());
                     startActivity(debatesIntent);
-                    break;
                 default:
                     break;
             }
