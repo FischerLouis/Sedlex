@@ -20,7 +20,8 @@
 
     <!--DETAILS ACTIVITY-->
     <string name="detail_title">Principales dispositions</string>
-    <string name="detail_debates">Accéder aux débats</string>
+    <string name="detail_title_debates">Accéder aux débats</string>
+    <string name="detail_title_article">Articles connexes</string>
 
     <string name="detail_button_approve">Je vote pour</string>
     <string name="detail_button_disapprove">Je vote contre</string>

@@ -1,148 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="wrap_content"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/row_article_layout"
     android:layout_width="match_parent"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
-    android:layout_marginBottom="5dp"
-    android:layout_marginTop="5dp"
-    android:focusable="true"
-    android:clickable="true"
-    android:elevation="25dp">
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp"
+    android:layout_height="wrap_content" >
 
     <LinearLayout
-        android:orientation="vertical"
-        android:id="@+id/law_global_layout"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="7dp"
-        android:paddingBottom="7dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground">
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_marginBottom="5dp"
-            android:layout_height="wrap_content" >
-
-            <TextView
-                android:id="@+id/law_stamp"
-                android:layout_width="38dp"
-                android:layout_marginRight="10dp"
-                android:layout_height="38dp"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:background="@drawable/circle"
-                android:text="@string/activity_initiative"
-                android:fontFamily="sans-serif-light"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:textSize="17sp" >
-            </TextView>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/law_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxLines="2"
-                    android:textColor="@color/black"
-                    android:layout_gravity="center_vertical"
-                    android:text="@string/activity_title"
-                    android:textSize="16sp"
-                    android:ellipsize="end">
-                </TextView>
-
-                <TextView
-                    android:id="@+id/law_day_order"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:textColor="@color/grey700"
-                    android:layout_gravity="center_vertical"
-                    android:text="@string/day_order"
-                    android:textSize="12sp"
-                    android:ellipsize="end">
-                </TextView>
-
-                </LinearLayout>
-
-
-
-        </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/row_article_title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp">
-            <com.sedlex.tools.EllipsizingTextView
-                android:id="@+id/law_summary"
-                android:layout_width="match_parent"
-                android:textColor="@color/black"
-                android:layout_marginBottom="5dp"
-                android:layout_height="wrap_content"
-                android:text="@string/activity_summary"
-                android:textSize="12sp" />
+            android:maxLines="2"
+            android:textColor="@color/black"
+            android:layout_gravity="center_vertical"
+            android:text="@string/loading"
+            android:textSize="16sp"
+            android:ellipsize="end">
+        </TextView>
 
-        </RelativeLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
+        <TextView
+            android:id="@+id/row_article_source"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/card_bottom"
-            android:gravity="center_vertical">
+            android:maxLines="1"
+            android:textColor="@color/green"
+            android:layout_gravity="center_vertical"
+            android:text="@string/loading"
+            android:textSize="12sp">
+        </TextView>
 
-            <View
-                android:id="@+id/law_step_1"
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:background="@drawable/square_orange"/>
+        <TextView
+            android:id="@+id/row_article_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textColor="@color/grey700"
+            android:layout_gravity="center_vertical"
+            android:text="@string/loading"
+            android:textSize="12sp">
+        </TextView>
 
-            <View
-                android:id="@+id/law_step_2"
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:layout_marginLeft="5dp"
-                android:background="@drawable/square_yellow" />
-
-            <View
-                android:id="@+id/law_step_3"
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:layout_marginLeft="5dp"
-                android:background="@drawable/square_green" />
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/layout_categories"
-                android:gravity="right"
-                android:layout_gravity="right">
-
-                <TextView
-                    android:id="@+id/view_category"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="@string/activity_category"
-                    android:textSize="12sp"
-                    android:textColor="@color/grey700"
-                    android:background="@drawable/rectangle" >
-                </TextView>
-
-
-            </LinearLayout>
-
-
-
-            </LinearLayout>
     </LinearLayout>
-</android.support.v7.widget.CardView>
+</RelativeLayout>

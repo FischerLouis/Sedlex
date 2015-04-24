@@ -1,27 +1,30 @@
 package com.sedlex.adapters;
 
+import android.app.Activity;
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sedlex.R;
-import com.sedlex.activities.LawDetailActivity;
 import com.sedlex.objects.Article;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
-public class ArticlesAdapter extends ArrayAdapter<Article> {
+public class ArticlesAdapter extends ArrayAdapter<Article> implements View.OnTouchListener {
 
-    private Context context;
+    private Activity context;
     private ArrayList<Article> articlesList;
+    DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.FRANCE);
 
-    public ArticlesAdapter(Context context, ArrayList<Article> articlesList) {
+    public ArticlesAdapter(Activity context, ArrayList<Article> articlesList) {
         super(context, R.layout.row_article, articlesList);
         this.context = context;
         this.articlesList = articlesList;
@@ -35,74 +38,23 @@ public class ArticlesAdapter extends ArrayAdapter<Article> {
         TextView articleTitle = (TextView) rowView.findViewById(R.id.row_article_title);
         TextView articleSource = (TextView) rowView.findViewById(R.id.row_article_source);
         TextView articleDate = (TextView) rowView.findViewById(R.id.row_article_date);
+        //RelativeLayout articleLayout = (RelativeLayout) rowView.findViewById(R.id.row_article_layout);
+        rowView.setOnTouchListener(this);
 
         articleTitle.setText(articlesList.get(position).getTitle());
         articleSource.setText(articlesList.get(position).getSource());
-        articleDate.setText(articlesList.get(position).getDate().toString());
+        articleDate.setText(dateFormat.format(articlesList.get(position).getDate()));
+        rowView.setTag(articlesList.get(position).getLink());
 
         return rowView;
     }
 
-/*
-
-
-
-
-    private static LawDetailActivity lawDetailActivity;
-    private final ArrayList<Article> articlesList;
-
-    public ArticlesAdapterTwo(LawDetailActivity lawDetailActivity, ArrayList<Article> articlesList) {
-        this.articlesList = articlesList;
-        this.lawDetailActivity = lawDetailActivity;
-    }
-    //VIEW HOLDER FOR DEBATE ROWS
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-        public TextView articleTitle;
-        public TextView articleSource;
-        public TextView articleDate;
-        //public RelativeLayout articleLayout;
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-            Log.d("DEBUG", "ViewHolderArticle");
-            articleTitle = (TextView) itemView.findViewById(R.id.row_article_title);
-            articleSource = (TextView) itemView.findViewById(R.id.row_article_source);
-            articleDate = (TextView) itemView.findViewById(R.id.row_article_date);
-            //articleLayout = (RelativeLayout) itemView.findViewById(R.id.row_article_layout);
-
-            itemView.setOnClickListener(this);
-
+    @Override
+    public boolean onTouch(View view, MotionEvent event) {
+        if(event.getAction() == MotionEvent.ACTION_UP){
+            Intent articleIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(view.getTag().toString()));
+            context.startActivity(articleIntent);
         }
-
-        @Override
-        public void onClick(View view) {
-            Toast.makeText(lawDetailActivity, "Url: "+view.getTag().toString() ,Toast.LENGTH_SHORT).show();
-        }
+        return true;
     }
-
-    @Override
-    public ArticlesAdapterTwo.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        Log.d("DEBUG", "onCreateViewHolder");
-
-        return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_article, viewGroup, false));
-    }
-
-    @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        Log.d("DEBUG", "onBindViewHolder");
-        Article article = articlesList.get(i);
-        viewHolder.articleTitle.setText(article.getTitle());
-        viewHolder.articleSource.setText(article.getSource());
-        viewHolder.articleDate.setText(article.getDate().toString());
-        viewHolder.itemView.setTag(article.getLink());
-    }
-
-    @Override
-    public int getItemCount() {
-        Log.d("DEBUG","getItemCount "+articlesList.size());
-        return articlesList == null ? 0 : articlesList.size();
-    }
-
-    */
 }

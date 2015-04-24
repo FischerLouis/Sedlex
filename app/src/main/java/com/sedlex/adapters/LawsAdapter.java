@@ -177,12 +177,6 @@ public class LawsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
         }
-
-
-
-
-
-
     }
 
     @Override

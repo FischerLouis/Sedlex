@@ -60,7 +60,7 @@ public class MyContentManager {
         //CURPAGE SETUP
         curPage = page;
         //URL SETUP
-        String url = Constants.URL_LAWS_PAGE_DEBUG+page;
+        String url = Constants.URL_LAWS_PAGE+page;
         //CACHE CHECK
         if(queue.getCache().get(url)!=null && !refresh){
             Log.d("VOLLEY_VIEW_1","CACHE");
@@ -126,8 +126,6 @@ public class MyContentManager {
             //SET PROGRESSION
             curLaw.setProgression(lawsArray.getJSONObject(i).getString(STATIC_PROGRESSION));
             //SET DAY_ORDER
-            //curLaw.setDayOrder(null);
-
             try {
                 curLaw.setDayOrder(dateFormatter.parse(lawsArray.getJSONObject(i).getString(STATIC_DAY_ORDER)));
             } catch (ParseException e) {

@@ -55,32 +55,6 @@ public class DebatesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             else{
                 text.setMaxLines(TEXT_LINES_COUNT_TO_SHOW);
             }
-
-            /*
-            //LEVEL 1 => LEVEL 2
-            if(!semiExpended && !expended){
-                test.setMaxLines(TEXT_LEVEL_TWO_NUMBER_LINES);
-                semiExpended = true;
-            }
-            //LEVEL 3 => LEVEL 2
-            else if(expended){
-                test.setMaxLines(TEXT_LEVEL_TWO_NUMBER_LINES);
-                semiExpended = true;
-                expended = false;
-            }
-            //LEVEL 2 => LEVEL 1
-            else if( (semiExpended && wasExpended) || (semiExpended && !test.isEllipsized())){
-                test.setMaxLines(TEXT_LEVEL_ONE_NUMBER_LINES);
-                semiExpended = false;
-                wasExpended = false;
-            }
-            //LEVEL 2 => LEVEL 3
-            else if(semiExpended && !wasExpended){
-                test.setMaxLines(Integer.MAX_VALUE);
-                semiExpended = false;
-                expended = true;
-                wasExpended = true;
-            }*/
         }
 
         public void updateInitiative(Stamp stamp){
@@ -155,6 +129,5 @@ public class DebatesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public int getItemCount() {
         return debatesList == null ? 0 : debatesList.size();
     }
-
 
 }

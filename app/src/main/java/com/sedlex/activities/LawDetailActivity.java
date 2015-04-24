@@ -4,20 +4,22 @@ import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.NumberPicker;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +32,9 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.sedlex.R;
+import com.sedlex.adapters.ArticlesAdapter;
+import com.sedlex.adapters.ArticlesAdapterOld;
+import com.sedlex.objects.Article;
 import com.sedlex.tools.Constants;
 import com.sedlex.tools.EllipsizingTextView;
 import com.sedlex.tools.VolleySingleton;
@@ -37,8 +42,10 @@ import com.sedlex.tools.VolleySingleton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Field;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class LawDetailActivity extends ActionBarActivity implements View.OnClickListener, View.OnTouchListener {
@@ -60,9 +67,9 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
     private int lawId;
     private String lawTitle;
     private String lawInitiative;
-    private NumberPicker pickerParties;
     private Spinner spinnerParties;
-    private String[] involvedParties;
+    private ListView articlesList;
+    private RelativeLayout layoutTransparent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,47 +85,22 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
         lawInitiative = getIntent().getStringExtra(ARG_INITIATIVE);
         setTitle(lawTitle);
         int progress = getIntent().getIntExtra(ARG_PROGRESS, ARG_INT_DEFAULT);
-        Log.d("DEBUG", "progess:" + progress);
         lawId = getIntent().getIntExtra(ARG_LAWID, ARG_INT_DEFAULT);
-        Log.d("DEBUG","id:"+lawId);
-
-        //SETTING INVOLVED PARTIES
-        involvedParties = new String[] {"PC", "PS", "Rad", "V", "UDI", "UMP"};
 
         //RETRIEVE VIEWS
         lawContentView = (EllipsizingTextView) findViewById(R.id.detail_content);
-        //TextView approveButton = (TextView) findViewById(R.id.detail_button_approve);
-        //TextView disapproveButton = (TextView) findViewById(R.id.detail_button_disapprove);
         FloatingActionsMenu buttonVote = (FloatingActionsMenu) findViewById(R.id.details_button_vote);
         FloatingActionButton buttonApprove = (FloatingActionButton) findViewById(R.id.detail_button_approve);
         FloatingActionButton buttonDisapprove = (FloatingActionButton) findViewById(R.id.detail_button_disapprove);
-        //pickerParties = (NumberPicker) findViewById(R.id.detail_picker_parties);
         spinnerParties = (Spinner) findViewById(R.id.detail_dropdown_parties);
+        articlesList = (ListView)findViewById(R.id.detail_list_article);
         ImageView debatesButton = (ImageView) findViewById(R.id.detail_debates_button);
-        TextView spinnerItem = (TextView) findViewById(R.id.spinner_item);
-        // debatesOne = (TextView) findViewById(R.id.detail_debates_1);
-        //TextView debatesTwo = (TextView) findViewById(R.id.detail_debates_2);
-        //TextView debatesThree = (TextView) findViewById(R.id.detail_debates_3);
-        //TextView debatesFour = (TextView) findViewById(R.id.detail_debates_4);
-        //TextView debatesFive = (TextView) findViewById(R.id.detail_debates_5);
-        //TextView debatesSix = (TextView) findViewById(R.id.detail_debates_6);
-
-        //UPDATE FLOATTING ACTION BUTTON
+        layoutTransparent = (RelativeLayout) findViewById(R.id.detail_layout_transparent);
 
         //UPDATE PROGRESS VIEWS
         updateProgress(progress);
 
-        //SETUP PARTIES PICKER
-        /*
-        pickerParties.setMinValue(0);
-        pickerParties.setMaxValue(5);
-        pickerParties.setDisplayedValues(involvedParties);
-        setNumberPickerTextColor(pickerParties, getResources().getColor(R.color.white));
-        pickerParties.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
-        */
-
         //SETUP PARTIES SPINNER
-
         SpannableString content = new SpannableString("PC");
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
 
@@ -134,6 +116,15 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerParties.setAdapter(dataAdapter);
 
+        //DEBATES LIST FIRST SETUP
+        ArticlesAdapter adapter = null;
+        try {
+            adapter = new ArticlesAdapter(this, getRowArticlesList());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        articlesList.setAdapter(adapter);
+        setListViewHeightBasedOnChildren(articlesList);
 
         //GET DYNAMIC DATA (CONTENT)
         if (lawId != 0)
@@ -143,15 +134,23 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
         lawContentView.setOnClickListener(this);
         buttonApprove.setOnTouchListener(this);
         buttonDisapprove.setOnTouchListener(this);
+        //buttonVote.setOnClickListener(this);
+        //layoutTransparent.setOnClickListener(this);
         debatesButton.setOnTouchListener(this);
-        //approveButton.setOnTouchListener(this);
-        //disapproveButton.setOnTouchListener(this);
-        //debatesOne.setOnTouchListener(this);
-        //debatesTwo.setOnTouchListener(this);
-        //debatesThree.setOnTouchListener(this);
-        //debatesFour.setOnTouchListener(this);
-        //debatesFive.setOnTouchListener(this);
-        //debatesSix.setOnTouchListener(this);
+    }
+
+    private ArrayList<Article> getRowArticlesList() throws ParseException {
+        ArrayList<Article> list = new ArrayList<>();
+        for(int i=0;i<5;i++){
+            Article curArticle = new Article();
+            curArticle.setTitle("Title "+i);
+            curArticle.setId(i);
+            curArticle.setLink("https://www.google.fr/?gws_rd=ssl");
+            curArticle.setSource("Source " + i);
+            curArticle.setDate(new Date());
+            list.add(curArticle);
+        }
+        return list;
     }
 
     private void updateLawDetailsContent(int lawId){
@@ -261,38 +260,41 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
         return (int)(dp * (metrics.densityDpi / 160f));
     }
 
-    public static boolean setNumberPickerTextColor(NumberPicker numberPicker, int color)
-    {
-        final int count = numberPicker.getChildCount();
-        for(int i = 0; i < count; i++){
-            View child = numberPicker.getChildAt(i);
-            if(child instanceof EditText){
-                try{
-                    Field selectorWheelPaintField = numberPicker.getClass()
-                            .getDeclaredField("mSelectorWheelPaint");
-                    selectorWheelPaintField.setAccessible(true);
-                    ((Paint)selectorWheelPaintField.get(numberPicker)).setColor(color);
-                    ((EditText)child).setTextColor(color);
-                    numberPicker.invalidate();
-                    return true;
-                }
-                catch(NoSuchFieldException e){
-                    Log.w("setNumberPickerTextColo", e);
-                }
-                catch(IllegalAccessException e){
-                    Log.w("setNumberPickerTextColo", e);
-                }
-                catch(IllegalArgumentException e){
-                    Log.w("setNumberPickerTextColo", e);
-                }
-            }
+    private static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            // pre-condition
+            return;
         }
-        return false;
+
+        int totalHeight = 0;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+        listView.requestLayout();
     }
 
     @Override
     public void onClick(View view) {
-        updateContentView();
+        switch(view.getId()){
+            case R.id.detail_content:
+                updateContentView();
+                break;
+            case R.id.details_button_vote:
+                layoutTransparent.setVisibility(View.VISIBLE);
+                break;
+            case R.id.detail_layout_transparent:
+                layoutTransparent.setVisibility(View.GONE);
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -313,32 +315,6 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
                     startActivity(debatesIntent);
                     break;
                 default:
-                    /*switch (view.getId()){
-                       case R.id.detail_debates_1:
-                            debatesIntent.putExtra(DebatesActivity.ARG_PARTY, getResources().getString(R.string.parti_communiste));
-                            startActivity(debatesIntent);
-                            break;
-                        case R.id.detail_debates_2:
-                            debatesIntent.putExtra(DebatesActivity.ARG_PARTY, getResources().getString(R.string.parti_ps));
-                            startActivity(debatesIntent);
-                            break;
-                        case R.id.detail_debates_3:
-                            debatesIntent.putExtra(DebatesActivity.ARG_PARTY, getResources().getString(R.string.parti_radicaux));
-                            startActivity(debatesIntent);
-                            break;
-                        case R.id.detail_debates_4:
-                            debatesIntent.putExtra(DebatesActivity.ARG_PARTY, getResources().getString(R.string.parti_vert));
-                            startActivity(debatesIntent);
-                            break;
-                        case R.id.detail_debates_5:
-                            debatesIntent.putExtra(DebatesActivity.ARG_PARTY, getResources().getString(R.string.parti_udi));
-                            startActivity(debatesIntent);
-                            break;
-                        case R.id.detail_debates_6:
-                            debatesIntent.putExtra(DebatesActivity.ARG_PARTY, getResources().getString(R.string.parti_ump));
-                            startActivity(debatesIntent);
-                            break;
-                    }*/
                     break;
             }
         }

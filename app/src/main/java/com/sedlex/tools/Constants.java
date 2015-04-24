@@ -5,6 +5,7 @@ public class Constants {
     public static final String URL_LAWS_PAGE = "http://sedlex.jbcid.me/laws?page=";
     public static final String URL_LAWS_PAGE_DEBUG = "http://uekkc9a9aa4b.eljb.koding.io:5000/laws?page=";
     public static final String URL_LAW_DETAILS = "http://sedlex.jbcid.me/laws/";
+    public static final String URL_LAW_DETAILS_DEBUG = "http://uekkc9a9aa4b.eljb.koding.io:5000/laws/";
     public static final String URL_GET_DEBATES = "/debates";
 
     public static final int GetProgressFromMapping(String step){
