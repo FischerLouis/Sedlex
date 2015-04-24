@@ -26,6 +26,7 @@ public class MainActivity extends ActionBarActivity {
     private RecyclerView listView;
     private LawsAdapter adapter;
     private boolean refresh = false;
+    private boolean onLoading = false;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
@@ -63,8 +64,14 @@ public class MainActivity extends ActionBarActivity {
         InfiniteScrollListener infiniteScrollListener = new InfiniteScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int current_page) {
-                Log.v("DEBUG", "page= "+current_page);
-                myContentManager.updateList(current_page, false);
+                //ADDING DUMMY LOADING VIEW
+                if(!onLoading) {
+                    myContentManager.addDummyLoadingViewToList();
+                    adapter.notifyDataSetChanged();
+                    onLoading = true;
+                    //GETTING NEW DATA
+                    myContentManager.updateList(current_page, false);
+                }
             }
         };
         listView.setOnScrollListener(infiniteScrollListener);
@@ -74,7 +81,7 @@ public class MainActivity extends ActionBarActivity {
         //UPDATING DATA ACCORDING TO PAGES / UPDATE
         if(!refresh) {
             if (page == 0) {
-                adapter = new LawsAdapter(this, R.layout.row_lawslist, lawsList);
+                adapter = new LawsAdapter(this, lawsList);
                 findViewById(R.id.loading_view).setVisibility(View.GONE);
                 listView.setAdapter(adapter);
             } else {
@@ -86,6 +93,10 @@ public class MainActivity extends ActionBarActivity {
             stopRefreshingAnim();
             refresh = false;
         }
+    }
+
+    public void setOnLoading(boolean isOnLoading){
+        this.onLoading = isOnLoading;
     }
 
     public void stopRefreshingAnim(){
