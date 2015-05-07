@@ -259,39 +259,130 @@
         android:visibility="invisible"
         android:background="@color/white_transparent"/>
 
-    <com.getbase.floatingactionbutton.FloatingActionsMenu
-        android:id="@+id/details_button_vote"
+    <com.getbase.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        fab:fab_labelsPosition="left"
-        fab:fab_labelStyle="@style/menu_labels_style"
-        fab:fab_addButtonColorNormal="@color/grey800"
-        fab:fab_addButtonColorPressed="@color/grey400"
-        fab:fab_addButtonSize="normal"
-        fab:fab_expandDirection="up"
+        android:id="@+id/detail_button_solo_vote"
+        fab:fab_icon="@mipmap/ic_vote"
+        fab:fab_colorNormal="@color/grey"
+        fab:fab_title="@string/detail_button_approve"
+        fab:fab_colorPressed="@color/grey400"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp">
+        android:layout_marginBottom="16dp"/>
 
-        <com.getbase.floatingactionbutton.FloatingActionButton
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/detail_layout_vote"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:background="@color/white"
+            android:text="Title"
+            android:textSize="20sp"
+            android:textColor="@color/grey800"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey200"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/circle_vote_button"
+                    android:src="@mipmap/ic_check_grey"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Je vote pour"
+                    android:textColor="@color/grey800"
+                    android:textSize="16sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/circle_vote_button"
+                    android:src="@mipmap/ic_close_grey"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Je vote contre"
+                    android:textColor="@color/grey800"
+                    android:textSize="16sp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!--
+        <com.getbase.floatingactionbutton.FloatingActionsMenu
+            android:id="@+id/details_button_vote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/detail_button_approve"
-            fab:fab_icon="@mipmap/ic_check_white"
-            fab:fab_colorNormal="@color/grey"
-            fab:fab_title="@string/detail_button_approve"
-            fab:fab_colorPressed="@color/grey400"/>
+            fab:fab_labelsPosition="left"
+            fab:fab_labelStyle="@style/menu_labels_style"
+            fab:fab_addButtonColorNormal="@color/grey800"
+            fab:fab_addButtonColorPressed="@color/grey400"
+            fab:fab_addButtonSize="normal"
+            fab:fab_expandDirection="up"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp">
 
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/detail_button_disapprove"
-            fab:fab_icon="@mipmap/ic_close_white"
-            fab:fab_colorNormal="@color/grey"
-            fab:fab_title="@string/detail_button_disapprove"
-            fab:fab_colorPressed="@color/grey400"/>
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/detail_button_approve"
+                fab:fab_icon="@mipmap/ic_check_white"
+                fab:fab_colorNormal="@color/grey"
+                fab:fab_title="@string/detail_button_approve"
+                fab:fab_colorPressed="@color/grey400"/>
 
-    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/detail_button_disapprove"
+                fab:fab_icon="@mipmap/ic_close_white"
+                fab:fab_colorNormal="@color/grey"
+                fab:fab_title="@string/detail_button_disapprove"
+                fab:fab_colorPressed="@color/grey400"/>
 
+        </com.getbase.floatingactionbutton.FloatingActionsMenu>
+        -->
 </RelativeLayout>

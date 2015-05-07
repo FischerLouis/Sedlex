@@ -15,8 +15,11 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -70,6 +73,7 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
     private Spinner spinnerParties;
     private ListView articlesList;
     private RelativeLayout layoutTransparent;
+    private LinearLayout layoutVote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,13 +93,15 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
 
         //RETRIEVE VIEWS
         lawContentView = (EllipsizingTextView) findViewById(R.id.detail_content);
-        FloatingActionsMenu buttonVote = (FloatingActionsMenu) findViewById(R.id.details_button_vote);
-        FloatingActionButton buttonApprove = (FloatingActionButton) findViewById(R.id.detail_button_approve);
-        FloatingActionButton buttonDisapprove = (FloatingActionButton) findViewById(R.id.detail_button_disapprove);
+        FloatingActionButton soloButton = (FloatingActionButton) findViewById(R.id.detail_button_solo_vote);
+        //FloatingActionsMenu buttonVote = (FloatingActionsMenu) findViewById(R.id.details_button_vote);
+        //FloatingActionButton buttonApprove = (FloatingActionButton) findViewById(R.id.detail_button_approve);
+        //FloatingActionButton buttonDisapprove = (FloatingActionButton) findViewById(R.id.detail_button_disapprove);
         spinnerParties = (Spinner) findViewById(R.id.detail_dropdown_parties);
         articlesList = (ListView)findViewById(R.id.detail_list_article);
         ImageView debatesButton = (ImageView) findViewById(R.id.detail_debates_button);
         layoutTransparent = (RelativeLayout) findViewById(R.id.detail_layout_transparent);
+        layoutVote = (LinearLayout) findViewById(R.id.detail_layout_vote);
 
         //UPDATE PROGRESS VIEWS
         updateProgress(progress);
@@ -133,10 +139,11 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
 
         //SET LISTENER
         lawContentView.setOnClickListener(this);
-        buttonApprove.setOnTouchListener(this);
-        buttonDisapprove.setOnTouchListener(this);
+        soloButton.setOnTouchListener(this);
+        //buttonApprove.setOnTouchListener(this);
+        //buttonDisapprove.setOnTouchListener(this);
         //buttonVote.setOnClickListener(this);
-        //layoutTransparent.setOnClickListener(this);
+        layoutTransparent.setOnClickListener(this);
         debatesButton.setOnTouchListener(this);
     }
 
@@ -218,6 +225,44 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
         }
     }
 
+    private void slideToAbove() {
+        Animation slide = null;
+        slide = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+                0.0f, Animation.RELATIVE_TO_SELF, -5.0f);
+
+        slide.setDuration(400);
+        slide.setFillAfter(true);
+        slide.setFillEnabled(true);
+        layoutVote.startAnimation(slide);
+
+        slide.setAnimationListener(new Animation.AnimationListener() {
+
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
+                layoutVote.clearAnimation();
+
+                RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
+                        layoutVote.getWidth(), layoutVote.getHeight());
+                // lp.setMargins(0, 0, 0, 0);
+                lp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+                layoutVote.setLayoutParams(lp);
+
+            }
+
+        });
+    }
+
     private void updateProgress(int progress){
 
         TextView stepOne = (TextView) findViewById(R.id.detail_step_1);
@@ -287,9 +332,9 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
             case R.id.detail_content:
                 updateContentView();
                 break;
-            case R.id.details_button_vote:
+            /*case R.id.details_button_vote:
                 layoutTransparent.setVisibility(View.VISIBLE);
-                break;
+                break;*/
             case R.id.detail_layout_transparent:
                 layoutTransparent.setVisibility(View.GONE);
                 break;
@@ -302,18 +347,23 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
     public boolean onTouch(View view, MotionEvent event) {
         if(event.getAction() == MotionEvent.ACTION_DOWN){
             switch(view.getId()) {
-                case R.id.detail_button_approve:
+                /*case R.id.detail_button_approve:
                     Toast.makeText(this, "Je suis POUR ce texte.", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.detail_button_disapprove:
                     Toast.makeText(this, "Je suis CONTRE ce texte.", Toast.LENGTH_SHORT).show();
-                    break;
+                    break;*/
                 case R.id.detail_debates_button:
                     Intent debatesIntent = new Intent(this, DebatesActivity.class);
                     debatesIntent.putExtra(DebatesActivity.ARG_TITLE, lawTitle);
                     debatesIntent.putExtra(DebatesActivity.ARG_LAWID, lawId);
                     debatesIntent.putExtra(DebatesActivity.ARG_PARTY, spinnerParties.getSelectedItem().toString());
                     startActivity(debatesIntent);
+                case R.id.detail_button_solo_vote:
+                    Toast.makeText(this, "Button", Toast.LENGTH_SHORT).show();
+                    layoutTransparent.setVisibility(View.VISIBLE);
+                    slideToAbove();
+                    break;
                 default:
                     break;
             }
