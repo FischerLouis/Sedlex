@@ -2,6 +2,7 @@ package com.sedlex.objects;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Law {
 
@@ -10,11 +11,14 @@ public class Law {
     private String title;
     private String summary;
     private String progression;
+    private String content;
     private ArrayList<Category> categories;
     private Stamp stamp;
     private Date day_order;
+    private boolean hasDebates;
+    private List<String> debatesGroupList;
+    private ArrayList<Article> articleList;
     private boolean isDummyLoadingView = false;
-
 
     public int getId() {
         return id;
@@ -56,6 +60,10 @@ public class Law {
         this.progression = progression;
     }
 
+    public String getContent() { return content; }
+
+    public void setContent(String content) { this.content = content; }
+
     public ArrayList<Category> getCategories() {
         return categories;
     }
@@ -79,6 +87,18 @@ public class Law {
     public void setDayOrder(Date day_order) {
         this.day_order = day_order;
     }
+
+    public boolean getHasDebates() {return hasDebates; }
+
+    public void setHasDebates(boolean hasDebates) { this.hasDebates = hasDebates; }
+
+    public List<String> getDebatesGroupList() { return debatesGroupList; }
+
+    public void setDebatesGroupList(List<String> debatesGroupList) { this.debatesGroupList = debatesGroupList; }
+
+    public ArrayList<Article> getArticleList() { return articleList; }
+
+    public void setArticleList(ArrayList<Article> articleList) { this.articleList = articleList; }
 
     public boolean isDummyLoadingView() {
         return isDummyLoadingView;
