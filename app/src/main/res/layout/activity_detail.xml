@@ -131,6 +131,7 @@
             <android.support.v7.widget.CardView
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
+                android:visibility="visible"
                 android:id="@+id/activity_detail_layout_text"
                 android:layout_below="@+id/activity_detail_layout_progression"
                 android:layout_marginBottom="10dp">
@@ -162,6 +163,13 @@
                         android:text="@string/loading"
                         android:textSize="13sp"/>
 
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
+                        android:layout_marginTop="-15dp"
+                        android:id="@+id/detail_text_transparent_view"
+                        android:background="@color/white_transparent"/>
+
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
@@ -169,6 +177,7 @@
             <android.support.v7.widget.CardView
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
+                android:visibility="gone"
                 android:id="@+id/activity_detail_layout_opinions"
                 android:layout_below="@+id/activity_detail_layout_text"
                 android:layout_marginBottom="10dp">
@@ -213,10 +222,11 @@
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
 
-            <!--OPINIONS-->
+            <!--ARTICLE-->
             <android.support.v7.widget.CardView
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
+                android:visibility="gone"
                 android:id="@+id/detail_layout_article"
                 android:layout_below="@+id/activity_detail_layout_opinions"
                 android:layout_marginBottom="10dp">
@@ -252,13 +262,23 @@
         </RelativeLayout>
     </ScrollView>
 
+    <!--LOADING VIEW-->
+    <ImageView
+        android:id="@+id/detail_loading_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/content_description"/>
+
+    <!--TRANSPARENT VIEW-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/detail_layout_transparent"
         android:visibility="invisible"
-        android:background="@color/white_transparent"/>
+        android:background="@color/grey_transparent"/>
 
+    <!--VOTE BUTTON (FAB)-->
     <com.getbase.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -272,6 +292,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"/>
 
+    <!--VOTE LAYOUT (POPUP)-->
     <com.sedlex.tools.SlidingPanel
         android:id="@+id/detail_popup_vote"
         android:layout_width="match_parent"

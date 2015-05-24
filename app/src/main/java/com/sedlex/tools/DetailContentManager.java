@@ -23,9 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * Created by boniface on 5/16/15.
- */
 public class DetailContentManager {
 
     private static final String LOG_TAG = DetailContentManager.class.getSimpleName();
@@ -103,14 +100,15 @@ public class DetailContentManager {
         JSONArray articleArray = lawObject.getJSONArray(STATIC_LAW_ARTICLES);
 
         JSONArray groupArray = lawObject.getJSONArray(STATIC_LAW_DEBATES_GROUP);
-        List<String> groupList = new ArrayList<String>();
+        List<String> groupList = new ArrayList<>();
         for( int i = 0; i < groupArray.length() ; i++ ){
             groupList.add((String) groupArray.get(i));
         }
         lawDetail.setDebatesGroupList(groupList);
 
-        ArrayList<Article> articleList = new ArrayList<Article>();
+        ArrayList<Article> articleList = new ArrayList<>();
         for( int i = 0; i < articleArray.length() ; i++ ){
+            Log.d("SOURCE",((JSONObject) articleArray.get(i)).getString(STATIC_ARTICLE_SOURCE).toString());
             Article article = new Article();
             article.setId(i);
             article.setLink(((JSONObject) articleArray.get(i)).getString(STATIC_ARTICLE_URL));
@@ -128,6 +126,7 @@ public class DetailContentManager {
             articleList.add(article);
         }
         lawDetail.setArticleList(articleList);
+        Log.d("CONTENTMANAGER", lawDetail.toString());
 
         activity.updateDetailViews(lawDetail);
     }
