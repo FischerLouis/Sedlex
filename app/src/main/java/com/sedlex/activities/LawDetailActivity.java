@@ -184,8 +184,6 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
 
     private void updateProgress(int progress){
 
-        progress = 2;
-
         TextView stepOne = (TextView) findViewById(R.id.detail_step_1);
         View stepOneFullLayout = findViewById(R.id.detail_step_1_flayout);
         View stepOneHalfLayout = findViewById(R.id.detail_step_1_hlayout);
