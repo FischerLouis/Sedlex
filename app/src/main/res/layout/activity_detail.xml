@@ -295,9 +295,8 @@
 
                     <ListView
                         android:id="@+id/detail_list_article"
-                        android:scrollbars="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"/>
+                        android:layout_height="300dp" />
 
                 </LinearLayout>
             </android.support.v7.widget.CardView>
@@ -344,79 +343,58 @@
         android:layout_alignParentBottom="true"
         android:background="@color/white">
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/detail_layout_vote"
-            android:orientation="vertical"
-            android:layout_alignParentBottom="true">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:background="@color/white"
-                android:text="@string/detail_layout_vote_title"
-                android:textSize="20sp"
-                android:textColor="@color/grey800"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/grey200"/>
+            android:padding="10dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:weightSum="2">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:background="@color/white"
-                android:orientation="horizontal"
-                android:weightSum="2">
+                android:id="@+id/detail_layout_vote_approve"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_weight="1">
 
-                <LinearLayout
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/detail_layout_vote_approve"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
+                    android:background="@drawable/circle_vote_button"
+                    android:src="@mipmap/ic_check_white"/>
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/circle_vote_button"
-                        android:src="@mipmap/ic_check_grey"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Je vote pour"
-                        android:textColor="@color/grey800"
-                        android:textSize="16sp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/detail_layout_vote_disapprove"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
+                    android:text="Je vote pour"
+                    android:textColor="@color/grey800"
+                    android:textSize="16sp"/>
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/circle_vote_button"
-                        android:src="@mipmap/ic_close_grey"/>
+            </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Je vote contre"
-                        android:textColor="@color/grey800"
-                        android:textSize="16sp"/>
-                </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/detail_layout_vote_disapprove"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/circle_vote_button"
+                    android:src="@mipmap/ic_close_white"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Je vote contre"
+                    android:textColor="@color/grey800"
+                    android:textSize="16sp"/>
             </LinearLayout>
         </LinearLayout>
     </com.sedlex.tools.SlidingPanel>
