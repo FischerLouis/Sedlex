@@ -7,20 +7,16 @@ import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -42,6 +38,7 @@ import com.sedlex.objects.Law;
 import com.sedlex.tools.Constants;
 import com.sedlex.tools.DetailContentManager;
 import com.sedlex.tools.EllipsizingTextView;
+import com.sedlex.tools.SlidingPanel;
 import com.sedlex.tools.VolleySingleton;
 
 import org.json.JSONException;
@@ -66,7 +63,6 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
     private static final int IMAGEVIEW_BIG_DP = 60;
     private static final int CONTENTVIEW_MAX_LINES = 8;
 
-    private Context context = this;
     private EllipsizingTextView lawContentView;
     private boolean extendedContent = true;
     private int lawId;
@@ -75,9 +71,17 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
     private Spinner spinnerParties;
     private ListView articlesList;
     private RelativeLayout layoutTransparent;
-    private LinearLayout layoutVote;
     private View debateView;
     private DetailContentManager contentManager;
+
+    private FloatingActionButton voteButton;
+    private boolean popupVoteIsVisible = false;
+    private Animation animShow;
+    private Animation animHide;
+
+    private SlidingPanel popup;
+    private LinearLayout voteButtonApprove;
+    private LinearLayout voteButtonDisapprove;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,16 +101,15 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
 
         //RETRIEVE VIEWS
         lawContentView = (EllipsizingTextView) findViewById(R.id.detail_content);
-        FloatingActionButton soloButton = (FloatingActionButton) findViewById(R.id.detail_button_solo_vote);
-        //FloatingActionsMenu buttonVote = (FloatingActionsMenu) findViewById(R.id.details_button_vote);
-        //FloatingActionButton buttonApprove = (FloatingActionButton) findViewById(R.id.detail_button_approve);
-        //FloatingActionButton buttonDisapprove = (FloatingActionButton) findViewById(R.id.detail_button_disapprove);
+        voteButton = (FloatingActionButton) findViewById(R.id.detail_button_vote);
         spinnerParties = (Spinner) findViewById(R.id.detail_dropdown_parties);
         articlesList = (ListView)findViewById(R.id.detail_list_article);
         ImageView debatesButton = (ImageView) findViewById(R.id.detail_debates_button);
         layoutTransparent = (RelativeLayout) findViewById(R.id.detail_layout_transparent);
-        layoutVote = (LinearLayout) findViewById(R.id.detail_layout_vote);
         debateView = findViewById(R.id.activity_detail_layout_opinions);
+        popup = (SlidingPanel) findViewById(R.id.detail_popup_vote);
+        voteButtonApprove = (LinearLayout) findViewById(R.id.detail_layout_vote_approve);
+        voteButtonDisapprove = (LinearLayout) findViewById(R.id.detail_layout_vote_disapprove);
 
         //UPDATE PROGRESS VIEWS
         updateProgress(progress);
@@ -118,12 +121,14 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
         if (lawId != 0)
             contentManager.fetchLawDetail(lawId);
 
+        //SET Popup action
+        initPopup();
+
         //SET LISTENER
         lawContentView.setOnClickListener(this);
-        soloButton.setOnTouchListener(this);
-        //buttonApprove.setOnTouchListener(this);
-        //buttonDisapprove.setOnTouchListener(this);
-        //buttonVote.setOnClickListener(this);
+        voteButton.setOnTouchListener(this);
+        voteButtonApprove.setOnClickListener(this);
+        voteButtonDisapprove.setOnClickListener(this);
         layoutTransparent.setOnClickListener(this);
         debatesButton.setOnTouchListener(this);
     }
@@ -150,8 +155,6 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
         //UPDATE ARTICLES
         ArticlesAdapter articlesAdapter = new ArticlesAdapter(this, lawDetail.getArticleList());
         articlesList.setAdapter(articlesAdapter);
-        // setListViewHeightBasedOnChildren(articlesList);
-
     }
 
     private void updateContentView(){
@@ -163,44 +166,6 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
             lawContentView.setMaxLines(Integer.MAX_VALUE);
             extendedContent = true;
         }
-    }
-
-    private void slideToAbove() {
-        Animation slide = null;
-        slide = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
-                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
-                0.0f, Animation.RELATIVE_TO_SELF, -5.0f);
-
-        slide.setDuration(400);
-        slide.setFillAfter(true);
-        slide.setFillEnabled(true);
-        layoutVote.startAnimation(slide);
-
-        slide.setAnimationListener(new Animation.AnimationListener() {
-
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-
-                layoutVote.clearAnimation();
-
-                RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
-                        layoutVote.getWidth(), layoutVote.getHeight());
-                // lp.setMargins(0, 0, 0, 0);
-                lp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-                layoutVote.setLayoutParams(lp);
-
-            }
-
-        });
     }
 
     private void updateProgress(int progress){
@@ -246,24 +211,12 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
         return (int)(dp * (metrics.densityDpi / 160f));
     }
 
-    private static void setListViewHeightBasedOnChildren(ListView listView) {
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null) {
-            // pre-condition
-            return;
-        }
+    private void initPopup() {
+        popup.setVisibility(View.GONE);
 
-        int totalHeight = 0;
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            View listItem = listAdapter.getView(i, null, listView);
-            listItem.measure(0, 0);
-            totalHeight += listItem.getMeasuredHeight();
-        }
+        animShow = AnimationUtils.loadAnimation(this, R.anim.popup_show);
+        animHide = AnimationUtils.loadAnimation( this, R.anim.popup_hide);
 
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        listView.setLayoutParams(params);
-        listView.requestLayout();
     }
 
     @Override
@@ -272,11 +225,19 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
             case R.id.detail_content:
                 updateContentView();
                 break;
-            /*case R.id.details_button_vote:
-                layoutTransparent.setVisibility(View.VISIBLE);
-                break;*/
             case R.id.detail_layout_transparent:
-                layoutTransparent.setVisibility(View.GONE);
+                if(popupVoteIsVisible) {
+                    popup.setVisibility(View.GONE);
+                    popup.startAnimation(animHide);
+                    layoutTransparent.setVisibility(View.GONE);
+                    popupVoteIsVisible = false;
+                }
+                break;
+            case R.id.detail_layout_vote_approve:
+                Toast.makeText(this, "J'approuve ce texte", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.detail_layout_vote_disapprove:
+                Toast.makeText(this, "Je n'approuve pas ce texte", Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;
@@ -287,22 +248,19 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
     public boolean onTouch(View view, MotionEvent event) {
         if(event.getAction() == MotionEvent.ACTION_DOWN){
             switch(view.getId()) {
-                /*case R.id.detail_button_approve:
-                    Toast.makeText(this, "Je suis POUR ce texte.", Toast.LENGTH_SHORT).show();
-                    break;
-                case R.id.detail_button_disapprove:
-                    Toast.makeText(this, "Je suis CONTRE ce texte.", Toast.LENGTH_SHORT).show();
-                    break;*/
                 case R.id.detail_debates_button:
                     Intent debatesIntent = new Intent(this, DebatesActivity.class);
                     debatesIntent.putExtra(DebatesActivity.ARG_TITLE, lawTitle);
                     debatesIntent.putExtra(DebatesActivity.ARG_LAWID, lawId);
                     debatesIntent.putExtra(DebatesActivity.ARG_PARTY, spinnerParties.getSelectedItem().toString());
                     startActivity(debatesIntent);
-                case R.id.detail_button_solo_vote:
-                    Toast.makeText(this, "Button", Toast.LENGTH_SHORT).show();
-                    layoutTransparent.setVisibility(View.VISIBLE);
-                    slideToAbove();
+                case R.id.detail_button_vote:
+                    if(!popupVoteIsVisible){
+                        popup.setVisibility(View.VISIBLE);
+                        popup.startAnimation(animShow);
+                        layoutTransparent.setVisibility(View.VISIBLE);
+                        popupVoteIsVisible = true;
+                    }
                     break;
                 default:
                     break;

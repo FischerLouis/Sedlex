@@ -23,6 +23,7 @@
     <string name="detail_title_debates">Accéder aux débats</string>
     <string name="detail_title_article">Articles connexes</string>
 
+    <string name="detail_layout_vote_title">Mon opinion</string>
     <string name="detail_button_approve">Je vote pour</string>
     <string name="detail_button_disapprove">Je vote contre</string>
 
