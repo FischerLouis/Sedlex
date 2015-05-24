@@ -25,11 +25,23 @@
                 android:layout_marginBottom="10dp">
 
                 <TableRow>
-                    <LinearLayout
+                    <RelativeLayout
                         android:orientation="vertical"
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:layout_weight="1">
+                        <View
+                            android:id="@+id/detail_step_1_flayout"
+                            android:layout_width="40dp"
+                            android:layout_centerHorizontal="true"
+                            android:background="@color/deep_orange"
+                            android:layout_height="40dp"/>
+                        <View
+                            android:id="@+id/detail_step_1_hlayout"
+                            android:layout_width="20dp"
+                            android:layout_alignLeft="@+id/detail_step_1_flayout"
+                            android:background="@color/white_transparent_icon"
+                            android:layout_height="40dp"/>
                         <TextView
                             android:layout_width="40dp"
                             android:layout_height="40dp"
@@ -39,17 +51,19 @@
                             android:textSize="18sp"
                             android:text="@string/parti_government"
                             android:textStyle="bold"
+                            android:layout_centerHorizontal="true"
                             android:textColor="@color/white"
-                            android:contentDescription="@string/content_description"
-                            android:background="@color/deep_orange"/>
+                            android:contentDescription="@string/content_description"/>
                         <TextView
                             android:id="@+id/detail_step_text_1"
+                            android:layout_below="@+id/detail_step_1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/depot"
+                            android:layout_centerHorizontal="true"
                             android:textSize="12sp"
                             android:textColor="@color/black"/>
-                    </LinearLayout>
+                    </RelativeLayout>
                     <LinearLayout
                         android:layout_height="fill_parent"
                         android:layout_width="wrap_content"
@@ -65,27 +79,41 @@
 
                     </LinearLayout>
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:orientation="vertical"
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:layout_weight="1">
+                        <View
+                            android:layout_width="40dp"
+                            android:id="@+id/detail_step_2_flayout"
+                            android:background="@color/grey"
+                            android:layout_centerHorizontal="true"
+                            android:layout_height="40dp"/>
+                        <View
+                            android:layout_width="20dp"
+                            android:id="@+id/detail_step_2_hlayout"
+                            android:layout_alignLeft="@+id/detail_step_2_flayout"
+                            android:background="@color/white_transparent_icon"
+                            android:layout_height="40dp"/>
                         <ImageView
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:background="@color/grey"
+                            android:layout_centerHorizontal="true"
                             android:padding="5dp"
                             android:id="@+id/detail_step_2"
                             android:contentDescription="@string/content_description"
                             android:src="@mipmap/icon_parlement"/>
                         <TextView
                             android:id="@+id/detail_step_text_2"
+                            android:layout_below="@+id/detail_step_2"
+                            android:layout_centerHorizontal="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/examen"
                             android:textSize="12sp"
                             android:textColor="@color/black"/>
-                    </LinearLayout>
+                    </RelativeLayout>
 
                     <LinearLayout
                         android:layout_height="fill_parent"
@@ -101,28 +129,43 @@
 
                     </LinearLayout>
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:orientation="vertical"
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:layout_weight="1">
 
+                        <View
+                            android:layout_width="40dp"
+                            android:id="@+id/detail_step_3_flayout"
+                            android:layout_centerHorizontal="true"
+                            android:background="@color/grey"
+                            android:layout_height="40dp"/>
+                        <View
+                            android:layout_width="20dp"
+                            android:id="@+id/detail_step_3_hlayout"
+                            android:layout_alignLeft="@+id/detail_step_3_flayout"
+                            android:background="@color/white_transparent_icon"
+                            android:layout_height="40dp"/>
+
                         <ImageView
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:padding="5dp"
+                            android:layout_centerHorizontal="true"
                             android:id="@+id/detail_step_3"
-                            android:background="@color/grey"
                             android:contentDescription="@string/content_description"
                             android:src="@mipmap/icon_adoption"/>
                         <TextView
                             android:id="@+id/detail_step_text_3"
+                            android:layout_below="@+id/detail_step_3"
+                            android:layout_centerHorizontal="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/adoption"
                             android:textSize="12sp"
                             android:textColor="@color/black"/>
-                    </LinearLayout>
+                    </RelativeLayout>
 
                 </TableRow>
             </TableLayout>

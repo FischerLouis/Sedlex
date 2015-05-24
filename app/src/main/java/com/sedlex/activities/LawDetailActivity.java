@@ -41,7 +41,6 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
     public static final int ARG_INT_DEFAULT = 0;
 
 
-    //public static final int IMAGEVIEW_SMALL_DP = 40;
     private static final int IMAGEVIEW_BIG_DP = 60;
     private static final int CONTENTVIEW_MAX_LINES = 8;
 
@@ -185,11 +184,19 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
 
     private void updateProgress(int progress){
 
+        progress = 2;
+
         TextView stepOne = (TextView) findViewById(R.id.detail_step_1);
+        View stepOneFullLayout = findViewById(R.id.detail_step_1_flayout);
+        View stepOneHalfLayout = findViewById(R.id.detail_step_1_hlayout);
         ImageView stepTwo = (ImageView) findViewById(R.id.detail_step_2);
-        ImageView stepThree = (ImageView) findViewById(R.id.detail_step_3);
         TextView stepTwoText = (TextView) findViewById(R.id.detail_step_text_2);
+        View stepTwoFullLayout = findViewById(R.id.detail_step_2_flayout);
+        View stepTwoHalfLayout = findViewById(R.id.detail_step_2_hlayout);
+        ImageView stepThree = (ImageView) findViewById(R.id.detail_step_3);
         TextView stepThreeText = (TextView) findViewById(R.id.detail_step_text_3);
+        View stepThreeFullLayout = findViewById(R.id.detail_step_3_flayout);
+        View stepThreeHalfLayout = findViewById(R.id.detail_step_3_hlayout);
 
         stepOne.setText(lawInitiative);
 
@@ -199,21 +206,33 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
                 stepOne.getLayoutParams().height = convertDpToPixel(IMAGEVIEW_BIG_DP, this);
                 stepOne.getLayoutParams().width = convertDpToPixel(IMAGEVIEW_BIG_DP, this);
                 stepOne.setTypeface(Typeface.DEFAULT_BOLD);
+                stepOneFullLayout.getLayoutParams().height = convertDpToPixel(IMAGEVIEW_BIG_DP, this);
+                stepOneFullLayout.getLayoutParams().width = convertDpToPixel(IMAGEVIEW_BIG_DP, this);
+                stepOneHalfLayout.getLayoutParams().height = convertDpToPixel(IMAGEVIEW_BIG_DP, this);
+                stepOneHalfLayout.getLayoutParams().width = convertDpToPixel(IMAGEVIEW_BIG_DP/2, this);
                 break;
             case 1:
-                stepOne.setBackgroundColor(getResources().getColor(R.color.deep_orange));
-                stepTwo.setBackgroundColor(getResources().getColor(R.color.amber));
+                //stepOne.setBackgroundColor(getResources().getColor(R.color.deep_orange));
+                stepTwoFullLayout.setBackgroundColor(getResources().getColor(R.color.amber));
                 stepTwo.getLayoutParams().height = convertDpToPixel(IMAGEVIEW_BIG_DP, this);
                 stepTwo.getLayoutParams().width = convertDpToPixel(IMAGEVIEW_BIG_DP, this);
                 stepTwoText.setTypeface(Typeface.DEFAULT_BOLD);
+                stepTwoFullLayout.getLayoutParams().height = convertDpToPixel(IMAGEVIEW_BIG_DP, this);
+                stepTwoFullLayout.getLayoutParams().width = convertDpToPixel(IMAGEVIEW_BIG_DP, this);
+                stepTwoHalfLayout.getLayoutParams().height = convertDpToPixel(IMAGEVIEW_BIG_DP, this);
+                stepTwoHalfLayout.getLayoutParams().width = convertDpToPixel(IMAGEVIEW_BIG_DP/2, this);
                 break;
             case 2:
-                stepOne.setBackgroundColor(getResources().getColor(R.color.deep_orange));
-                stepTwo.setBackgroundColor(getResources().getColor(R.color.amber));
-                stepThree.setBackgroundColor(getResources().getColor(R.color.green));
+                //stepOne.setBackgroundColor(getResources().getColor(R.color.deep_orange));
+                stepTwoFullLayout.setBackgroundColor(getResources().getColor(R.color.amber));
+                stepThreeFullLayout.setBackgroundColor(getResources().getColor(R.color.green));
                 stepThree.getLayoutParams().height = convertDpToPixel(IMAGEVIEW_BIG_DP, this);
                 stepThree.getLayoutParams().width = convertDpToPixel(IMAGEVIEW_BIG_DP, this);
                 stepThreeText.setTypeface(Typeface.DEFAULT_BOLD);
+                stepThreeFullLayout.getLayoutParams().height = convertDpToPixel(IMAGEVIEW_BIG_DP, this);
+                stepThreeFullLayout.getLayoutParams().width = convertDpToPixel(IMAGEVIEW_BIG_DP, this);
+                stepThreeHalfLayout.getLayoutParams().height = convertDpToPixel(IMAGEVIEW_BIG_DP, this);
+                stepThreeHalfLayout.getLayoutParams().width = convertDpToPixel(IMAGEVIEW_BIG_DP/2, this);
                 break;
             default:
                 break;
