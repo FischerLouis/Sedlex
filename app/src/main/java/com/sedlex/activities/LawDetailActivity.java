@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
@@ -73,7 +74,8 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
     private String lawTitle;
     private String lawInitiative;
     private Spinner spinnerParties;
-    private ListView articlesList;
+    private ListView articlesListView;
+    private CardView articlesLayoutView;
     private RelativeLayout layoutTransparent;
     private LinearLayout layoutVote;
     private View debateView;
@@ -102,7 +104,8 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
         //FloatingActionButton buttonApprove = (FloatingActionButton) findViewById(R.id.detail_button_approve);
         //FloatingActionButton buttonDisapprove = (FloatingActionButton) findViewById(R.id.detail_button_disapprove);
         spinnerParties = (Spinner) findViewById(R.id.detail_dropdown_parties);
-        articlesList = (ListView)findViewById(R.id.detail_list_article);
+        articlesListView = (ListView) findViewById(R.id.detail_list_article);
+        articlesLayoutView = (CardView) findViewById(R.id.detail_layout_article);
         ImageView debatesButton = (ImageView) findViewById(R.id.detail_debates_button);
         layoutTransparent = (RelativeLayout) findViewById(R.id.detail_layout_transparent);
         layoutVote = (LinearLayout) findViewById(R.id.detail_layout_vote);
@@ -148,9 +151,14 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
         }
 
         //UPDATE ARTICLES
-        ArticlesAdapter articlesAdapter = new ArticlesAdapter(this, lawDetail.getArticleList());
-        articlesList.setAdapter(articlesAdapter);
-        // setListViewHeightBasedOnChildren(articlesList);
+        ArrayList<Article> articleList = lawDetail.getArticleList();
+        if( articleList.size() != 0 ){
+            ArticlesAdapter articlesAdapter = new ArticlesAdapter(this, lawDetail.getArticleList());
+            articlesListView.setAdapter(articlesAdapter);
+            // setListViewHeightBasedOnChildren(articlesList);
+        } else {
+            articlesLayoutView.setVisibility(View.GONE);
+        }
 
     }
 
