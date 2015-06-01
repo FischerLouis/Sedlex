@@ -6,12 +6,14 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.CardView;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -19,18 +21,21 @@ import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.sedlex.R;
-import com.sedlex.adapters.ArticlesAdapter;
+import com.sedlex.objects.Article;
 import com.sedlex.objects.Law;
 import com.sedlex.tools.DetailContentManager;
 import com.sedlex.tools.EllipsizingTextView;
 import com.sedlex.tools.SlidingPanel;
+
+import java.text.DateFormat;
+import java.util.List;
+import java.util.Locale;
 
 public class LawDetailActivity extends ActionBarActivity implements View.OnClickListener, View.OnTouchListener {
 
@@ -44,18 +49,22 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
     private static final int IMAGEVIEW_BIG_DP = 60;
     private static final int CONTENTVIEW_MAX_LINES = 8;
 
+    private Context myContext = this;
+
     private EllipsizingTextView lawContentView;
     private boolean extendedContent = true;
     private int lawId;
     private String lawTitle;
     private String lawInitiative;
     private Spinner spinnerParties;
-    private ListView articlesList;
+    private LinearLayout articleLayout;
     private RelativeLayout layoutTransparent;
+    private DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.FRANCE);
 
     private boolean popupVoteIsVisible = false;
     private Animation animShow;
     private Animation animHide;
+    private LayoutInflater inflater;
 
     private SlidingPanel popup;
 
@@ -72,6 +81,7 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         ActionBar actionBar = getActionBar();
         if (actionBar != null) {
@@ -94,7 +104,7 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
         lawContentView = (EllipsizingTextView) findViewById(R.id.detail_content);
         FloatingActionButton voteButton = (FloatingActionButton) findViewById(R.id.detail_button_vote);
         spinnerParties = (Spinner) findViewById(R.id.detail_dropdown_parties);
-        articlesList = (ListView)findViewById(R.id.detail_list_article);
+        articleLayout = (LinearLayout)findViewById(R.id.detail_list_article);
         ImageView debatesButton = (ImageView) findViewById(R.id.detail_debates_button);
         layoutTransparent = (RelativeLayout) findViewById(R.id.detail_layout_transparent);
         popup = (SlidingPanel) findViewById(R.id.detail_popup_vote);
@@ -150,9 +160,34 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
             lawDebateWidget.setVisibility(View.GONE);
         }
         //UPDATE ARTICLES
+        List<Article> articleArray = lawDetail.getArticleList();
         if(!lawDetail.getArticleList().isEmpty()) {
-            ArticlesAdapter articlesAdapter = new ArticlesAdapter(this, lawDetail.getArticleList());
-            articlesList.setAdapter(articlesAdapter);
+            for(int i= 0; i < articleArray.size(); i++){
+
+                View rowView = inflater.inflate(R.layout.row_article, null);
+                TextView articleTitle = (TextView) rowView.findViewById(R.id.row_article_title);
+                TextView articleSource = (TextView) rowView.findViewById(R.id.row_article_source);
+                TextView articleDate = (TextView) rowView.findViewById(R.id.row_article_date);
+                articleTitle.setText(articleArray.get(i).getTitle());
+                articleSource.setText(articleArray.get(i).getSource());
+                articleDate.setText(dateFormat.format(articleArray.get(i).getDate()));
+                rowView.setTag(articleArray.get(i).getLink());
+                rowView.setOnTouchListener(new View.OnTouchListener() {
+
+                    @Override
+                    public boolean onTouch(View view, MotionEvent event) {
+                        if(event.getAction() == MotionEvent.ACTION_UP){
+                            Intent articleIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(view.getTag().toString()));
+                            myContext.startActivity(articleIntent);
+                        }
+                        return true;
+                    }
+                });
+
+                articleLayout.addView(rowView);
+            }
+
+
             //STOP LOADING ANIMATION
             loadingAnimation.stop();
             //VISIBLE WIDGET
