@@ -148,14 +148,14 @@ public class DebatesActivity extends ActionBarActivity {
                 }
                 debatesList.add(curDebate);
             }
-            if (!party.equals("Complet"))
+            if (!party.equals("Global"))
                 formatListFromParty(party);
             if(formattedDebatesList.size() > 0)
                 adapter = new DebatesAdapter(this, formattedDebatesList);
             else {
                 adapter = new DebatesAdapter(this, debatesList);
-                if(!party.equals("Complet"))
-                    Toast.makeText(this, party+"n'a pas participé à ce débats.",Toast.LENGTH_SHORT).show();
+                if(!party.equals("Global"))
+                    Toast.makeText(this, party+" n'a pas participé à ce débats.",Toast.LENGTH_SHORT).show();
             }
             listView.setAdapter(adapter);
         }

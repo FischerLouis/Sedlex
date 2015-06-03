@@ -148,7 +148,12 @@ public class LawDetailActivity extends ActionBarActivity implements View.OnClick
             SpannableString content = new SpannableString("PC");
             content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
 
-            ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, R.layout.spinner_item, lawDetail.getDebatesGroupList());
+            //ADD "GLOBAL" CHOICE FOR DEBATE
+            List<String> debatesGroupListUpdated = lawDetail.getDebatesGroupList();
+            debatesGroupListUpdated.add(0, "Global");
+
+            //SET ADAPTER
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, R.layout.spinner_item, debatesGroupListUpdated);
             dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinnerParties.setAdapter(dataAdapter);
             //STOP LOADING ANIMATION
