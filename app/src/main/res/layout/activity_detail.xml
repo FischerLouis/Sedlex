@@ -203,6 +203,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/detail_content"
                         android:textColor="@color/black"
+                        android:lineSpacingExtra="2dp"
                         android:text="@string/loading"
                         android:textSize="13sp"/>
 

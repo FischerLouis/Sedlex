@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
     android:layout_marginTop="4dp"
     android:layout_marginBottom="4dp"
     android:id="@+id/debates_separator_row">
@@ -46,7 +47,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/debates_text"
         android:layout_below="@+id/debates_layout_title"
-        android:textSize="12sp"
-        android:text="@string/debates_text_unknown"/>
+        android:textSize="14sp"
+        android:textColor="@color/grey800"
+        android:lineSpacingExtra="4dp"
+        android:text="@string/debates_text_unknown"
+        android:elegantTextHeight="false" />
 
 </RelativeLayout>
